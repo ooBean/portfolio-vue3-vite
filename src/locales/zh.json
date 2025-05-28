@@ -1,0 +1,117 @@
+{
+  "navigation": {
+    "home": "首页",
+    "portfolio": "作品集",
+    "about": "关于我",
+    "contact": "联系我"
+  },
+  "footer": {
+    "copyright": "© {year} {name}. 版权所有."
+  },
+  "home": {
+    "greeting": "你好，我是{name}，一名前端开发者",
+    "welcome": "欢迎来到我的作品集网站。",
+    "view_projects": "查看我的作品",
+    "user_name_placeholder": "王宇皎",
+    "user_location_placeholder": "中国大陆",
+    "greeting_new_style": {
+      "line1": "你好，我是",
+      "line2": "{name}"
+    },
+    "description_new_style": "我是一名前端开发者，现居{location}。"
+  },
+  "portfolio": {
+    "title": "我的作品集",
+    "description": "这里将展示我的项目列表。",
+    "loading": "加载中...",
+    "load_error": "加载作品失败: {error}",
+    "project_placeholder": "项目 {number}",
+    "todolist": {
+      "title": "待办事项",
+      "subtitle": "一次完成一项代办。",
+      "empty_list": "你的待办列表是空的。",
+      "add_item_label": "添加到待办列表",
+      "add_item_button": "添加代办",
+      "mark_as_done": "完成",
+      "mark_as_undone": "未完成",
+      "delete": "删除",
+      "sort_toggle": "将已完成任务移到末尾？",
+      "items": {
+        "learn_vue": "学习 Vue.js",
+        "code_todolist": "编写一个待办事项列表",
+        "learn_more": "学习其他内容"
+      }
+    },
+    "chat": {
+    "title": "实时聊天",
+    "subtitle": "使用WebSocket的简易聊天应用",
+    "empty": "暂无消息，开始聊天吧！",
+    "input_placeholder": "输入消息...",
+    "send_button": "发送",
+    "default_username": "访客",
+    "status": {
+      "connected": "已连接",
+      "connecting": "连接中...",
+      "disconnected": "已断开连接",
+      "error": "连接错误"
+    },
+    "demo_messages": {
+      "welcome": "欢迎来到聊天室！",
+      "greeting": "大家好！",
+      "question": "今天过得怎么样？",
+      "reply": "谢谢你的消息！这是一个演示聊天界面。"
+    }
+  },
+  "theme_switcher": {
+    "label": "选择主题",
+    "light": "浅色",
+    "dark": "深色",
+    "warm": "暖色",
+    "light_title": "切换到浅色主题",
+    "dark_title": "切换到深色主题",
+    "warm_title": "切换到暖色主题"
+  }
+  },
+  "about": {
+    "title": "关于我",
+    "intro_1": "你好！我是一名热衷于构建美观、易用且高效 Web 应用的前端开发者。",
+    "intro_2": "我擅长使用 Vue.js (Vue 2 和 Vue 3) 进行开发，并且对 JavaScript、HTML5 和 CSS3 有着扎实的掌握。",
+    "intro_3": "我喜欢探索新技术，追求代码的优雅与性能的极致。我相信良好的用户体验是衡量一个产品成功与否的关键标准之一。",
+    "skills_title": "我的技能栈",
+    "skills": {
+      "frameworks": "前端框架",
+      "core_tech": "核心技术",
+      "css_tools": "CSS 工具",
+      "build_tools": "构建工具",
+      "version_control": "版本控制",
+      "api_interaction": "API 交互",
+      "testing": "测试 (可选)",
+      "others": "其他"
+    },
+    "experience_title": "项目经验/学习经历",
+    "experience_placeholder": "(这里可以简述你的主要项目经验或重要的学习经历，突出你在项目中扮演的角色和取得的成果。)",
+    "project_a_description": "项目A: 负责XX模块开发，使用Vue 3和Pinia，实现了XX功能，提升了XX性能...",
+    "project_b_description": "项目B: 参与XX系统的前端重构，从Vue 2迁移到Vue 3，优化了XX...",
+    "philosophy_title": "我的开发理念",
+    "philosophy_text": "我坚信代码不仅要能工作，更要易于理解和维护。我追求编写简洁、模块化且文档清晰的代码。同时，我非常注重用户体验和界面性能，力求为用户带来流畅和愉悦的交互感受。"
+  },
+  "contact": {
+    "title": "联系我",
+    "intro": "你可以通过以下方式联系我，或者填写下方的表单。",
+    "email_label": "邮箱:",
+    "github_label": "GitHub:ooPeachBoy",
+    "linkedin_label": "LinkedIn:ooPeachBoy",
+    "form": {
+      "name": "姓名:",
+      "email": "邮箱:",
+      "message": "内容:",
+      "send": "发送消息",
+      "sending": "发送中...",
+      "success": "感谢您的留言，我会尽快回复！",
+      "error": "抱歉，消息发送失败，请稍后再试。"
+    }
+  },
+  "common": {
+    "back_to_portfolio": "返回作品集"
+  }
+}

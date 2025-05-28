@@ -1,0 +1,218 @@
+/* filepath: portfolio-vue3-vite/src/assets/styles/base.scss */
+/* 简单的 CSS 重置或基础样式 */
+@import './variables.scss';
+
+/* :root CSS 变量定义 (如果希望通过 SCSS 控制它们) */
+/* 这些也可以放在 style.scss 或 variables.scss 中 */
+:root {
+  --bg-color-css: #{$bg-color}; // 将 SCSS 变量暴露为 CSS 变量
+  --text-color-css: #{$text-color};
+  --primary-color-css: #{$primary-color};
+  --secondary-color-css: #{$secondary_color};
+}
+
+// 暗黑模式的 CSS 变量覆盖 (如果通过类名切换)
+// .dark-theme {
+//   --bg-color-css: #{$dark-theme-bg};
+//   --text-color-css: #{$dark-theme-text};
+// }
+
+// 如果 body 的背景和颜色直接用 SCSS 变量，并且有主题切换逻辑，
+// 确保主题切换逻辑能正确更新应用的类名或直接操作 CSS 变量。
+body {
+  background-color: var(--bg-color-css); // 使用 CSS 变量，方便 JS 切换
+  color: var(--text-color-css);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- THEME DEFINITIONS --- */
+/* 默认主题 (亮色) */
+:root, .theme-light {
+  // 聊天变量
+  --chat-bg: #{$chat-theme-light-bg};
+  --chat-messages-bg: #{$chat-theme-light-messages-bg};
+  --chat-other-message-bg: #{$chat-theme-light-other-message-bg};
+  --chat-own-message-bg: #{$chat-theme-light-own-message-bg};
+  --chat-text-color: #{$chat-theme-light-text-color};
+  --chat-accent-color: #{$chat-theme-light-accent-color};
+  --chat-title-border: #{$chat-theme-light-title-border};
+  --chat-input-bg: #{$chat-theme-light-input-bg};
+  --chat-input-text: #{$chat-theme-light-input-text};
+  --chat-button-text-color: #{$chat-theme-light-button-text};
+  --chat-status-connected-bg: #{$chat-theme-light-status-connected-bg};
+  --chat-status-connected-text: #{$chat-theme-light-status-connected-text};
+  --chat-status-connecting-bg: #{$chat-theme-light-status-connecting-bg};
+  --chat-status-connecting-text: #{$chat-theme-light-status-connecting-text};
+  --chat-status-disconnected-bg: #{$chat-theme-light-status-disconnected-bg};
+  --chat-status-disconnected-text: #{$chat-theme-light-status-disconnected-text};
+  --chat-message-shadow: #{$chat-theme-light-message-shadow};
+
+  // 待办事项变量
+  --todolist-bg: #{$todolist-theme-light-bg};
+  --todolist-text-color: #{$todolist-theme-light-text-color};
+  --todolist-title-border: #{$todolist-theme-light-title-border};
+  --todolist-item-bg: #{$todolist-theme-light-item-bg};
+  --todolist-item-done-strike: #{$todolist-theme-light-item-done-strike};
+  --todolist-action-btn-color: #{$todolist-theme-light-action-btn-color};
+  --todolist-form-input-bg: #{$todolist-theme-light-form-input-bg};
+  --todolist-form-input-text: #{$todolist-theme-light-form-input-text};
+  --todolist-form-input-border: #{$todolist-theme-light-form-input-border};
+  --todolist-form-button-bg: #{$todolist-theme-light-form-button-bg};
+  --todolist-form-button-text: #{$todolist-theme-light-form-button-text};
+  --todolist-form-button-border: #{$todolist-theme-light-form-button-border};
+
+  // 切换按钮变量
+  --toggle-label-color: #{$toggle-theme-light-label-color};
+  --toggle-box-bg: #{$toggle-theme-light-box-bg};
+  --toggle-circle-bg: #{$toggle-theme-light-circle-bg};
+  --toggle-circle-bg-rgb: #{$toggle-theme-light-circle-bg-rgb}; // 新增
+  --toggle-circle-checked-bg: #{$toggle-theme-light-circle-checked-bg};
+}
+
+.theme-dark {
+  // 聊天变量
+  --chat-bg: #{$chat-theme-dark-bg};
+  --chat-messages-bg: #{$chat-theme-dark-messages-bg};
+  --chat-other-message-bg: #{$chat-theme-dark-other-message-bg};
+  --chat-own-message-bg: #{$chat-theme-dark-own-message-bg};
+  --chat-text-color: #{$chat-theme-dark-text-color};
+  --chat-accent-color: #{$chat-theme-dark-accent-color};
+  --chat-title-border: #{$chat-theme-dark-title-border};
+  --chat-input-bg: #{$chat-theme-dark-input-bg};
+  --chat-input-text: #{$chat-theme-dark-input-text};
+  --chat-button-text-color: #{$chat-theme-dark-button-text};
+  --chat-status-connected-bg: #{$chat-theme-dark-status-connected-bg};
+  --chat-status-connected-text: #{$chat-theme-dark-status-connected-text};
+  --chat-status-connecting-bg: #{$chat-theme-dark-status-connecting-bg};
+  --chat-status-connecting-text: #{$chat-theme-dark-status-connecting-text};
+  --chat-status-disconnected-bg: #{$chat-theme-dark-status-disconnected-bg};
+  --chat-status-disconnected-text: #{$chat-theme-dark-status-disconnected-text};
+  --chat-message-shadow: #{$chat-theme-dark-message-shadow};
+
+  // 待办事项变量
+  --todolist-bg: #{$todolist-theme-dark-bg};
+  --todolist-text-color: #{$todolist-theme-dark-text-color};
+  --todolist-title-border: #{$todolist-theme-dark-title-border};
+  --todolist-item-bg: #{$todolist-theme-dark-item-bg};
+  --todolist-item-done-strike: #{$todolist-theme-dark-item-done-strike};
+  --todolist-action-btn-color: #{$todolist-theme-dark-action-btn-color};
+  --todolist-form-input-bg: #{$todolist-theme-dark-form-input-bg};
+  --todolist-form-input-text: #{$todolist-theme-dark-form-input-text};
+  --todolist-form-input-border: #{$todolist-theme-dark-form-input-border};
+  --todolist-form-button-bg: #{$todolist-theme-dark-form-button-bg};
+  --todolist-form-button-text: #{$todolist-theme-dark-form-button-text};
+  --todolist-form-button-border: #{$todolist-theme-dark-form-button-border};
+
+  // 切换按钮变量
+  --toggle-label-color: #{$toggle-theme-dark-label-color};
+  --toggle-box-bg: #{$toggle-theme-dark-box-bg};
+  --toggle-circle-bg: #{$toggle-theme-dark-circle-bg};
+  --toggle-circle-bg-rgb: #{$toggle-theme-dark-circle-bg-rgb}; // 新增
+  --toggle-circle-checked-bg: #{$toggle-theme-dark-circle-checked-bg};
+}
+
+.theme-warm {
+  // 聊天变量
+  --chat-bg: #{$chat-theme-warm-bg};
+  --chat-messages-bg: #{$chat-theme-warm-messages-bg};
+  --chat-other-message-bg: #{$chat-theme-warm-other-message-bg};
+  --chat-own-message-bg: #{$chat-theme-warm-own-message-bg};
+  --chat-text-color: #{$chat-theme-warm-text-color};
+  --chat-accent-color: #{$chat-theme-warm-accent-color};
+  --chat-title-border: #{$chat-theme-warm-title-border};
+  --chat-input-bg: #{$chat-theme-warm-input-bg};
+  --chat-input-text: #{$chat-theme-warm-input-text};
+  --chat-button-text-color: #{$chat-theme-warm-button-text};
+  --chat-status-connected-bg: #{$chat-theme-warm-status-connected-bg};
+  --chat-status-connected-text: #{$chat-theme-warm-status-connected-text};
+  --chat-status-connecting-bg: #{$chat-theme-warm-status-connecting-bg};
+  --chat-status-connecting-text: #{$chat-theme-warm-status-connecting-text};
+  --chat-status-disconnected-bg: #{$chat-theme-warm-status-disconnected-bg};
+  --chat-status-disconnected-text: #{$chat-theme-warm-status-disconnected-text};
+  --chat-message-shadow: #{$chat-theme-warm-message-shadow};
+
+  // 待办事项变量
+  --todolist-bg: #{$todolist-theme-warm-bg};
+  --todolist-text-color: #{$todolist-theme-warm-text-color};
+  --todolist-title-border: #{$todolist-theme-warm-title-border};
+  --todolist-item-bg: #{$todolist-theme-warm-item-bg};
+  --todolist-item-done-strike: #{$todolist-theme-warm-item-done-strike};
+  --todolist-action-btn-color: #{$todolist-theme-warm-action-btn-color};
+  --todolist-form-input-bg: #{$todolist-theme-warm-form-input-bg};
+  --todolist-form-input-text: #{$todolist-theme-warm-form-input-text};
+  --todolist-form-input-border: #{$todolist-theme-warm-form-input-border};
+  --todolist-form-button-bg: #{$todolist-theme-warm-form-button-bg};
+  --todolist-form-button-text: #{$todolist-theme-warm-form-button-text};
+  --todolist-form-button-border: #{$todolist-theme-warm-form-button-border};
+
+  // 切换按钮变量
+  --toggle-label-color: #{$toggle-theme-warm-label-color};
+  --toggle-box-bg: #{$toggle-theme-warm-box-bg};
+  --toggle-circle-bg: #{$toggle-theme-warm-circle-bg};
+  --toggle-circle-bg-rgb: #{$toggle-theme-warm-circle-bg-rgb}; // 新增
+  --toggle-circle-checked-bg: #{$toggle-theme-warm-circle-checked-bg};
+}
+
+body.theme-light {
+  --todolist-bg: #{$todolist-theme-light-bg};
+  --todolist-text-color: #{$todolist-theme-light-text-color};
+  // ... all other light theme variables for all components
+  --toggle-label-color: #{$toggle-theme-light-label-color};
+  // ...
+}
+
+body.theme-dark {
+  --todolist-bg: #{$todolist-theme-dark-bg};
+  // ... all other dark theme variables
+}
+
+body.theme-warm {
+  --todolist-bg: #{$todolist-theme-warm-bg};
+  // ... all other warm theme variables
+}
+
+/* 简单的 CSS 重置或基础样式 */
+@import './variables.scss'; // Make sure variables are imported
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  font-family: $font-family-sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: $bg-color; // 使用 SCSS 变量
+  color: $text-color;         // 使用 SCSS 变量
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}

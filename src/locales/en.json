@@ -1,0 +1,117 @@
+{
+  "navigation": {
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "about": "About Me",
+    "contact": "Contact"
+  },
+  "footer": {
+    "copyright": "© {year} Mrs. Bean. All rights reserved."
+  },
+  "home": {
+    "greeting": "Hello, I'm Mrs. Bean, a Front-end Developer",
+    "welcome": "Welcome to my portfolio website.",
+    "view_projects": "View My Projects",
+    "user_name_placeholder": "Mrs. Bean",
+    "user_location_placeholder": "China",
+    "greeting_new_style": {
+      "line1": "Hello I'm",
+      "line2": "{name}"
+    },
+    "description_new_style": "I'm a front-end development engineer from {location}."
+  },
+  "portfolio": {
+    "title": "My Portfolio",
+    "description": "Here is a list of my projects.",
+    "loading": "Loading...",
+    "load_error": "Failed to load projects: {error}",
+    "project_placeholder": "Project {number}",
+    "todolist": {
+      "title": "Todo List",
+      "subtitle": "Get things done, one item at a time.",
+      "empty_list": "Your todo list is empty.",
+      "add_item_label": "Add to the todo list",
+      "add_item_button": "Add item",
+      "mark_as_done": "Done",
+      "mark_as_undone": "Undone",
+      "delete": "Delete",
+      "sort_toggle": "Move done items at the end?",
+      "items": {
+        "learn_vue": "Learn VueJs",
+        "code_todolist": "Code a todo list",
+        "learn_more": "Learn something else"
+      }
+    },
+    "chat": {
+      "title": "Real-time Chat",
+      "subtitle": "A simple chat application using WebSocket",
+      "empty": "No messages yet, start chatting!",
+      "input_placeholder": "Type a message...",
+      "send_button": "Send",
+      "default_username": "Guest",
+      "status": {
+        "connected": "Connected",
+        "connecting": "Connecting...",
+        "disconnected": "Disconnected",
+        "error": "Connection Error"
+      },
+      "demo_messages": {
+        "welcome": "Welcome to the chat room!",
+        "greeting": "Hello everyone!",
+        "question": "How are you doing today?",
+        "reply": "Thanks for your message! This is a demo chat interface."
+      }
+    },
+    "theme_switcher": {
+      "label": "Select Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "warm": "Warm",
+      "light_title": "Switch to Light Theme",
+      "dark_title": "Switch to Dark Theme",
+      "warm_title": "Switch to Warm Theme"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "intro_1": "Hello! I am a front-end developer passionate about building beautiful, user-friendly, and efficient web applications.",
+    "intro_2": "I specialize in Vue.js (Vue 2 and Vue 3) and have a solid understanding of JavaScript, HTML5, and CSS3.",
+    "intro_3": "I enjoy exploring new technologies and striving for code elegance and peak performance. I believe that a great user experience is a key criterion for a product's success.",
+    "skills_title": "My Skill Set",
+    "skills": {
+      "frameworks": "Frameworks",
+      "core_tech": "Core Technologies",
+      "css_tools": "CSS Tools",
+      "build_tools": "Build Tools",
+      "version_control": "Version Control",
+      "api_interaction": "API Interaction",
+      "testing": "Testing (Optional)",
+      "others": "Others"
+    },
+    "experience_title": "Project Experience / Learning Journey",
+    "experience_placeholder": "(Briefly describe your main project experiences or significant learning journeys, highlighting your role and achievements.)",
+    "project_a_description": "Project A: Responsible for XX module development, using Vue 3 and Pinia, implemented XX features, improved XX performance...",
+    "project_b_description": "Project B: Participated in the front-end refactoring of XX system, migrating from Vue 2 to Vue 3, optimized XX...",
+    "philosophy_title": "My Development Philosophy",
+    "philosophy_text": "I firmly believe that code should not only work but also be easy to understand and maintain. I strive to write concise, modular, and well-documented code. At the same time, I pay great attention to user experience and interface performance, aiming to provide users with smooth and enjoyable interactions."
+  },
+  "contact": {
+    "title": "Contact Me",
+    "intro": "You can reach me through the following channels or fill out the form below.",
+    "email_label": "Email:",
+    "github_label": "GitHub:ooPeachBoy",
+    "linkedin_label": "LinkedIn:ooPeachBoy",
+    "form": {
+      "name": "Name:",
+      "email": "Email:",
+      "message": "Message:",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Thank you for your message, I will reply as soon as possible!",
+      "error": "Sorry, message sending failed, please try again later."
+    }
+  },
+  "common": {
+    "back_to_portfolio": "Back to Portfolio"
+  }
+}

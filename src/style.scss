@@ -1,0 +1,125 @@
+/* :root 变量可以保留，或者用 SCSS 变量替代/补充 */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark; // 如果新设计主要是浅色，可以考虑移除 dark
+  // color: rgba(255, 255, 255, 0.87); // 根据新设计调整默认文字颜色
+  // background-color: #242424; // 根据新设计调整默认背景色
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // 更新 CSS 变量以使用新的 SCSS 变量
+  --primary-color-css: #{$primary-color}; // 假设 $primary-color 已在 variables.scss 更新
+  --secondary-color-css: #{$secondary-color};
+  --hero-bg-color-css: #{$hero-bg-color};
+  --hero-text-color-css: #{$hero-text-color};
+  --hero-heading-color-css: #{$hero-heading-color};
+  --hero-accent-pink-css: #{$hero-accent-pink};
+}
+
+// 之前在 base.css 中的内容可以移到这里或 base.scss
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  font-family: $font-family-sans-serif;
+  // border-top: 5px solid $site-top-border-color; // <--- 移除或注释掉这一行
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; // <--- 如果 html 没有 border，这里可以直接是 100vh
+  background-color: $hero-bg-color; // 使用 SCSS 变量
+  color: $text-color; // 确保 body 也有一个基础文字颜色
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// 暗黑模式示例 (如果使用 CSS 变量切换)
+.dark-theme {
+  // :root 变量的暗黑模式覆盖
+  color: $dark-theme-text;
+  background-color: $dark-theme-bg;
+
+  // 如果你用 SCSS 变量直接控制，这里可能不需要太多
+  // 除非你想覆盖特定组件的 CSS 变量
+  --bg-color: #{$dark-theme-bg}; // 更新 CSS 变量
+  --text-color: #{$dark-theme-text};
+}
+
+
+#app {
+  // max-width: 1280px; // 根据新设计调整或移除
+  margin: 0 auto;
+  // padding: 2rem; // HomeView 自己会处理内边距
+  text-align: left; // 新设计文本通常左对齐
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: $primary-color; // 使用更新后的 $primary-color 或特定链接颜色
+  text-decoration: none; // 新设计中链接通常无下划线，悬停时可能有
+  &:hover {
+    color: color.adjust($primary-color, $lightness: -10%);
+  }
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a; // 默认暗色按钮背景
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  &:hover {
+    border-color: #646cff;
+  }
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+// 亮色模式下的按钮样式
+@media (prefers-color-scheme: light) {
+  :root { // 这些是 vite 默认的，可以根据你的设计调整
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+    color: #213547;
+  }
+}
+
+.card { // 来自 HelloWorld.vue 的示例样式
+  padding: 2em;
+}
+
+.read-the-docs { // 来自 HelloWorld.vue 的示例样式
+  color: #888;
+}
