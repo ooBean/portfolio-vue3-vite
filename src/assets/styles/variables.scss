@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // SCSS Variables
 
 // Colors
@@ -70,7 +72,7 @@ $site-top-border-color: $hero-accent-pink;
 
 // Light Chat Theme
 $chat-theme-light-new-accent: #5699E9; // 新的浅色主题强调色 (清新蓝)
-$chat-theme-light-new-accent-light: lighten($chat-theme-light-new-accent, 38%); // 用于消息气泡等
+$chat-theme-light-new-accent-light: color.adjust($chat-theme-light-new-accent, $lightness: 38%); // 用于消息气泡等
 
 $chat-theme-light-bg: $white; // 背景使用纯白
 $chat-theme-light-messages-bg: $light-grey; // 消息区域背景使用非常浅的灰色
@@ -121,7 +123,7 @@ $chat-theme-warm-input-bg: #FFFFFF;
 $chat-theme-warm-input-text: #5C5470;
 $chat-theme-warm-button-text: #424242; // Darker text for better contrast on light accent
 $chat-theme-warm-status-connected-bg: rgba($chat-theme-warm-accent-color, 0.2);
-$chat-theme-warm-status-connected-text: darken($chat-theme-warm-accent-color, 30%);
+$chat-theme-warm-status-connected-text: color.adjust($chat-theme-warm-accent-color, $lightness: -30%);
 $chat-theme-warm-status-connecting-bg: rgba(240, 200, 120, 0.25);
 $chat-theme-warm-status-connecting-text: #b98b3e;
 $chat-theme-warm-status-disconnected-bg: rgba(230, 130, 130, 0.2);
@@ -159,7 +161,7 @@ $todolist-theme-dark-form-button-text: $chat-theme-dark-button-text;
 $todolist-theme-dark-form-button-border: transparent;
 
 // Warm TodoList Theme
-$todolist-theme-warm-bg: lighten($chat-theme-warm-bg, 5%); // Slightly lighter than chat warm bg
+$todolist-theme-warm-bg: color.adjust($chat-theme-warm-bg, $lightness: 5%); // Slightly lighter than chat warm bg
 $todolist-theme-warm-text-color: $chat-theme-warm-text-color;
 $todolist-theme-warm-title-border: rgba($chat-theme-warm-text-color, 0.2);
 $todolist-theme-warm-item-bg: $chat-theme-warm-messages-bg;
@@ -168,7 +170,7 @@ $todolist-theme-warm-action-btn-color: $chat-theme-warm-text-color;
 $todolist-theme-warm-form-input-bg: #FFFFFF;
 $todolist-theme-warm-form-input-text: $chat-theme-warm-text-color;
 $todolist-theme-warm-form-input-border: rgba($chat-theme-warm-text-color, 0.2);
-$todolist-theme-warm-form-button-bg: darken($chat-theme-warm-accent-color, 5%);
+$todolist-theme-warm-form-button-bg: color.adjust($chat-theme-warm-accent-color, $lightness: -5%);
 $todolist-theme-warm-form-button-text: $chat-theme-warm-button-text;
 $todolist-theme-warm-form-button-border: transparent;
 

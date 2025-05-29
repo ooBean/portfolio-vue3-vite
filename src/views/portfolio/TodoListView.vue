@@ -97,7 +97,7 @@ const todoByStatus = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 // 动画效果 (no change)
 @keyframes strikeitem {

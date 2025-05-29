@@ -120,7 +120,7 @@ const navigateToProject = (routeName: string) => {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .portfolio-view {
   padding: 2rem;

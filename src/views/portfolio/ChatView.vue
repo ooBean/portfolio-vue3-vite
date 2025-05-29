@@ -203,7 +203,7 @@ watch(messages, () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .chat-container {
   max-width: 800px;

@@ -28,7 +28,7 @@ function onToogle() {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .togglebutton {
   margin-top: 1em;
