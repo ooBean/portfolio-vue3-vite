@@ -376,7 +376,6 @@ const resetForm = () => {
     message: '',
     termsAccepted: false
   });
-  
   // 清空错误消息
   Object.keys(errors).forEach(key => {
     errors[key as keyof typeof errors] = '';
