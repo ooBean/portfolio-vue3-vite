@@ -51,6 +51,10 @@ defineProps({
   opacity: 0.7;
   transition: all 0.3s ease;
   
+  &.top-right-link {
+    font-size: 0.85rem; // 略微缩小右上方位置的字体
+  }
+  
   &:not(.light) {
     color: var(--todolist-text-color, var(--chat-text-color, $text-color));
   }

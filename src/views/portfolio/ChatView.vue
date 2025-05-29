@@ -1,12 +1,12 @@
 <template>
   <div class="chat-container">
-    <!-- 使用抽象出来的BackLink组件 -->
-    <BackLink component="chat" />
-    
-    <h1 class="chat-title">
-      {{ t('portfolio.chat.title') }}
-      <span>{{ t('portfolio.chat.subtitle') }}</span>
-    </h1>
+    <div class="header-container">
+      <h1 class="chat-title">
+        {{ t('portfolio.chat.title') }}
+        <span>{{ t('portfolio.chat.subtitle') }}</span>
+      </h1>
+      <BackLink component="chat" class="top-right-link" />
+    </div>
     
     <div class="chat-messages" ref="messagesContainer">
       <div v-if="messages.length === 0" class="empty-chat">
@@ -214,8 +214,22 @@ watch(messages, () => {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  height: 600px; // Consider making this responsive or dynamic
-  transition: background 0.3s ease, color 0.3s ease;
+  height: calc(100vh - 180px); /* 调整高度以适应固定头尾 */
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  position: relative;
 }
 
 .chat-title {
@@ -223,8 +237,9 @@ watch(messages, () => {
   font-size: 2rem;
   letter-spacing: 0.05em;
   border-bottom: 1px solid var(--chat-title-border);
-  margin-bottom: 1rem;
-  color: inherit; // Inherits from .chat-container
+  margin-bottom: 0;
+  color: inherit;
+  flex: 1;
 
   span {
     display: block;
@@ -232,6 +247,12 @@ watch(messages, () => {
     margin-bottom: 0.5rem;
     opacity: 0.8;
   }
+}
+
+.top-right-link {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  margin-left: 1rem;
 }
 
 .chat-messages {
@@ -242,7 +263,13 @@ watch(messages, () => {
   border-radius: 8px;
   margin-bottom: 1rem;
   transition: background 0.3s ease;
-
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
   .empty-chat {
     display: flex;
     align-items: center;

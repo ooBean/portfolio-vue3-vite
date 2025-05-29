@@ -1,12 +1,14 @@
 <template>
   <div class="portfolio-view"> 
     <h1 class="view-title">{{ t('portfolio.title') }}</h1>
-    <p class="view-description">{{ t('portfolio.description') }}</p>
-
-    <ThemeSwitcher 
-      :current-theme="currentTheme"
-      @theme-change="handleThemeChange" 
-    />
+    
+    <div class="subtitle-container">
+      <p class="view-description">{{ t('portfolio.description') }}</p>
+      <ThemeSwitcher 
+        :current-theme="currentTheme"
+        @theme-change="handleThemeChange" 
+      />
+    </div>
 
     <div v-if="loading" class="loading-indicator">{{ t('portfolio.loading') }}</div>
     <div v-else-if="error" class="error-message">{{ t('portfolio.error_loading') }}</div>
@@ -125,37 +127,51 @@ const navigateToProject = (routeName: string) => {
 .portfolio-view {
   padding: 2rem;
   min-height: 100vh;
-  // The theme-specific background and text colors will be applied
-  // by the .theme-light, .theme-dark, .theme-warm classes from base.scss
-  // For example, if you want a default transition for the portfolio view itself:
   transition: background-color 0.3s ease, color 0.3s ease;
-  background-color: var(--chat-bg, $light-grey); // Fallback if CSS var not set
-  color: var(--chat-text-color, $text-color); // Fallback
+  background-color: var(--chat-bg, $light-grey); 
+  color: var(--chat-text-color, $text-color);
 }
 
 .view-title {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   text-align: center;
-  color: inherit; // Inherit from .portfolio-view
+  color: inherit;
+}
+
+.subtitle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .view-description {
   font-size: 1.1rem;
-  color: inherit; // Inherit from .portfolio-view
+  color: inherit;
   opacity: 0.8;
-  text-align: center;
-  margin-bottom: 2rem;
   max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0;
 }
 
-// Styles for .projects-grid, .project-card, etc. remain largely the same,
-// as their theme-specific colors are controlled by CSS variables
-// defined under .theme-light, .theme-dark, .theme-warm.
+/* 媒体查询，确保响应式 */
+@media (max-width: 768px) {
+  .subtitle-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .view-description {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
 
+/* 其余样式保持不变 */
 .loading-indicator, .error-message {
   text-align: center;
   font-size: 1.2rem;

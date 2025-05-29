@@ -12,12 +12,15 @@ const { t } = useI18n();
 const userName = computed(() => t('home.user_name_placeholder'));
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '@/assets/styles/variables.scss' as *;
+
 .app-footer {
   background-color: #333;
   color: white;
   text-align: center;
   padding: 1rem;
-  margin-top: auto; /* 将页脚推到底部 */
+  height: 60px; /* 固定高度 */
+  box-sizing: border-box;
 }
 </style>

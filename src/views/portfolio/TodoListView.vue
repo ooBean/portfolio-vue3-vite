@@ -1,13 +1,13 @@
 <template>
   <div class="todolist-container">
-    <!-- 使用抽象出来的BackLink组件 -->
-    <BackLink component="todolist" />
+    <div class="header-container">
+      <h1 class="todolist-title">
+        {{ t('portfolio.todolist.title') }}
+        <span>{{ t('portfolio.todolist.subtitle') }}</span>
+      </h1>
+      <BackLink component="todolist" class="top-right-link" />
+    </div>
     
-    <h1 class="todolist-title">
-      {{ t('portfolio.todolist.title') }}
-      <span>{{ t('portfolio.todolist.subtitle') }}</span>
-    </h1>
-
     <template v-if="todo.length">
       <transition-group name="todolist" tag="ul" class="todolist-items">
         <li v-for="item in todoByStatus" :class="['todolist-item', { 'done': item.done }]" :key="item.id">
@@ -113,16 +113,34 @@ const todoByStatus = computed(() => {
   color: var(--todolist-text-color);
   border-radius: 8px;
   transition: background 0.3s ease, color 0.3s ease;
+  max-height: calc(100vh - 180px); /* 调整高度以适应固定头尾 */
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
 }
 
-// 标题样式
+// 新增标题容器样式
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+// 调整标题样式
 .todolist-title {
   font-weight: normal;
   font-size: 2.6rem;
   letter-spacing: 0.05em;
   border-bottom: 1px solid var(--todolist-title-border);
-  color: inherit; // Inherits from .todolist-container
+  color: inherit;
   transition: border-color 0.3s ease;
+  flex: 1;
   
   span {
     display: block;
@@ -132,6 +150,13 @@ const todoByStatus = computed(() => {
     margin-top: 0.2rem;
     opacity: 0.8;
   }
+}
+
+// 为右上角的返回链接添加样式
+.top-right-link {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  margin-left: 1rem;
 }
 
 // 空列表提示

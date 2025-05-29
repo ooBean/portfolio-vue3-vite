@@ -18,20 +18,31 @@ import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'; // 稍�
 const { t } = useI18n();
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '@/assets/styles/variables.scss' as *;
+
 .app-header {
   background-color: var(--secondary-color);
-  padding: 1rem;
+  padding: 1rem 2rem;
   color: black;
-  display: flex; /* 用于对齐导航和切换器 */
-  justify-content: space-between; /* 用于对齐导航和切换器 */
-  align-items: center; /* 用于对齐导航和切换器 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px; /* 固定高度 */
+  box-sizing: border-box;
 }
+
 nav a {
   color: black;
   margin-right: 1rem;
   font-weight: bold;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 }
+
 nav a.router-link-exact-active {
   color: var(--primary-color);
   text-decoration: underline;

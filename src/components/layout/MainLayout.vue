@@ -1,11 +1,13 @@
 // filepath: portfolio-vue3-vite/src/components/layout/MainLayout.vue
 <template>
-  <div class="top-visual-bar"></div>
-  <AppHeader />
-  <main class="main-content">
-    <slot></slot>
-  </main>
-  <AppFooter />
+  <div class="layout-container">
+    <div class="top-visual-bar"></div>
+    <AppHeader class="fixed-header" />
+    <main class="main-content">
+      <slot></slot>
+    </main>
+    <AppFooter class="fixed-footer" />
+  </div>
 </template>
 
 <script setup>
@@ -14,20 +16,52 @@ import AppFooter from './AppFooter.vue';
 </script>
 
 <style scoped lang="scss">
-.main-layout {
+@use '@/assets/styles/variables.scss' as *;
+
+.layout-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
-.main-content {
-  flex: 1;
-  padding: 1rem; /* 示例内边距 */
-  /* max-width: 1200px; */ /* 可选: 内容最大宽度 */
-  /* margin: 0 auto; */   /* 可选: 内容居中 */
-}
+
 .top-visual-bar {
   height: 5px;
-  background-color: $site-top-border-color; // 使用你的 SCSS 变量
+  background-color: $site-top-border-color;
   width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 5px; /* 顶部视觉条的高度 */
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+  margin-top: calc(5px + 60px); /* 顶部栏 + 头部高度，根据实际调整 */
+  margin-bottom: 60px; /* 底部高度，根据实际调整 */
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 </style>
