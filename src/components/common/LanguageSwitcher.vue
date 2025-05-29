@@ -8,20 +8,23 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useI18nStore } from '@/store/modules/i18nStore';
+
+type Language = 'en' | 'zh' | 'zh-TW';
 
 const { locale, availableLocales } = useI18n();
+const i18nStore = useI18nStore();
 const currentLocale = ref(locale.value);
 
 const changeLanguage = () => {
-  locale.value = currentLocale.value;
-  localStorage.setItem('lang', currentLocale.value); // 持久化用户选择
+  i18nStore.setLanguage(currentLocale.value as Language);
 };
 
 // 获取语言显示名称
-const getLanguageLabel = (locale) => {
+const getLanguageLabel = (locale: string) => {
   switch (locale) {
     case 'en':
       return 'English';
@@ -34,7 +37,7 @@ const getLanguageLabel = (locale) => {
   }
 };
 
-// 监听 i18n locale 的变化，以防外部改变
+// 监听 i18n locale 的变化
 watch(locale, (newLocale) => {
   currentLocale.value = newLocale;
 });

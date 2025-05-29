@@ -113,54 +113,5 @@
   },
   "common": {
     "back_to_portfolio": "返回作品集"
-  },
-  "portfolio": {
-    "form": {
-      "title": "聯繫表單",
-      "subtitle": "具有驗證功能的綜合表單",
-      "description": "功能豐富的表單演示，包含驗證、動態欄位和響應式設計。",
-      "personal_info": "個人信息",
-      "professional_info": "職業信息",
-      "additional_info": "附加信息",
-      "first_name": "名字",
-      "last_name": "姓氏",
-      "email": "電子郵箱",
-      "phone": "電話號碼（可選）",
-      "occupation": "職業",
-      "specify_occupation": "請具體說明",
-      "experience": "工作經驗",
-      "skills": "技能",
-      "message": "留言（可選）",
-      "terms": "我同意條款和條件",
-      "first_name_placeholder": "輸入您的名字",
-      "last_name_placeholder": "輸入您的姓氏",
-      "email_placeholder": "example@domain.com",
-      "phone_placeholder": "輸入電話號碼",
-      "specify_occupation_placeholder": "輸入您的職業",
-      "message_placeholder": "告訴我們更多關於您的項目或諮詢",
-      "select_occupation": "選擇您的職業",
-      "years": "年",
-      "submit": "提交表單",
-      "submitting": "提交中...",
-      "reset": "重置",
-      "success_title": "謝謝您！",
-      "success_message": "您的表單已成功提交。我們將儘快與您聯繫。",
-      "new_submission": "提交另一個表單",
-      "submission_error": "提交過程中發生錯誤。請重試。",
-      "occupations": {
-        "developer": "開發人員",
-        "designer": "設計師",
-        "manager": "專案經理",
-        "student": "學生",
-        "other": "其他"
-      },
-      "validation": {
-        "required": "此欄位為必填項。",
-        "required_selection": "請做出選擇。",
-        "email": "請輸入有效的電子郵箱地址。",
-        "phone": "請輸入有效的電話號碼。",
-        "terms": "您必須接受條款和條件。"
-      }
-    }
   }
 }

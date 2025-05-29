@@ -1,48 +1,41 @@
 <template>
   <div class="theme-switcher">
-    <span class="switcher-label">{{ t('portfolio.theme_switcher.label') }}:</span>
-    <button
-      v-for="theme in themes"
-      :key="theme.name"
-      @click="selectTheme(theme.className)"
-      :class="['theme-button', { active: currentTheme === theme.className }]"
-      :title="t(theme.titleKey)"
-    >
-      {{ t(theme.nameKey) }}
-    </button>
+    <div class="theme-label">{{ t('portfolio.theme_switcher.label') }}:</div>
+    <div class="theme-buttons">
+      <button 
+        class="theme-button" 
+        :class="{ active: uiStore.theme === 'theme-light' }"
+        @click="uiStore.setTheme('theme-light')"
+        :title="t('portfolio.theme_switcher.light_title')"
+      >
+        {{ t('portfolio.theme_switcher.light') }}
+      </button>
+      <button 
+        class="theme-button" 
+        :class="{ active: uiStore.theme === 'theme-dark' }"
+        @click="uiStore.setTheme('theme-dark')"
+        :title="t('portfolio.theme_switcher.dark_title')"
+      >
+        {{ t('portfolio.theme_switcher.dark') }}
+      </button>
+      <button 
+        class="theme-button" 
+        :class="{ active: uiStore.theme === 'theme-warm' }"
+        @click="uiStore.setTheme('theme-warm')"
+        :title="t('portfolio.theme_switcher.warm_title')"
+      >
+        {{ t('portfolio.theme_switcher.warm') }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useUiStore } from '@/store/modules/uiStore';
 
 const { t } = useI18n();
-
-interface ThemeOption {
-  name: string;
-  nameKey: string;
-  className: string;
-  titleKey: string;
-}
-
-const props = defineProps<{
-  currentTheme: string;
-}>();
-
-const emit = defineEmits<{
-  (e: 'theme-change', themeClassName: string): void;
-}>();
-
-const themes = ref<ThemeOption[]>([
-  { name: 'Light', nameKey: 'portfolio.theme_switcher.light', className: 'theme-light', titleKey: 'portfolio.theme_switcher.light_title' },
-  { name: 'Dark', nameKey: 'portfolio.theme_switcher.dark', className: 'theme-dark', titleKey: 'portfolio.theme_switcher.dark_title' },
-  { name: 'Warm', nameKey: 'portfolio.theme_switcher.warm', className: 'theme-warm', titleKey: 'portfolio.theme_switcher.warm_title' },
-]);
-
-const selectTheme = (themeClassName: string) => {
-  emit('theme-change', themeClassName);
-};
+const uiStore = useUiStore();
 </script>
 
 <style lang="scss" scoped>
@@ -61,10 +54,15 @@ const selectTheme = (themeClassName: string) => {
   flex-wrap: wrap;
 }
 
-.switcher-label {
+.theme-label {
   font-size: 0.9rem;
   color: var(--chat-text-color, $text-color); // Use a theme variable or fallback
   margin-right: 0.5rem;
+}
+
+.theme-buttons {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .theme-button {
