@@ -2,7 +2,7 @@
   <div class="language-switcher">
     <select v-model="currentLocale" @change="changeLanguage">
       <option v-for="locale in availableLocales" :key="`locale-${locale}`" :value="locale">
-        {{ locale === 'en' ? 'English' : '中文' }}
+        {{ getLanguageLabel(locale) }}
       </option>
     </select>
   </div>
@@ -11,16 +11,27 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-// import { useUiStore } from '@/store/modules/uiStore'; // 如果使用 Pinia
 
 const { locale, availableLocales } = useI18n();
 const currentLocale = ref(locale.value);
-// const uiStore = useUiStore(); // 如果使用 Pinia
 
 const changeLanguage = () => {
   locale.value = currentLocale.value;
   localStorage.setItem('lang', currentLocale.value); // 持久化用户选择
-  // uiStore.setLanguage(currentLocale.value); // 如果使用 Pinia 更新 store
+};
+
+// 获取语言显示名称
+const getLanguageLabel = (locale) => {
+  switch (locale) {
+    case 'en':
+      return 'English';
+    case 'zh':
+      return '简体中文';
+    case 'zh-TW':
+      return '繁體中文';
+    default:
+      return locale;
+  }
 };
 
 // 监听 i18n locale 的变化，以防外部改变

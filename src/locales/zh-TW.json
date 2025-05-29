@@ -1,0 +1,166 @@
+{
+  "navigation": {
+    "home": "首頁",
+    "portfolio": "作品集",
+    "about": "關於我",
+    "contact": "聯絡我"
+  },
+  "footer": {
+    "copyright": "© {year} {name}. 版權所有."
+  },
+  "home": {
+    "greeting": "你好，我是{name}，一名前端開發者",
+    "welcome": "歡迎來到我的作品集網站。",
+    "view_projects": "查看我的作品",
+    "user_name_placeholder": "王宇皎",
+    "user_location_placeholder": "中國大陸",
+    "greeting_new_style": {
+      "line1": "你好，我是",
+      "line2": "{name}"
+    },
+    "description_new_style": "我是一名前端開發者，現居{location}。"
+  },
+  "portfolio": {
+    "title": "我的作品集",
+    "description": "這裡將展示我的專案列表。",
+    "loading": "載入中...",
+    "load_error": "載入作品失敗: {error}",
+    "project_placeholder": "專案 {number}",
+    "todolist": {
+      "title": "待辦事項",
+      "subtitle": "一次完成一項待辦。",
+      "empty_list": "你的待辦列表是空的。",
+      "add_item_label": "添加到待辦列表",
+      "add_item_button": "添加待辦",
+      "mark_as_done": "完成",
+      "mark_as_undone": "未完成",
+      "delete": "刪除",
+      "sort_toggle": "將已完成任務移到末尾？",
+      "items": {
+        "learn_vue": "學習 Vue.js",
+        "code_todolist": "編寫一個待辦事項列表",
+        "learn_more": "學習其他內容"
+      }
+    },
+    "chat": {
+      "title": "即時聊天",
+      "subtitle": "使用WebSocket的簡易聊天應用",
+      "empty": "暫無訊息，開始聊天吧！",
+      "input_placeholder": "輸入訊息...",
+      "send_button": "發送",
+      "default_username": "訪客",
+      "status": {
+        "connected": "已連接",
+        "connecting": "連接中...",
+        "disconnected": "已斷開連接",
+        "error": "連接錯誤"
+      },
+      "demo_messages": {
+        "welcome": "歡迎來到聊天室！",
+        "greeting": "大家好！",
+        "question": "今天過得怎麼樣？",
+        "reply": "謝謝你的訊息！這是一個演示聊天界面。"
+      }
+    },
+    "theme_switcher": {
+      "label": "選擇主題",
+      "light": "淺色",
+      "dark": "深色",
+      "warm": "暖色",
+      "light_title": "切換到淺色主題",
+      "dark_title": "切換到深色主題",
+      "warm_title": "切換到暖色主題"
+    }
+  },
+  "about": {
+    "title": "關於我",
+    "intro_1": "你好！我是一名熱衷於構建美觀、易用且高效 Web 應用的前端開發者。",
+    "intro_2": "我擅長使用 Vue.js (Vue 2 和 Vue 3) 進行開發，並且對 JavaScript、HTML5 和 CSS3 有著紮實的掌握。",
+    "intro_3": "我喜歡探索新技術，追求代碼的優雅與性能的極致。我相信良好的用戶體驗是衡量一個產品成功與否的關鍵標準之一。",
+    "skills_title": "我的技能棧",
+    "skills": {
+      "frameworks": "前端框架",
+      "core_tech": "核心技術",
+      "css_tools": "CSS 工具",
+      "build_tools": "構建工具",
+      "version_control": "版本控制",
+      "api_interaction": "API 交互",
+      "testing": "測試 (可選)",
+      "others": "其他"
+    },
+    "experience_title": "專案經驗/學習經歷",
+    "experience_placeholder": "(這裡可以簡述你的主要專案經驗或重要的學習經歷，突出你在專案中扮演的角色和取得的成果。)",
+    "project_a_description": "專案A: 負責XX模塊開發，使用Vue 3和Pinia，實現了XX功能，提升了XX性能...",
+    "project_b_description": "專案B: 參與XX系統的前端重構，從Vue 2遷移到Vue 3，優化了XX...",
+    "philosophy_title": "我的開發理念",
+    "philosophy_text": "我堅信代碼不僅要能工作，更要易於理解和維護。我追求編寫簡潔、模組化且文檔清晰的代碼。同時，我非常注重用戶體驗和界面性能，力求為用戶帶來流暢和愉悅的交互感受。"
+  },
+  "contact": {
+    "title": "聯絡我",
+    "intro": "你可以通過以下方式聯絡我，或者填寫下方的表單。",
+    "email_label": "郵箱:",
+    "github_label": "GitHub:ooPeachBoy",
+    "linkedin_label": "LinkedIn:ooPeachBoy",
+    "form": {
+      "name": "姓名:",
+      "email": "郵箱:",
+      "message": "內容:",
+      "send": "發送訊息",
+      "sending": "發送中...",
+      "success": "感謝您的留言，我會儘快回覆！",
+      "error": "抱歉，訊息發送失敗，請稍後再試。"
+    }
+  },
+  "common": {
+    "back_to_portfolio": "返回作品集"
+  },
+  "portfolio": {
+    "form": {
+      "title": "聯繫表單",
+      "subtitle": "具有驗證功能的綜合表單",
+      "description": "功能豐富的表單演示，包含驗證、動態欄位和響應式設計。",
+      "personal_info": "個人信息",
+      "professional_info": "職業信息",
+      "additional_info": "附加信息",
+      "first_name": "名字",
+      "last_name": "姓氏",
+      "email": "電子郵箱",
+      "phone": "電話號碼（可選）",
+      "occupation": "職業",
+      "specify_occupation": "請具體說明",
+      "experience": "工作經驗",
+      "skills": "技能",
+      "message": "留言（可選）",
+      "terms": "我同意條款和條件",
+      "first_name_placeholder": "輸入您的名字",
+      "last_name_placeholder": "輸入您的姓氏",
+      "email_placeholder": "example@domain.com",
+      "phone_placeholder": "輸入電話號碼",
+      "specify_occupation_placeholder": "輸入您的職業",
+      "message_placeholder": "告訴我們更多關於您的項目或諮詢",
+      "select_occupation": "選擇您的職業",
+      "years": "年",
+      "submit": "提交表單",
+      "submitting": "提交中...",
+      "reset": "重置",
+      "success_title": "謝謝您！",
+      "success_message": "您的表單已成功提交。我們將儘快與您聯繫。",
+      "new_submission": "提交另一個表單",
+      "submission_error": "提交過程中發生錯誤。請重試。",
+      "occupations": {
+        "developer": "開發人員",
+        "designer": "設計師",
+        "manager": "專案經理",
+        "student": "學生",
+        "other": "其他"
+      },
+      "validation": {
+        "required": "此欄位為必填項。",
+        "required_selection": "請做出選擇。",
+        "email": "請輸入有效的電子郵箱地址。",
+        "phone": "請輸入有效的電話號碼。",
+        "terms": "您必須接受條款和條件。"
+      }
+    }
+  }
+}
