@@ -2,10 +2,10 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
-const repoName = 'portfolio-vue3-vite'
+const isGitHubPages = process.env.GITHUB_PAGES === 'true'
 
 export default defineConfig({
-  base: './',
+  base: isGitHubPages ? '/portfolio-vue3-vite/' : './',
   plugins: [vue()],
   resolve: {
     alias: {
