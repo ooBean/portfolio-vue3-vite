@@ -5,7 +5,7 @@ import path from 'path'
 const repoName = 'portfolio-vue3-vite'
 
 export default defineConfig({
-   base: `/${repoName}/`,
+  base: './',
   plugins: [vue()],
   resolve: {
     alias: {
