@@ -27,11 +27,17 @@ const routes: Array<RouteRecordRaw> = [ // 为 routes 数组指定类型
     meta: { transition: 'slide-right' }
   },
   {
-  path: '/portfolio/chatView',
-  name: 'ChatView',
-  component: () => import('@/views/portfolio/ChatView.vue'),
-  meta: { transition: 'slide-right' }
-},
+    path: '/portfolio/chatView',
+    name: 'ChatView',
+    component: () => import('@/views/portfolio/ChatView.vue'),
+    meta: { transition: 'slide-right' }
+  },
+  {
+    path: '/portfolio/form',
+    name: 'FormDemo',
+    component: () => import('@/views/portfolio/FormDemo.vue'),
+    meta: { transition: 'slide-right' }
+  },
   {
     path: '/contact',
     name: 'Contact',

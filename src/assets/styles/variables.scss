@@ -197,3 +197,50 @@ $toggle-theme-warm-box-bg: #FFFFFF; // Consistent with $chat-theme-warm-input-bg
 $toggle-theme-warm-circle-bg: $chat-theme-warm-text-color; // is #5C5470
 $toggle-theme-warm-circle-bg-rgb: 92, 84, 112; // RGB for #5C5470
 $toggle-theme-warm-circle-checked-bg: $chat-theme-warm-accent-color;
+
+// --- Form Component Theme Colors ---
+
+// Light Form Theme
+$form-theme-light-bg: $white;
+$form-theme-light-text-color: $text-color;
+$form-theme-light-title-border: $border-color;
+$form-theme-light-input-bg: $white;
+$form-theme-light-input-text: $text-color;
+$form-theme-light-input-border: $border-color;
+$form-theme-light-input-focus-border: $chat-theme-light-new-accent;
+$form-theme-light-button-bg: $chat-theme-light-new-accent;
+$form-theme-light-button-text: $white;
+$form-theme-light-button-border: transparent;
+$form-theme-light-error-color: #dc3545;
+$form-theme-light-success-color: #28a745;
+$form-theme-light-label-color: color.adjust($text-color, $lightness: -10%);
+
+// Dark Form Theme
+$form-theme-dark-bg: $chat-theme-dark-bg;
+$form-theme-dark-text-color: $chat-theme-dark-text-color;
+$form-theme-dark-title-border: rgba(255, 255, 255, 0.2);
+$form-theme-dark-input-bg: color.adjust($chat-theme-dark-bg, $lightness: 5%);
+$form-theme-dark-input-text: $chat-theme-dark-text-color;
+$form-theme-dark-input-border: rgba(255, 255, 255, 0.1);
+$form-theme-dark-input-focus-border: $chat-theme-dark-accent-color;
+$form-theme-dark-button-bg: $chat-theme-dark-accent-color;
+$form-theme-dark-button-text: $chat-theme-dark-button-text;
+$form-theme-dark-button-border: transparent;
+$form-theme-dark-error-color: #f76c6c;
+$form-theme-dark-success-color: #6cf76c;
+$form-theme-dark-label-color: color.adjust($chat-theme-dark-text-color, $lightness: 10%);
+
+// Warm Form Theme
+$form-theme-warm-bg: $chat-theme-warm-bg;
+$form-theme-warm-text-color: $chat-theme-warm-text-color;
+$form-theme-warm-title-border: rgba($chat-theme-warm-text-color, 0.2);
+$form-theme-warm-input-bg: #FFFFFF;
+$form-theme-warm-input-text: $chat-theme-warm-text-color;
+$form-theme-warm-input-border: rgba($chat-theme-warm-text-color, 0.2);
+$form-theme-warm-input-focus-border: $chat-theme-warm-accent-color;
+$form-theme-warm-button-bg: $chat-theme-warm-accent-color;
+$form-theme-warm-button-text: $chat-theme-warm-button-text;
+$form-theme-warm-button-border: transparent;
+$form-theme-warm-error-color: #e06d6d;
+$form-theme-warm-success-color: #6dd48a;
+$form-theme-warm-label-color: color.adjust($chat-theme-warm-text-color, $lightness: -15%);

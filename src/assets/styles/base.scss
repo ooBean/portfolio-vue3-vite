@@ -67,6 +67,21 @@ body {
   --toggle-circle-bg: #{$toggle-theme-light-circle-bg};
   --toggle-circle-bg-rgb: #{$toggle-theme-light-circle-bg-rgb}; // 新增
   --toggle-circle-checked-bg: #{$toggle-theme-light-circle-checked-bg};
+
+  // 表单变量
+  --form-bg: #{$form-theme-light-bg};
+  --form-text-color: #{$form-theme-light-text-color};
+  --form-title-border: #{$form-theme-light-title-border};
+  --form-input-bg: #{$form-theme-light-input-bg};
+  --form-input-text: #{$form-theme-light-input-text};
+  --form-input-border: #{$form-theme-light-input-border};
+  --form-input-focus-border: #{$form-theme-light-input-focus-border};
+  --form-button-bg: #{$form-theme-light-button-bg};
+  --form-button-text: #{$form-theme-light-button-text};
+  --form-button-border: #{$form-theme-light-button-border};
+  --form-error-color: #{$form-theme-light-error-color};
+  --form-success-color: #{$form-theme-light-success-color};
+  --form-label-color: #{$form-theme-light-label-color};
 }
 
 .theme-dark {
@@ -109,6 +124,21 @@ body {
   --toggle-circle-bg: #{$toggle-theme-dark-circle-bg};
   --toggle-circle-bg-rgb: #{$toggle-theme-dark-circle-bg-rgb}; // 新增
   --toggle-circle-checked-bg: #{$toggle-theme-dark-circle-checked-bg};
+
+  // 表单变量
+  --form-bg: #{$form-theme-dark-bg};
+  --form-text-color: #{$form-theme-dark-text-color};
+  --form-title-border: #{$form-theme-dark-title-border};
+  --form-input-bg: #{$form-theme-dark-input-bg};
+  --form-input-text: #{$form-theme-dark-input-text};
+  --form-input-border: #{$form-theme-dark-input-border};
+  --form-input-focus-border: #{$form-theme-dark-input-focus-border};
+  --form-button-bg: #{$form-theme-dark-button-bg};
+  --form-button-text: #{$form-theme-dark-button-text};
+  --form-button-border: #{$form-theme-dark-button-border};
+  --form-error-color: #{$form-theme-dark-error-color};
+  --form-success-color: #{$form-theme-dark-success-color};
+  --form-label-color: #{$form-theme-dark-label-color};
 }
 
 .theme-warm {
@@ -151,6 +181,21 @@ body {
   --toggle-circle-bg: #{$toggle-theme-warm-circle-bg};
   --toggle-circle-bg-rgb: #{$toggle-theme-warm-circle-bg-rgb}; // 新增
   --toggle-circle-checked-bg: #{$toggle-theme-warm-circle-checked-bg};
+
+  // 表单变量
+  --form-bg: #{$form-theme-warm-bg};
+  --form-text-color: #{$form-theme-warm-text-color};
+  --form-title-border: #{$form-theme-warm-title-border};
+  --form-input-bg: #{$form-theme-warm-input-bg};
+  --form-input-text: #{$form-theme-warm-input-text};
+  --form-input-border: #{$form-theme-warm-input-border};
+  --form-input-focus-border: #{$form-theme-warm-input-focus-border};
+  --form-button-bg: #{$form-theme-warm-button-bg};
+  --form-button-text: #{$form-theme-warm-button-text};
+  --form-button-border: #{$form-theme-warm-button-border};
+  --form-error-color: #{$form-theme-warm-error-color};
+  --form-success-color: #{$form-theme-warm-success-color};
+  --form-label-color: #{$form-theme-warm-label-color};
 }
 
 body.theme-light {

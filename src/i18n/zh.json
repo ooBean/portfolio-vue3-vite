@@ -1,0 +1,51 @@
+{
+  "portfolio": {
+    "form": {
+      "title": "联系表单",
+      "subtitle": "具有验证功能的综合表单",
+      "description": "功能丰富的表单演示，包含验证、动态字段和响应式设计。",
+      "personal_info": "个人信息",
+      "professional_info": "职业信息",
+      "additional_info": "附加信息",
+      "first_name": "名字",
+      "last_name": "姓氏",
+      "email": "电子邮箱",
+      "phone": "电话号码（可选）",
+      "occupation": "职业",
+      "specify_occupation": "请具体说明",
+      "experience": "工作经验",
+      "skills": "技能",
+      "message": "留言（可选）",
+      "terms": "我同意条款和条件",
+      "first_name_placeholder": "输入您的名字",
+      "last_name_placeholder": "输入您的姓氏",
+      "email_placeholder": "example@domain.com",
+      "phone_placeholder": "输入电话号码",
+      "specify_occupation_placeholder": "输入您的职业",
+      "message_placeholder": "告诉我们更多关于您的项目或咨询",
+      "select_occupation": "选择您的职业",
+      "years": "年",
+      "submit": "提交表单",
+      "submitting": "提交中...",
+      "reset": "重置",
+      "success_title": "谢谢您！",
+      "success_message": "您的表单已成功提交。我们将尽快与您联系。",
+      "new_submission": "提交另一个表单",
+      "submission_error": "提交过程中发生错误。请重试。",
+      "occupations": {
+        "developer": "开发人员",
+        "designer": "设计师",
+        "manager": "项目经理",
+        "student": "学生",
+        "other": "其他"
+      },
+      "validation": {
+        "required": "此字段为必填项。",
+        "required_selection": "请做出选择。",
+        "email": "请输入有效的电子邮箱地址。",
+        "phone": "请输入有效的电话号码。",
+        "terms": "您必须接受条款和条件。"
+      }
+    }
+  }
+}

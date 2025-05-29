@@ -1,0 +1,51 @@
+{
+  "portfolio": {
+    "form": {
+      "title": "Contact Form",
+      "subtitle": "A comprehensive form with validation",
+      "description": "A feature-rich form demo with validation, dynamic fields, and responsive design.",
+      "personal_info": "Personal Information",
+      "professional_info": "Professional Information",
+      "additional_info": "Additional Information",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number (Optional)",
+      "occupation": "Occupation",
+      "specify_occupation": "Please Specify",
+      "experience": "Years of Experience",
+      "skills": "Skills",
+      "message": "Message (Optional)",
+      "terms": "I agree to the terms and conditions",
+      "first_name_placeholder": "Enter your first name",
+      "last_name_placeholder": "Enter your last name",
+      "email_placeholder": "example@domain.com",
+      "phone_placeholder": "Enter phone number",
+      "specify_occupation_placeholder": "Enter your occupation",
+      "message_placeholder": "Tell us more about your project or inquiry",
+      "select_occupation": "Select your occupation",
+      "years": "years",
+      "submit": "Submit Form",
+      "submitting": "Submitting...",
+      "reset": "Reset",
+      "success_title": "Thank You!",
+      "success_message": "Your form has been successfully submitted. We will get back to you shortly.",
+      "new_submission": "Submit Another Form",
+      "submission_error": "An error occurred during submission. Please try again.",
+      "occupations": {
+        "developer": "Developer",
+        "designer": "Designer",
+        "manager": "Project Manager",
+        "student": "Student",
+        "other": "Other"
+      },
+      "validation": {
+        "required": "This field is required.",
+        "required_selection": "Please make a selection.",
+        "email": "Please enter a valid email address.",
+        "phone": "Please enter a valid phone number.",
+        "terms": "You must accept the terms and conditions."
+      }
+    }
+  }
+}

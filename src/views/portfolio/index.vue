@@ -46,6 +46,7 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import TodoListView from '@/views/portfolio/TodoListView.vue';
 import ChatView from '@/views/portfolio/ChatView.vue';
+import FormDemo from '@/views/portfolio/FormDemo.vue'; // 引入表单组件
 import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue'; // 引入组件
 
 const { t } = useI18n();
@@ -105,9 +106,16 @@ const projects = computed<Project[]>(() => [
   {
     id: 'chat',
     name: t('portfolio.chat.title'),
-    description: t('portfolio.chat.description'), // Add description for chat
+    description: t('portfolio.chat.description'),
     component: ChatView,
     route: 'ChatView',
+  },
+  {
+    id: 'form',
+    name: t('portfolio.form.title'),
+    description: t('portfolio.form.description'),
+    component: FormDemo,
+    route: 'FormDemo',
   },
   // Add more projects here
 ]);
