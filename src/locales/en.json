@@ -53,7 +53,9 @@
         "connected": "Connected",
         "connecting": "Connecting...",
         "disconnected": "Disconnected",
-        "error": "Connection Error"
+        "error": "Connection Error",
+        "typing": "Typing...",
+        "waiting": "Waiting for reply..."
       },
       "demo_messages": {
         "welcome": "Welcome to the chat room!",

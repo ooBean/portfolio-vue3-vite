@@ -53,7 +53,9 @@
         "connected": "已連接",
         "connecting": "連接中...",
         "disconnected": "已斷開連接",
-        "error": "連接錯誤"
+        "error": "連接錯誤",
+        "typing": "正在輸入...",
+        "waiting": "正在等待回覆..."
       },
       "demo_messages": {
         "welcome": "歡迎來到聊天室！",

@@ -7,43 +7,47 @@
       </h1>
       <BackLink component="chat" class="top-right-link" />
     </div>
-    
+
     <div class="chat-messages" ref="messagesContainer">
       <div v-if="messages.length === 0" class="empty-chat">
         {{ t('portfolio.chat.empty') }}
       </div>
       <transition-group name="message" tag="div">
-        <div 
-          v-for="(message, index) in messages" 
-          :key="index"
-          :class="['message', message.isOwn ? 'own-message' : 'other-message']"
-        >
+        <div v-for="(message, index) in messages" :key="index"
+          :class="['message', message.isOwn ? 'own-message' : 'other-message']">
           <div class="message-header">
             <span class="message-author">{{ message.author }}</span>
             <span class="message-time">{{ formatTime(message.time) }}</span>
           </div>
-          <div class="message-content">{{ message.content }}</div>
+          <div class="message-content" v-html="formatContent(message.content)"></div>
         </div>
       </transition-group>
     </div>
 
     <div class="chat-status" :class="connectionStatus">
-      <span v-if="connectionStatus === 'connected'">{{ t('portfolio.chat.status.connected') }}</span>
+      <span v-if="isTyping">{{ t('portfolio.chat.status.typing') || '正在输入...' }}</span>
+      <span v-else-if="connectionStatus === 'waiting'">{{ t('portfolio.chat.status.waiting') || '正在等待回复...' }}</span>
+      <span v-else-if="connectionStatus === 'connected'">{{ t('portfolio.chat.status.connected') }}</span>
       <span v-else-if="connectionStatus === 'connecting'">{{ t('portfolio.chat.status.connecting') }}</span>
       <span v-else-if="connectionStatus === 'disconnected'">{{ t('portfolio.chat.status.disconnected') }}</span>
       <span v-else>{{ t('portfolio.chat.status.error') }}</span>
     </div>
 
     <form class="chat-form" @submit.prevent="sendMessage">
-      <input 
-        type="text" 
-        v-model="newMessage" 
+      <textarea
+        v-model="newMessage"
+        @input="onInput"
+        @compositionstart="onCompositionStart"
+        @compositionend="onCompositionEnd"
         :placeholder="t('portfolio.chat.input_placeholder')"
-        :disabled="connectionStatus !== 'connected'"
+        :disabled="connectionStatus === 'connecting' || connectionStatus === 'waiting'"
+        rows="1"
+        @keydown.enter="onEnter"
+        ref="messageInput"
       />
-      <button 
-        type="submit" 
-        :disabled="!newMessage.trim() || connectionStatus !== 'connected'"
+      <button
+        type="submit"
+        :disabled="!newMessage.trim() || connectionStatus === 'connecting' || connectionStatus === 'waiting'"
       >
         {{ t('portfolio.chat.send_button') }}
       </button>
@@ -52,9 +56,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted, nextTick, watch } from 'vue';
+import { ref, reactive, onMounted, onUnmounted, nextTick, watch, computed, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 import BackLink from "@/components/common/BackLink.vue"; // 引入BackLink组件
+import { safeHtml } from '@/utils/safeHtml';
+import { useChatStore } from '@/store/modules/chatStore';
+import http from '@/utils/http';
 
 const { t } = useI18n();
 
@@ -67,110 +74,76 @@ interface ChatMessage {
 }
 
 const messagesContainer = ref<HTMLElement | null>(null);
-const messages = reactive<ChatMessage[]>([]);
 const newMessage = ref('');
 const socket = ref<WebSocket | null>(null);
-const connectionStatus = ref('disconnected'); // connected, connecting, disconnected, error
-const username = ref(t('portfolio.chat.default_username'));
+const connectionStatus = ref<'connected' | 'connecting' | 'disconnected' | 'error' | 'waiting'>('disconnected');
+const chatStore = useChatStore();
+const messages = computed(() => chatStore.messages);
+const username = computed(() => chatStore.username);
 
-// 这些消息是静态演示用，在真实实现中会被WebSocket消息替代
-const demoMessages = [
-  { author: 'Alice', content: t('portfolio.chat.demo_messages.welcome'), time: new Date(), isOwn: false },
-  { author: 'Bob', content: t('portfolio.chat.demo_messages.greeting'), time: new Date(), isOwn: false }
-];
+nextTick(() => {
+  if (messageInput.value) {
+    messageInput.value.focus();
+  }
+});
 
 const connectToWebSocket = () => {
-  connectionStatus.value = 'connecting';
-  
-  // 在实际项目中，替换为真实的WebSocket服务器地址
-  // socket.value = new WebSocket('wss://your-websocket-server.com/chat');
-  
-  // 模拟连接成功
-  setTimeout(() => {
-    connectionStatus.value = 'connected';
-    
-    // 添加演示消息
-    setTimeout(() => {
-      messages.push(...demoMessages);
-      // 模拟收到新消息
-      setTimeout(() => {
-        receiveMessage({
-          author: 'System',
-          content: t('portfolio.chat.demo_messages.question'),
-          time: new Date(),
-          isOwn: false
-        });
-      }, 1500);
-    }, 800);
-  }, 1000);
-  
-  /* 真实WebSocket连接的代码会是这样：
-  socket.value.onopen = () => {
-    connectionStatus.value = 'connected';
-  };
-  
-  socket.value.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    receiveMessage({
-      author: data.author,
-      content: data.content,
-      time: new Date(data.time),
-      isOwn: false
-    });
-  };
-  
-  socket.value.onclose = () => {
-    connectionStatus.value = 'disconnected';
-  };
-  
-  socket.value.onerror = () => {
-    connectionStatus.value = 'error';
-  };
-  */
+  connectionStatus.value = 'connected';
 };
 
 const disconnectWebSocket = () => {
-  if (socket.value && socket.value.readyState === WebSocket.OPEN) {
-    socket.value.close();
-  }
   connectionStatus.value = 'disconnected';
 };
 
-const sendMessage = () => {
+const sendMessage = async () => {
   if (!newMessage.value.trim()) return;
-  
+
   const messageToSend = {
     author: username.value,
     content: newMessage.value,
     time: new Date(),
     isOwn: true
   };
-  
-  // 在实际项目中，这里会通过WebSocket发送消息
-  // if (socket.value && socket.value.readyState === WebSocket.OPEN) {
-  //   socket.value.send(JSON.stringify({
-  //     author: username.value,
-  //     content: newMessage.value
-  //   }));
-  // }
-  
-  // 将自己的消息添加到列表
-  messages.push(messageToSend);
+  chatStore.addMessage(messageToSend);
+  nextTick(() => scrollToBottom());
+
+  const userContent = newMessage.value;
   newMessage.value = '';
-  
-  // 模拟收到回复
-  setTimeout(() => {
-    receiveMessage({
+  nextTick(() => autoResize());
+
+  // 设置为等待回复
+  connectionStatus.value = 'waiting';
+
+  try {
+    const res = await http.post('/chat', { message: userContent });
+    chatStore.addMessage({
       author: 'System',
-      content: t('portfolio.chat.demo_messages.reply'),
+      content: res.data.reply,
       time: new Date(),
       isOwn: false
     });
-  }, 1000);
+    connectionStatus.value = 'connected';
+  } catch (error) {
+    console.log("🚀 ~ sendMessage ~ error:", error)
+    chatStore.addMessage({
+      author: 'System',
+      content: '服务异常，请稍后再试。',
+      time: new Date(),
+      isOwn: false
+    });
+    connectionStatus.value = 'error';
+  } finally {
+    // finally 语句块无论成功还是失败都会执行
+    nextTick(() => {
+      if (messageInput.value) {
+        messageInput.value.focus();
+      }
+    });
+  }
 };
 
 const receiveMessage = (message: ChatMessage) => {
-  messages.push(message);
+  chatStore.addMessage(message);
   scrollToBottom();
 };
 
@@ -183,8 +156,48 @@ const scrollToBottom = () => {
 };
 
 const formatTime = (date: Date) => {
-  return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  const now = new Date();
+  const diff = Math.floor((now.getTime() - date.getTime()) / 1000); // 秒
+
+  if (diff < 10) return '刚刚';
+  if (diff < 60) return `${diff}秒前`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}分钟前`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}小时前`;
+
+  // 超过一天，显示日期和时间
+  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 };
+
+function formatContent(content: string) {
+  return safeHtml(content);
+}
+
+const isTyping = ref(false);
+let typingTimeout: ReturnType<typeof setTimeout> | null = null;
+
+function handleTyping() {
+  if (!isTyping.value) isTyping.value = true;
+  if (typingTimeout) clearTimeout(typingTimeout);
+  typingTimeout = setTimeout(() => {
+    isTyping.value = false;
+  }, 1000);
+}
+
+let isComposing = false;
+
+function onCompositionStart() {
+  isComposing = true;
+}
+function onCompositionEnd() {
+  isComposing = false;
+  handleTyping();
+}
+function onInput() {
+  autoResize();
+  if (!isComposing) {
+    handleTyping();
+  }
+}
 
 // 组件挂载时连接WebSocket
 onMounted(() => {
@@ -200,6 +213,27 @@ onUnmounted(() => {
 watch(messages, () => {
   scrollToBottom();
 });
+
+watchEffect(() => {
+  messages.value.length;
+  scrollToBottom();
+});
+
+const messageInput = ref<HTMLTextAreaElement | null>(null);
+
+function onEnter(e: KeyboardEvent) {
+  if (!e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function autoResize() {
+  if (messageInput.value) {
+    messageInput.value.style.height = 'auto';
+    messageInput.value.style.height = messageInput.value.scrollHeight + 'px';
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -214,13 +248,17 @@ watch(messages, () => {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 180px); /* 调整高度以适应固定头尾 */
+  height: calc(100vh - 180px);
+  /* 调整高度以适应固定头尾 */
   overflow-y: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
+    /* Chrome, Safari, Opera */
   }
 }
 
@@ -263,13 +301,16 @@ watch(messages, () => {
   border-radius: 8px;
   margin-bottom: 1rem;
   transition: background 0.3s ease;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
+    /* Chrome, Safari, Opera */
   }
-  
+
   .empty-chat {
     display: flex;
     align-items: center;
@@ -291,18 +332,16 @@ watch(messages, () => {
   transition: background 0.3s ease;
 
   &.other-message {
-    background: var(--chat-other-message-bg);
+    background: #f0f1f6; // 浅灰色，代表对方消息
     align-self: flex-start;
     border-bottom-left-radius: 0;
   }
 
   &.own-message {
-    background: var(--chat-own-message-bg);
+    background: #aee1f9; // 浅蓝色，代表自己消息
     align-self: flex-end;
     margin-left: auto;
     border-bottom-right-radius: 0;
-    // If own message text needs specific color for contrast:
-    // color: var(--chat-own-message-text-color, inherit);
   }
 
   .message-header {
@@ -322,10 +361,12 @@ watch(messages, () => {
   opacity: 0;
   transform: translateY(20px);
 }
+
 .message-enter-to {
   opacity: 1;
   transform: translateY(0);
 }
+
 .message-enter-active {
   transition: all 0.3s ease;
 }
@@ -342,13 +383,21 @@ watch(messages, () => {
     background: var(--chat-status-connected-bg);
     color: var(--chat-status-connected-text);
   }
+
   &.connecting {
     background: var(--chat-status-connecting-bg);
     color: var(--chat-status-connecting-text);
   }
-  &.disconnected, &.error {
+
+  &.disconnected,
+  &.error {
     background: var(--chat-status-disconnected-bg);
     color: var(--chat-status-disconnected-text);
+  }
+
+  &.waiting {
+    background: var(--chat-status-waiting-bg, #fffbe6);
+    color: var(--chat-status-waiting-text, #bfa700);
   }
 }
 
@@ -356,7 +405,7 @@ watch(messages, () => {
   display: flex;
   gap: 0.5rem;
 
-  input[type="text"] {
+  textarea {
     flex: 1;
     padding: 0.8rem;
     border: 1px solid var(--chat-title-border); // Or a specific input border variable
@@ -365,11 +414,17 @@ watch(messages, () => {
     background: var(--chat-input-bg);
     color: var(--chat-input-text);
     transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    resize: none; // 禁用手动调整大小
+    overflow: hidden; // 隐藏滚动条
+    min-height: 2.5em;
+    max-height: 8em;
+    overflow-y: auto;
 
     &::placeholder {
       color: currentColor;
       opacity: 0.6;
     }
+
     &:disabled {
       opacity: 0.5;
     }
@@ -388,6 +443,7 @@ watch(messages, () => {
     &:hover:not(:disabled) {
       filter: brightness(90%); // Simple hover effect for CSS var backgrounds
     }
+
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -396,21 +452,37 @@ watch(messages, () => {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@media (max-width: $breakpoint-md) { // Using SCSS variable from variables.scss
+@media (max-width: $breakpoint-md) {
+
+  // Using SCSS variable from variables.scss
   .chat-container {
     height: auto;
     min-height: 450px;
     margin: 1rem;
     padding: 1rem;
   }
-  .message { max-width: 90%; }
+
+  .message {
+    max-width: 90%;
+  }
+
   .chat-title {
     font-size: 1.6rem;
-    span { font-size: 0.7rem; }
+
+    span {
+      font-size: 0.7rem;
+    }
   }
 }
 </style>
