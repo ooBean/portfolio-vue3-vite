@@ -1,19 +1,27 @@
-// filepath: portfolio-vue3-vite/src/views/HomeView.vue
 <template>
   <div class="home-view">
     <div class="hero-content">
       <div class="hero-text">
-        <h1>{{ t('home.greeting_new_style.line1') }}<br />{{ t('home.greeting_new_style.line2', { name: userName }) }}</h1>
-        <p>{{ t('home.description_new_style', { location: userLocation }) }}</p>
-        <div class="social-links">
-          <a v-for="link in socialMedia" :key="link.name" :href="link.url" target="_blank" rel="noopener noreferrer" :aria-label="link.name">
-            {{ link.abbr }}
-          </a>
-        </div>
-      </div>
-      <div class="hero-image-container">
-        <div class="image-wrapper">
-          <img src="@/assets/images/profile-avatar.jpg" alt="Profile Avatar" />
+        <div class="typewriter-mask-wrap">
+          <div class="typewriter-text" :class="{ show: showMaskAnim }">
+            <div
+              v-for="(line, lineIdx) in lines"
+              :key="lineIdx"
+              class="typewriter-line"
+            >
+              <span
+                v-for="(word, i) in line"
+                :key="i"
+                :class="{ highlight: word.highlight }"
+                class="typewriter-word"
+              >
+                {{ word.text }}
+                <span v-if="i !== line.length - 1">&nbsp;</span>
+              </span>
+            </div>
+          </div>
+          <p class="framer-text">I am seeking a remote full-time or part-time front-end development role.</p>
+          <span class="mask" :class="{ animate: showMaskAnim }"></span>
         </div>
       </div>
     </div>
@@ -21,134 +29,142 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { ref, onMounted } from 'vue';
 
-const { t } = useI18n();
+const lines = [
+  [
+    { text: 'I', highlight: true },
+    { text: 'am' },
+    { text: 'a' },
+    { text: 'Frontend' },
+    { text: 'Engineer' }
+  ],
+  [
+    { text: 'that', highlight: true },
+    { text: 'looks' },
+    { text: 'amazing,' }
+  ],
+  [
+    { text: 'solves' },
+    { text: 'problems,' }
+  ],
+  [
+    { text: 'and', highlight: true },
+    { text: 'brings' },
+    { text: 'in' },
+    { text: 'revenue.' }
+  ]
+];
 
-// 使用 computed 而不是 ref，这样语言切换时会自动更新
-const userName = computed(() => t('home.user_name_placeholder'));
-const userLocation = computed(() => t('home.user_location_placeholder'));
+const showMaskAnim = ref(false);
 
-interface SocialLink {
-  name: string;
-  abbr: string;
-  url: string;
-}
-
-const socialMedia = ref<SocialLink[]>([
-  { name: 'Twitter', abbr: 'TW', url: '#' },
-  { name: 'GitHub', abbr: 'GH', url: '#' },
-  { name: 'Instagram', abbr: 'IG', url: '#' },
-  { name: 'LinkedIn', abbr: 'LI', url: '#' },
-  { name: 'Dribbble', abbr: 'DV', url: '#' },
-  { name: 'YouTube', abbr: 'YT', url: '#' },
-]);
+onMounted(() => {
+  setTimeout(() => {
+    showMaskAnim.value = true;
+  }, 300);
+});
 </script>
 
 <style scoped lang="scss">
-// SCSS 变量已通过 vite.config.ts 全局注入 (来自 @/assets/styles/variables.scss)
-//可以直接使用 $hero-bg-color, $hero-text-color 等变量
-
 .home-view {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
-  padding: 2rem 4rem;
-  background-color: $hero-bg-color; // 直接使用 SCSS 变量
+  /* 只用flex居中，不设置min-height或height: 100vh，避免溢出 */
   width: 100%;
+  background: $hero-bg-color;
+  flex: 1 0 auto;
+  min-height: calc(100vh - 64px - 48px);
 }
 
 .hero-content {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 3rem;
-  max-width: 1100px;
+  justify-content: center;
+  flex: 1 0 auto;
+}
+
+.hero-text {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 不设置height/min-height */
+  padding: 2vw 0;
+}
+
+.typewriter-mask-wrap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
   width: 100%;
 }
 
-// --- Hero Text Section ---
-.hero-text {
-  flex: 1;
-  max-width: 500px;
-
-  h1 {
-    font-family: 'Georgia', serif; // 考虑是否也放入 variables.scss
-    font-size: clamp(2.5rem, 5vw, 3.8rem);
-    color: $hero-heading-color; // 直接使用 SCSS 变量
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    font-weight: normal;
-  }
-
-  p {
-    font-size: clamp(1rem, 2.5vw, 1.15rem);
-    color: $hero-text-color; // 直接使用 SCSS 变量
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
-}
-
-.social-links {
+.typewriter-text {
   display: flex;
-  gap: 1.5rem;
-
-  a {
-    font-family: 'Inter', sans-serif; // 考虑是否也放入 variables.scss
-    text-decoration: none;
-    color: $hero-social-link-color; // 直接使用 SCSS 变量
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: $hero-heading-color; // 直接使用 SCSS 变量
-    }
-  }
+  flex-direction: column;
+  align-items: center; /* 居中每一行 */
+  font-family: 'Georgia', serif;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  color: $hero-heading-color;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.2s cubic-bezier(.4,0,.2,1), transform 1.2s cubic-bezier(.4,0,.2,1); // 缩短时长
+  width: 100%;
 }
 
-// --- Hero Image Section ---
-.hero-image-container {
-  flex-shrink: 0;
-  position: relative;
+.typewriter-text.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.image-wrapper {
-  width: clamp(200px, 30vw, 300px);
-  height: clamp(200px, 30vw, 300px);
-  border-radius: 50%;
-  border: 6px dotted $hero-accent-pink; // 直接使用 SCSS 变量
-  padding: 8px;
-  background-color: $hero-bg-color; // 直接使用 SCSS 变量
-  box-shadow: 0 0 20px rgba(color.scale($hero-accent-pink, $alpha: -70%), 0.3); // 使用 color.scale 调整透明度，并确保 rgba 的 alpha 在 0-1 之间
-
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-  }
+.typewriter-line {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* 居中每一行的内容 */
+  margin-bottom: 0.1em;
+  flex-wrap: wrap;
 }
 
-// --- Responsive Adjustments ---
-@media (max-width: $breakpoint-md) { // 使用 variables.scss 中的断点变量
-  .hero-content {
-    flex-direction: column-reverse;
-    text-align: center;
-    gap: 2rem;
-  }
+.typewriter-word {
+  display: inline-block;
+  /* 保证空格不会被折叠 */
+  white-space: pre;
+}
 
-  .hero-text {
-    align-items: center; // 对于 flex 容器，这通常用于交叉轴对齐
-    max-width: 100%;
-  }
+.typewriter-text .highlight {
+  color: #aaaaaa;
+}
 
-  .social-links {
-    justify-content: center;
+.typewriter-mask-wrap .mask {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 100%;
+  background: $hero-bg-color;
+  z-index: 2;
+  transition: transform 1s cubic-bezier(.77,0,.175,1); // 缩短时长
+  transform: translateX(0);
+  pointer-events: none;
+}
+.typewriter-mask-wrap .mask.animate {
+  transform: translateX(102%);
+}
+
+.framer-text {
+  color: rgba(25, 25, 25, 0.7);
+  text-align: center;
+  width: 100%;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .typewriter-text {
+    font-size: clamp(1.2rem, 7vw, 2.2rem);
   }
 }
 </style>
