@@ -1,50 +1,231 @@
-// filepath: portfolio-vue3-vite/src/components/layout/AppHeader.vue
 <template>
   <header class="app-header">
-    <nav>
-      <router-link to="/">{{ t('navigation.home') }}</router-link>
-      <router-link to="/portfolio">{{ t('navigation.portfolio') }}</router-link>
-      <router-link to="/about">{{ t('navigation.about') }}</router-link>
-      <router-link to="/contact">{{ t('navigation.contact') }}</router-link>
+    <div class="user-info">
+      <img src="@/assets/images/profile-avatar.jpg" alt="User Avatar" />
+      <div class="details">
+        <p class="user-name">{{ t('home.user_name_placeholder') }}</p>
+        <p class="user-job">{{ t('home.job') }}</p>
+      </div>
+    </div>
+
+    <button class="menu-toggle" @click="toggleMenu" :aria-expanded="isMenuOpen" aria-label="Toggle Menu">
+      <span v-if="!isMenuOpen">☰</span>
+      <span v-else>✕</span>
+    </button>
+
+    <nav class="main-nav desktop" v-if="!isMobile">
+      <router-link to="/" class="nav-link" exact>{{ t('navigation.home') }}</router-link>
+      <router-link to="/portfolio" class="nav-link">{{ t('navigation.portfolio') }}</router-link>
+      <router-link to="/about" class="nav-link">{{ t('navigation.about') }}</router-link>
+      <router-link to="/contact" class="nav-link">{{ t('navigation.contact') }}</router-link>
+      <LanguageSwitcher />
     </nav>
-    <LanguageSwitcher /> <!-- 添加语言切换组件 -->
+
+    <transition name="fade">
+      <div class="menu-overlay" v-if="isMenuOpen" @click.self="closeMenu">
+        <nav class="mobile-menu">
+          <router-link to="/" class="nav-link" @click="closeMenu">{{ t('navigation.home') }}</router-link>
+          <router-link to="/portfolio" class="nav-link" @click="closeMenu">{{ t('navigation.portfolio') }}</router-link>
+          <router-link to="/about" class="nav-link" @click="closeMenu">{{ t('navigation.about') }}</router-link>
+          <router-link to="/contact" class="nav-link" @click="closeMenu">{{ t('navigation.contact') }}</router-link>
+          <div class="mobile-language-wrapper">
+            <LanguageSwitcher />
+          </div>
+        </nav>
+      </div>
+    </transition>
   </header>
 </template>
 
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
-import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'; // 稍后创建
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue';
 
 const { t } = useI18n();
+const isMenuOpen = ref(false);
+const isMobile = ref(false);
+
+let mediaQuery;
+
+function toggleMenu() {
+  isMenuOpen.value = !isMenuOpen.value;
+}
+
+function closeMenu() {
+  isMenuOpen.value = false;
+}
+
+const updateMobileStatus = () => {
+  isMobile.value = mediaQuery.matches;
+};
+
+onMounted(() => {
+  mediaQuery = window.matchMedia('(max-width: 768px)');
+  updateMobileStatus(); // 初始设置
+  mediaQuery.addEventListener('change', updateMobileStatus); // 监听变化
+});
+
+onBeforeUnmount(() => {
+  mediaQuery.removeEventListener('change', updateMobileStatus);
+});
 </script>
 
 <style scoped lang="scss">
 @use '@/assets/styles/variables.scss' as *;
 
 .app-header {
-  background-color: var(--secondary-color);
-  padding: 1rem 2rem;
-  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px; /* 固定高度 */
+  padding: 1rem 2rem;
+  background: $white;
+  border-bottom: 1px solid $border-color;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
   box-sizing: border-box;
-}
 
-nav a {
-  color: black;
-  margin-right: 1rem;
-  font-weight: bold;
-  text-decoration: none;
-  
-  &:hover {
-    text-decoration: underline;
+  .user-info {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 0.8rem;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+
+      .user-name {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: $text-color;
+      }
+
+      .user-job {
+        font-size: 0.75rem;
+        color: color.adjust($text-color, $lightness: 30%);
+      }
+    }
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: $text-color;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .nav-link {
+      text-decoration: none;
+      color: $text-color;
+      font-size: 0.9rem;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: $primary-color;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.25s ease-out;
+      }
+
+      &:hover::after,
+      &.router-link-exact-active::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &.desktop {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 }
 
-nav a.router-link-exact-active {
-  color: var(--primary-color);
-  text-decoration: underline;
+/* Overlay for mobile menu */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: 5rem;
+
+  .mobile-menu {
+    background: $white;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+
+    .nav-link {
+      font-size: 1.2rem;
+      color: $text-color;
+      text-decoration: none;
+    }
+  }
+
+  .mobile-language-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+
+    .language-switcher {
+      position: relative !important; // 强制覆盖默认 absolute
+      transform: none !important;
+      left: auto !important;
+      top: auto !important;
+    }
+
+    .language-options {
+      top: calc(100% + 4px) !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      z-index: 2000;
+    }
+  }
+}
+
+// 动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
