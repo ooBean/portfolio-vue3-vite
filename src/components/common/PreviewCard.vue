@@ -5,7 +5,7 @@
     </div>
     <div class="content-container" v-else>
       <div class="project-preview">
-        <component :is="project.component" class="scaled-component" />
+        <component :is="project.component" class="scaled-component" :key="project.id"/>
       </div>
       <div class="project-info">
         <h3>{{ project.name }}</h3>
@@ -85,7 +85,7 @@ const emit = defineEmits(['click', 'download']);
 }
 
 .scaled-component {
-  transform: scale(0.55);
+  transform: scale(0.85);
   transform-origin: center center;
   width: 100%;
   height: auto;
