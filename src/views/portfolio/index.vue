@@ -1,54 +1,37 @@
 <template>
-  <div class="portfolio-view"> 
+  <div class="portfolio-view">
     <h1 class="view-title">{{ t('portfolio.title') }}</h1>
-    
+
     <div class="subtitle-container">
       <p class="view-description">{{ t('portfolio.description') }}</p>
-      <ThemeSwitcher 
+      <ThemeSwitcher
         :current-theme="currentTheme"
-        @theme-change="handleThemeChange" 
+        @theme-change="handleThemeChange"
       />
     </div>
 
-    <div v-if="loading" class="loading-indicator">{{ t('portfolio.loading') }}</div>
-    <div v-else-if="error" class="error-message">{{ t('portfolio.error_loading') }}</div>
-    <div v-else class="projects-grid">
-      <div
+    <div v-if="error" class="error-message">{{ t('portfolio.error_loading') }}</div>
+    <div class="projects-grid">
+      <PreviewCard
         v-for="project in projects"
         :key="project.id"
-        class="project-card"
+        :project="project"
+        :loading="loading[project.id] || false"
         @click="navigateToProject(project.route)"
-        :data-tooltip="project.name"
-      >
-        <div class="project-preview">
-          <component :is="project.component" class="scaled-component" />
-        </div>
-        <div class="project-info">
-          <h3>{{ project.name }}</h3>
-          <p class="project-description">{{ project.description }}</p>
-          <div class="project-actions">
-            <button @click.stop="navigateToProject(project.route)" class="btn-view">
-              {{ t('portfolio.view_project') }}
-            </button>
-            <!-- <button v-if="project.downloadLink" @click.stop="downloadProject(project.downloadLink)" class="btn-download">
-              {{ t('portfolio.download_source') }}
-            </button> -->
-          </div>
-        </div>
-      </div>
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import TodoListView from '@/views/portfolio/TodoListView.vue';
 import ChatView from '@/views/portfolio/ChatView.vue';
-import FormDemo from '@/views/portfolio/FormDemo.vue'; // 引入表单组件
-import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue'; // 引入组件
-
+import FormDemo from '@/views/portfolio/FormDemo.vue';
+import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
+import PreviewCard from '@/components/common/PreviewCard.vue';
 const { t } = useI18n();
 const router = useRouter();
 
@@ -82,43 +65,57 @@ onMounted(() => {
   applyThemeToGlobalElement(themeToApply); // Apply on mount
 });
 
-interface Project {
-  id: string;
-  name: string;
-  description: string;
-  component: any; // Vue component
-  route: string; // Route name
-  downloadLink?: string;
-}
-
-const loading = ref(false); // Set to true if fetching projects async
-const error = ref(false);
-
-// 动态生成项目列表，以便 t() 函数在 setup 作用域内
-const projects = computed<Project[]>(() => [
+// 项目基础列表数据，用于初始化加载状态
+const projectsList = [
   {
     id: 'todolist',
-    name: t('portfolio.todolist.title'),
-    description: t('portfolio.todolist.description'),
+    nameKey: 'portfolio.todolist.title',
+    descriptionKey: 'portfolio.todolist.description',
     component: TodoListView,
     route: 'TodoListView',
   },
   {
     id: 'chat',
-    name: t('portfolio.chat.title'),
-    description: t('portfolio.chat.description'),
+    nameKey: 'portfolio.chat.title',
+    descriptionKey: 'portfolio.chat.description',
     component: ChatView,
     route: 'ChatView',
   },
   {
     id: 'form',
-    name: t('portfolio.form.title'),
-    description: t('portfolio.form.description'),
+    nameKey: 'portfolio.form.title',
+    descriptionKey: 'portfolio.form.description',
     component: FormDemo,
     route: 'FormDemo',
   },
-  // Add more projects here
-]);
+];
+
+const loading = reactive<Record<string, boolean>>({}); // 每个项目独立loading状态
+const error = ref(false);
+
+// 动态生成项目列表，结合i18n翻译
+const projects = computed(() => {
+  return projectsList.map(p => ({
+    id: p.id,
+    name: t(p.nameKey),
+    description: t(p.descriptionKey),
+    component: p.component,
+    route: p.route
+  }));
+});
+
+// 初始化所有项目loading状态为true，模拟加载
+onMounted(() => {
+  projectsList.forEach(project => {
+    loading[project.id] = true;
+  });
+
+  projectsList.forEach((project, index) => {
+    setTimeout(() => {
+      loading[project.id] = false;
+    }, 1000 * (index + 1));
+  });
+});
 
 const navigateToProject = (routeName: string) => {
   router.push({ name: routeName });
@@ -136,7 +133,7 @@ const navigateToProject = (routeName: string) => {
   padding: 2rem;
   min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
-  background-color: var(--chat-bg, $light-grey); 
+  background-color: var(--chat-bg, $light-grey);
   color: var(--chat-text-color, $text-color);
 }
 
@@ -172,7 +169,7 @@ const navigateToProject = (routeName: string) => {
     align-items: center;
     text-align: center;
   }
-  
+
   .view-description {
     margin-bottom: 1rem;
     text-align: center;
@@ -200,7 +197,7 @@ const navigateToProject = (routeName: string) => {
   border-radius: $border-radius-lg;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
               background-color 0.3s ease; // Added background transition
   cursor: pointer;
@@ -244,53 +241,53 @@ const navigateToProject = (routeName: string) => {
   height: 220px;
   overflow: hidden;
   position: relative;
-  background: var(--chat-messages-bg, $light-grey); // Themeable preview background
+  background: var(--chat-messages-bg, $light-grey);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid var(--chat-title-border, $grey-light); // Themeable border
+  border-bottom: 1px solid var(--chat-title-border, $grey-light);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .scaled-component {
-  transform: scale(0.55); // Adjust as needed
+  transform: scale(0.55);
   transform-origin: center center;
   width: 100%;
-  height: auto; // Allow component to define its height within scale
-  max-width: 500px; // Example max width
+  height: auto;
+  max-width: 500px;
   pointer-events: none;
 }
 
 .project-info {
   padding: 1.25rem;
   text-align: left;
-  flex-grow: 1; // Allows info to take remaining space
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; // Pushes actions to bottom if description is short
-  color: inherit; // Inherit from .project-card which inherits from .portfolio-view
+  justify-content: space-between;
+  color: inherit;
+}
 
-  h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: inherit;
-  }
+.project-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: inherit;
+}
 
-  .project-description {
-    font-size: 0.9rem;
-    opacity: 0.8; // Use opacity instead of hardcoded color
-    margin-bottom: 1rem;
-    line-height: 1.5;
-    flex-grow: 1;
-    color: inherit;
-  }
+.project-description {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  flex-grow: 1;
+  color: inherit;
 }
 
 .project-actions {
   display: flex;
   gap: 8px;
-  margin-top: 0.5rem; // Auto margin if description is short
+  margin-top: 0.5rem;
   opacity: 0;
   max-height: 0;
   overflow: hidden;
@@ -300,32 +297,27 @@ const navigateToProject = (routeName: string) => {
               max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
               margin-top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
               transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
-  button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.85rem;
-    border: none;
-    border-radius: $border-radius-sm;
-    cursor: pointer;
-    will-change: transform, opacity;
-    transform: translateY(12px);
-    opacity: 0;
-    transition: background-color 0.25s ease, 
-                transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                opacity 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
-                color 0.3s ease; // Added color transition
+.project-actions button {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  will-change: transform, opacity;
+  transform: translateY(12px);
+  opacity: 0;
+  transition: background-color 0.25s ease,
+              transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+              color 0.3s ease;
+}
 
-    &.btn-view {
-      background-color: var(--chat-accent-color, $primary-color); // Themeable
-      color: var(--chat-button-text-color, white); // Themeable
-      transition-delay: 0.05s;
-
-      &:hover {
-        filter: brightness(90%);
-        transform: translateY(-2px);
-      }
-    }
-  }
+.project-actions button.btn-view {
+  background-color: var(--chat-accent-color, $primary-color);
+  color: var(--chat-button-text-color, white);
+  transition-delay: 0.05s;
 }
 
 .project-card:hover .project-actions {
@@ -333,14 +325,11 @@ const navigateToProject = (routeName: string) => {
   max-height: 60px;
   margin-top: 0.8rem;
   transform: scaleY(1);
-
-  button {
-    transform: translateY(0);
-    opacity: 1;
-    &:nth-child(2) { transition-delay: 0.08s; }
-  }
 }
 
-// Ensure portfolio.chat.description is added to your locale files
-// e.g., "description": "A simple real-time chat application demo using simulated WebSocket.",
+.project-card:hover .project-actions button {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.08s;
+}
 </style>

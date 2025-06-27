@@ -244,3 +244,41 @@ $form-theme-warm-button-border: transparent;
 $form-theme-warm-error-color: #e06d6d;
 $form-theme-warm-success-color: #6dd48a;
 $form-theme-warm-label-color: color.adjust($chat-theme-warm-text-color, $lightness: -15%);
+
+
+
+// variables.scss
+:root {
+  --language-switcher-text-color: #BDBDBD;
+  --language-switcher-dropdown-bg: #fff;
+  --language-switcher-dropdown-text: #333;
+  --language-switcher-dropdown-hover-bg: #f3f3f3;
+  // ...
+}
+
+
+
+[data-theme='dark'] {
+  --language-switcher-text-color: #888; // 深色模式下的颜色
+  --language-switcher-dropdown-bg: #333;
+  --language-switcher-dropdown-text: #eee;
+  --language-switcher-dropdown-hover-bg: #444;
+}
+
+
+
+// LanguageSwitcher.vue style
+.language-switcher {
+  .language-display {
+    color: var(--language-switcher-text-color);
+  }
+  .language-options {
+    background: var(--language-switcher-dropdown-bg);
+    li {
+      color: var(--language-switcher-dropdown-text);
+      &:hover {
+        background-color: var(--language-switcher-dropdown-hover-bg);
+      }
+    }
+  }
+}
