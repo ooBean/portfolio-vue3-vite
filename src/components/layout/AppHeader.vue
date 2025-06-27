@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header">
+  <header class="app-header" :class="{ 'dark-theme-text': uiStore.theme === 'theme-dark' }">
     <div class="user-info">
       <img src="@/assets/images/profile-avatar.jpg" alt="User Avatar" />
       <div class="details">
@@ -37,16 +37,18 @@
   </header>
 </template>
 
-<script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue';
+import { useUiStore } from '@/store/modules/uiStore';
 
 const { t } = useI18n();
 const isMenuOpen = ref(false);
 const isMobile = ref(false);
+const uiStore = useUiStore();
 
-let mediaQuery;
+let mediaQuery: MediaQueryList;
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value;
@@ -62,8 +64,8 @@ const updateMobileStatus = () => {
 
 onMounted(() => {
   mediaQuery = window.matchMedia('(max-width: 768px)');
-  updateMobileStatus(); // 初始设置
-  mediaQuery.addEventListener('change', updateMobileStatus); // 监听变化
+  updateMobileStatus();
+  mediaQuery.addEventListener('change', updateMobileStatus);
 });
 
 onBeforeUnmount(() => {
@@ -79,13 +81,16 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: $white;
-  border-bottom: 1px solid $border-color;
+  background-color: var(--header-bg, $white);
+  border-bottom: 1px solid var(--header-border, $border-color);
+  box-shadow: var(--header-shadow, none);
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
   box-sizing: border-box;
+
+  min-height: 56px;
 
   .user-info {
     display: flex;
@@ -106,12 +111,12 @@ onBeforeUnmount(() => {
       .user-name {
         font-weight: 600;
         font-size: 0.95rem;
-        color: $text-color;
+        color: var(--text-color);
       }
 
       .user-job {
         font-size: 0.75rem;
-        color: color.adjust($text-color, $lightness: 30%);
+        color: rgba(var(--text-color-rgb), 0.7);
       }
     }
   }
@@ -121,7 +126,7 @@ onBeforeUnmount(() => {
     background: none;
     border: none;
     font-size: 1.6rem;
-    color: $text-color;
+    color: var(--text-color);
     cursor: pointer;
 
     @media (max-width: 768px) {
@@ -136,7 +141,7 @@ onBeforeUnmount(() => {
 
     .nav-link {
       text-decoration: none;
-      color: $text-color;
+      color: var(--text-color);
       font-size: 0.9rem;
       position: relative;
 
@@ -180,7 +185,7 @@ onBeforeUnmount(() => {
   padding-top: 5rem;
 
   .mobile-menu {
-    background: $white;
+    background: var(--background-color);
     padding: 2rem 1.5rem;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -191,7 +196,7 @@ onBeforeUnmount(() => {
 
     .nav-link {
       font-size: 1.2rem;
-      color: $text-color;
+      color: var(--text-color);
       text-decoration: none;
     }
   }
@@ -227,5 +232,9 @@ onBeforeUnmount(() => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.theme-dark-text {
+  color: $light-text-color !important;
 }
 </style>

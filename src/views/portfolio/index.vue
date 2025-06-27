@@ -1,5 +1,5 @@
 <template>
-  <div class="portfolio-view">
+  <div :class="['portfolio-view', { 'light-theme-override': !isPortfolioRoute }]">
     <h1 class="view-title">{{ t('portfolio.title') }}</h1>
 
     <div class="subtitle-container">
@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, onMounted, computed, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import ChatView from '@/views/portfolio/ChatView.vue';
 import FormDemo from '@/views/portfolio/FormDemo.vue';
@@ -33,42 +33,60 @@ import Todo from '@/views/portfolio/Todo.vue';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
 import PreviewCard from '@/components/common/PreviewCard.vue';
 import { usePortfolioStore } from '@/store/modules/portfolioStore';
+import { useUiStore } from '@/store/modules/uiStore';
+
+type Theme = 'theme-light' | 'theme-dark' | 'theme-warm';
 
 const { t } = useI18n();
 const router = useRouter();
+const route = useRoute();
 const portfolioStore = usePortfolioStore();
+const uiStore = useUiStore();
 
-// 主题管理
-const defaultTheme = 'theme-light';
-const currentTheme = ref(defaultTheme);
-const THEME_STORAGE_KEY = 'portfolio-selected-theme';
+// 检测当前路由是否 portfolio 或其子路由
+const isPortfolioRoute = computed(() => {
+  return route.name === 'Portfolio' ||
+         (typeof route.name === 'string' && route.name.startsWith('Portfolio'));
+});
 
-// Function to apply theme class to a global element (e.g., body)
-const applyThemeToGlobalElement = (themeClassName: string) => {
-  const themes = ['theme-light', 'theme-dark', 'theme-warm'];
-  // Remove any existing theme classes from body
+function isTheme(value: any): value is Theme {
+  return ['theme-light', 'theme-dark', 'theme-warm'].includes(value);
+}
+
+const applyThemeToGlobalElement = (themeClassName: Theme) => {
+  const themes: Theme[] = ['theme-light', 'theme-dark', 'theme-warm'];
   document.body.classList.remove(...themes);
-  // Add the new theme class
   document.body.classList.add(themeClassName);
 };
 
+const currentTheme = ref<Theme>(uiStore.theme);
+const THEME_STORAGE_KEY = 'portfolio-selected-theme';
+
 const handleThemeChange = (themeClassName: string) => {
-  currentTheme.value = themeClassName;
-  localStorage.setItem(THEME_STORAGE_KEY, themeClassName);
-  applyThemeToGlobalElement(themeClassName); // Apply to body
+  if (isTheme(themeClassName)) {
+    currentTheme.value = themeClassName;
+    uiStore.setTheme(themeClassName);
+    sessionStorage.setItem(THEME_STORAGE_KEY, themeClassName);
+    applyThemeToGlobalElement(themeClassName);
+  }
 };
 
+watch(() => route.name, (newName) => {
+  // 无操作，仅触发响应式更新
+});
+
 onMounted(() => {
-  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-  let themeToApply = defaultTheme;
-  if (savedTheme && ['theme-light', 'theme-dark', 'theme-warm'].includes(savedTheme)) {
+  uiStore.initTheme();
+  const savedTheme = sessionStorage.getItem(THEME_STORAGE_KEY);
+  let themeToApply: Theme = uiStore.theme;
+  if (savedTheme && isTheme(savedTheme)) {
     themeToApply = savedTheme;
   }
   currentTheme.value = themeToApply;
-  applyThemeToGlobalElement(themeToApply); // Apply on mount
+  applyThemeToGlobalElement(themeToApply);
+  portfolioStore.initLoading();
 });
 
-// 项目基础列表数据，用于初始化加载状态
 const projectsList = [
   {
     id: 'todo',
@@ -77,7 +95,6 @@ const projectsList = [
     component: Todo,
     route: 'Todo',
   },
-  
   {
     id: 'chat',
     nameKey: 'portfolio.chat.title',
@@ -96,7 +113,6 @@ const projectsList = [
 
 const error = ref(false);
 
-// 动态生成项目列表，结合i18n翻译
 const projects = computed(() => {
   return projectsList.map(p => ({
     id: p.id,
@@ -107,18 +123,9 @@ const projects = computed(() => {
   }));
 });
 
-// 初始化 loading 使用 pinia 状态
-onMounted(() => {
-  portfolioStore.initLoading();
-});
-
 const navigateToProject = (routeName: string) => {
   router.push({ name: routeName });
 };
-
-// const downloadProject = (link: string) => {
-//   window.open(link, '_blank');
-// };
 </script>
 
 <style scoped lang="scss">
@@ -131,6 +138,15 @@ const navigateToProject = (routeName: string) => {
   background-color: var(--chat-bg, $light-grey);
   color: var(--chat-text-color, $text-color);
 }
+
+// 非 portfolio 路由 强制使用 light 主题部分色值覆盖
+.light-theme-override {
+  background-color: #fff !important;
+  color: #2c3e50 !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  box-shadow: 0 0 10px rgba(224, 224, 224, 0.6) !important;
+}
+// 以上仅调整最明显属性，如需更细的覆盖可再补充
 
 .view-title {
   font-size: 2.5rem;
@@ -171,7 +187,6 @@ const navigateToProject = (routeName: string) => {
   }
 }
 
-/* 其余样式保持不变 */
 .loading-indicator, .error-message {
   text-align: center;
   font-size: 1.2rem;

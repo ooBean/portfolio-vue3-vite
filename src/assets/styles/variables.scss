@@ -1,6 +1,8 @@
 @use "sass:color";
 
+//
 // SCSS Variables
+//
 
 // Colors
 $primary-color: #FFC0CB;
@@ -174,7 +176,6 @@ $todolist-theme-warm-form-button-bg: color.adjust($chat-theme-warm-accent-color,
 $todolist-theme-warm-form-button-text: $chat-theme-warm-button-text;
 $todolist-theme-warm-form-button-border: transparent;
 
-
 // --- Togglebutton Component Theme Colors ---
 
 // Light Togglebutton Theme (updated to new style)
@@ -245,27 +246,28 @@ $form-theme-warm-error-color: #e06d6d;
 $form-theme-warm-success-color: #6dd48a;
 $form-theme-warm-label-color: color.adjust($chat-theme-warm-text-color, $lightness: -15%);
 
-
-
 // variables.scss
 :root {
   --language-switcher-text-color: #BDBDBD;
   --language-switcher-dropdown-bg: #fff;
   --language-switcher-dropdown-text: #333;
   --language-switcher-dropdown-hover-bg: #f3f3f3;
-  // ...
+  --header-bg: #ffffff; // 浅色主题默认白色背景
+  --header-border: #e0e0e0; // 浅色主题边框颜色
+  --header-shadow: none;
+  --text-color: #2c3e50; /* 新增浅色主题文字颜色变量，与 $text-color 一致 */
 }
 
-
-
-[data-theme='dark'] {
+body.theme-dark, .theme-dark {
   --language-switcher-text-color: #888; // 深色模式下的颜色
   --language-switcher-dropdown-bg: #333;
   --language-switcher-dropdown-text: #eee;
   --language-switcher-dropdown-hover-bg: #444;
+  --header-bg: #2a2f35; // 深色主题柔和的蓝灰色背景
+  --header-border: rgba(255, 255, 255, 0.1); // 深色主题较淡白色边框
+  --header-shadow: 0 1px 8px rgba(0, 0, 0, 0.3); // 深色主题轻微阴影
+  --text-color: #ffffffde; /* 新增深色主题文字颜色变量，与 $light-text-color 一致 */
 }
-
-
 
 // LanguageSwitcher.vue style
 .language-switcher {

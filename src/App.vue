@@ -1,15 +1,24 @@
 <script setup lang="ts">
-// App.vue 不需要导入 MainLayout
+import { watch } from 'vue';
+import { useUiStore } from '@/store/modules/uiStore';
+
+const uiStore = useUiStore();
+
+watch(
+  () => uiStore.theme,
+  (newTheme) => {
+    const themes = ['theme-light', 'theme-dark', 'theme-warm'];
+    document.body.classList.remove(...themes);
+    if (themes.includes(newTheme)) {
+      document.body.classList.add(newTheme);
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
-  <keep-alive>
-    <router-view v-slot="{ Component, route }">
-      <transition :name="route.meta.transition || 'fade'" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
-  </keep-alive>
+  <router-view />
 </template>
 
 <style lang="scss">
