@@ -27,11 +27,13 @@
     "load_error": "載入作品失敗: {error}",
     "project_placeholder": "專案 {number}",
     "todolist": {
+      "input_placeholder": "請輸入待辦事項",
       "title": "待辦事項",
       "subtitle": "一次完成一項待辦。",
       "empty_list": "你的待辦列表是空的。",
       "add_item_label": "添加到待辦列表",
       "add_item_button": "添加待辦",
+      "all": "全部",
       "mark_as_done": "完成",
       "mark_as_undone": "未完成",
       "delete": "刪除",

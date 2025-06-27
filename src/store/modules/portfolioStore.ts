@@ -4,7 +4,7 @@ import { ref, reactive } from 'vue';
 export const usePortfolioStore = defineStore('portfolio', () => {
   const loading = reactive<Record<string, boolean>>({});
   const projectsList = [
-    { id: 'todolist' },
+    { id: 'todo' },
     { id: 'chat' },
     { id: 'form' },
   ];

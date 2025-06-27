@@ -27,6 +27,7 @@
     "load_error": "加载作品失败: {error}",
     "project_placeholder": "项目 {number}",
     "todolist": {
+      "input_placeholder": "请输入待办事项",
       "title": "待办事项",
       "subtitle": "一次完成一项代办。",
       "empty_list": "你的待办列表是空的。",
@@ -34,6 +35,7 @@
       "add_item_button": "添加代办",
       "mark_as_done": "完成",
       "mark_as_undone": "未完成",
+      "all": "全部",
       "delete": "删除",
       "sort_toggle": "将已完成任务移到末尾？",
       "items": {

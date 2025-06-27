@@ -27,9 +27,9 @@
 import { ref, onMounted, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import TodoListView from '@/views/portfolio/TodoListView.vue';
 import ChatView from '@/views/portfolio/ChatView.vue';
 import FormDemo from '@/views/portfolio/FormDemo.vue';
+import Todo from '@/views/portfolio/Todo.vue';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
 import PreviewCard from '@/components/common/PreviewCard.vue';
 import { usePortfolioStore } from '@/store/modules/portfolioStore';
@@ -71,12 +71,13 @@ onMounted(() => {
 // 项目基础列表数据，用于初始化加载状态
 const projectsList = [
   {
-    id: 'todolist',
+    id: 'todo',
     nameKey: 'portfolio.todolist.title',
     descriptionKey: 'portfolio.todolist.description',
-    component: TodoListView,
-    route: 'TodoListView',
+    component: Todo,
+    route: 'Todo',
   },
+  
   {
     id: 'chat',
     nameKey: 'portfolio.chat.title',

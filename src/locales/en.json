@@ -27,11 +27,13 @@
     "load_error": "Failed to load projects: {error}",
     "project_placeholder": "Project {number}",
     "todolist": {
+      "input_placeholder": "Please enter a todo item",
       "title": "Todo List",
       "subtitle": "Get things done, one item at a time.",
       "empty_list": "Your todo list is empty.",
       "add_item_label": "Add to the todo list",
       "add_item_button": "Add item",
+      "all": "All",
       "mark_as_done": "Done",
       "mark_as_undone": "Undone",
       "delete": "Delete",

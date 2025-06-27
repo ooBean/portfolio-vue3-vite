@@ -26,9 +26,9 @@ const routes: Array<RouteRecordRaw> = [
         meta: { transition: 'slide-right' }
       },
       {
-        path: 'portfolio/todoListView',
-        name: 'TodoListView',
-        component: () => import('@/views/portfolio/TodoListView.vue'),
+        path: 'portfolio/Todo',
+        name: 'Todo',
+        component: () => import('@/views/portfolio/Todo.vue'),
         meta: { transition: 'slide-right' }
       },
       {
