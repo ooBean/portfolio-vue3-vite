@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import MainLayout from '@/components/layout/MainLayout.vue';
+// App.vue 不需要导入 MainLayout
 </script>
 
 <template>
-  <MainLayout>
+  <keep-alive>
     <router-view v-slot="{ Component, route }">
       <transition :name="route.meta.transition || 'fade'" mode="out-in">
         <component :is="Component" />
       </transition>
     </router-view>
-  </MainLayout>
+  </keep-alive>
 </template>
 
 <style lang="scss">

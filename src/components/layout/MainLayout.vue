@@ -4,7 +4,7 @@
     <div class="top-visual-bar"></div>
     <AppHeader class="fixed-header" />
     <main class="main-content">
-      <slot></slot>
+      <router-view />
     </main>
     <AppFooter class="fixed-footer" />
   </div>
@@ -51,7 +51,7 @@ import AppFooter from './AppFooter.vue';
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
-  
+
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }

@@ -16,7 +16,7 @@
         v-for="project in projects"
         :key="project.id"
         :project="project"
-        :loading="loading[project.id] || false"
+        :loading="portfolioStore.loading[project.id] || false"
         @click="navigateToProject(project.route)"
       />
     </div>
@@ -32,8 +32,11 @@ import ChatView from '@/views/portfolio/ChatView.vue';
 import FormDemo from '@/views/portfolio/FormDemo.vue';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
 import PreviewCard from '@/components/common/PreviewCard.vue';
+import { usePortfolioStore } from '@/store/modules/portfolioStore';
+
 const { t } = useI18n();
 const router = useRouter();
+const portfolioStore = usePortfolioStore();
 
 // 主题管理
 const defaultTheme = 'theme-light';
@@ -90,7 +93,6 @@ const projectsList = [
   },
 ];
 
-const loading = reactive<Record<string, boolean>>({}); // 每个项目独立loading状态
 const error = ref(false);
 
 // 动态生成项目列表，结合i18n翻译
@@ -104,17 +106,9 @@ const projects = computed(() => {
   }));
 });
 
-// 初始化所有项目loading状态为true，模拟加载
+// 初始化 loading 使用 pinia 状态
 onMounted(() => {
-  projectsList.forEach(project => {
-    loading[project.id] = true;
-  });
-
-  projectsList.forEach((project, index) => {
-    setTimeout(() => {
-      loading[project.id] = false;
-    }, 1000 * (index + 1));
-  });
+  portfolioStore.initLoading();
 });
 
 const navigateToProject = (routeName: string) => {
