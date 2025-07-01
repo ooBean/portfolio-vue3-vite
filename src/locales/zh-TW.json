@@ -28,7 +28,7 @@
     "load_error": "載入作品失敗: {error}",
     "project_placeholder": "專案 {number}",
     "todolist": {
-      "description": "這是一個簡單的待辦事項列表應用。",
+      "description": "這是一個簡單、直觀且高效的待辦事項列表應用。",
       "input_placeholder": "請輸入待辦事項",
       "title": "待辦事項",
       "subtitle": "一次完成一項待辦。",

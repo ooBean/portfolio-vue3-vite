@@ -30,7 +30,7 @@
     "todolist": {
       "input_placeholder": "请输入待办事项",
       "title": "待办事项",
-      "description": "这是一个简单的待办事项列表应用。",
+      "description": "这是一个简单、直观且高效的待办事项列表应用。",
       "subtitle": "一次完成一项代办。",
       "empty_list": "你的待办列表是空的。",
       "add_item_label": "添加到待办列表",
