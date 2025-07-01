@@ -138,6 +138,61 @@ function setStatus(status: 'all' | 'work' | 'done') {
     display: none;
   }
 
+  &[preview="true"] {
+    /* 限制整体最大宽度为100%，防止溢出 */
+    max-width: 100% !important;
+    padding: 0.8rem !important;
+
+    .todolist-form {
+      width: 100%;
+      margin-top: 0.5rem !important;
+      display: flex;
+      flex-direction: column;
+
+      .form-header {
+        flex-direction: column;
+      }
+
+      .form-input-group {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 0.3rem;
+
+        input, button {
+          height: 2.8rem !important;
+          font-size: 0.9rem !important;
+          border-radius: 4px !important;
+        }
+
+        input {
+          flex-grow: 1;
+          min-width: 0;
+        }
+
+        button {
+          flex-shrink: 0;
+          padding: 0 1rem;
+        }
+      }
+    }
+
+    .todolist-content {
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+      padding: 0.5rem 0 !important;
+      margin-top: 0.8rem !important;
+
+      .tab {
+        margin-bottom: 1rem !important;
+      }
+
+      .todolist-items {
+        max-height: 160px !important;
+        padding-right: 6px !important;
+      }
+    }
+  }
+
   .todolist-form {
     margin-top: 1rem;
     display: flex;
