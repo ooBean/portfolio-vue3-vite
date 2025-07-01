@@ -50,6 +50,11 @@ const emit = defineEmits(['click', 'download']);
               background-color 0.3s ease;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .loading-container, .content-container {
@@ -75,13 +80,32 @@ const emit = defineEmits(['click', 'download']);
 .project-preview {
   height: 220px;
   width: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
-  background: var(--chat-messages-bg, #f8f9fa);
-  border-bottom: 1px solid var(--chat-title-border, #eeeeee);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  border-radius: 12px 12px 0 0;
+  box-shadow: inset 0 0 30px 10px rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.3);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+
+  /* Hide scrollbar for Webkit browsers */
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  @media (max-width: 480px) {
+    height: 180px;
+  }
 }
 
 .scaled-component {
@@ -91,6 +115,10 @@ const emit = defineEmits(['click', 'download']);
   height: auto;
   max-width: 500px;
   pointer-events: none;
+
+  @media (max-width: 480px) {
+    transform: scale(0.7);
+  }
 }
 
 .project-info {
@@ -101,6 +129,11 @@ const emit = defineEmits(['click', 'download']);
   flex-direction: column;
   justify-content: space-between;
   color: inherit;
+
+  @media(max-width: 480px) {
+    height: auto;
+    padding: 0.75rem 1rem;
+  }
 }
 
 .project-info h3 {
