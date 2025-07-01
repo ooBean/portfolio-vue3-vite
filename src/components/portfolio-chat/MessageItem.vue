@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
 
 const props = defineProps<{ message: { text: string; personal?: boolean; loading?: boolean; timestamp?: string } }>()
 </script>

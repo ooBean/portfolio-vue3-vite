@@ -1,8 +1,8 @@
 <template>
-  <div class="back-link-wrapper">
-    <BackLink component="chat" class="top-right-link" />
+  <div class="back-link-wrapper" :preview="previewMode">
+    <BackLink v-if="!hideBackLink" component="chat" class="top-right-link" />
   </div>
-  <div class="chat">
+  <div class="chat" :class="{ 'preview-mode': previewMode }">
     <div class="chat-title">
       <h1>{{ t('home.user_name_placeholder') }}</h1>
       <h2>{{ t('home.job') }}</h2>
@@ -10,14 +10,14 @@
         <img src="@/assets/images/profile-avatar.jpg" />
       </figure>
     </div>
-    <div class="messages">
+    <div class="messages" >
       <div class="messages-content" ref="messagesContent">
         <MessageItem v-for="(message, index) in messageList" :key="index" :message="message" />
       </div>
     </div>
     <div class="message-box">
-      <textarea v-model="inputMessage" ref="messageInput" class="message-input" :placeholder="t('portfolio.chat.input_placeholder')"
-        @keydown.enter.prevent="sendMessage"></textarea>
+      <textarea v-model="inputMessage" ref="messageInput" class="message-input"
+        :placeholder="t('portfolio.chat.input_placeholder')" @keydown.enter.prevent="sendMessage"></textarea>
       <button class="message-submit" @click="sendMessage">{{ t('portfolio.chat.send_button') }}</button>
     </div>
   </div>
@@ -46,7 +46,10 @@ const messageList = ref<
 >([])
 const currentTheme = uiStore.theme
 const messageInput = ref<HTMLTextAreaElement | null>(null)
-
+const props = defineProps({
+  previewMode: { type: Boolean, default: false },
+  hideBackLink: { type: Boolean, default: false }
+});
 onMounted(() => {
   setTimeout(() => {
     fakeMessage()
@@ -54,6 +57,8 @@ onMounted(() => {
   if (messageInput.value) {
     messageInput.value.focus()
   }
+  // 确保初次渲染调用滚动
+  updateScrollbar()
 })
 
 const messagesMap = {
@@ -138,7 +143,13 @@ function getTimestamp(): string {
 
 function updateScrollbar() {
   if (!messagesContent.value) return
-  messagesContent.value.scrollTop = messagesContent.value.scrollHeight
+  if (props.previewMode) {
+    console.log('Preview mode: scrollTop forced to 0')
+    messagesContent.value.scrollTop = 0
+  } else {
+    console.log('Normal mode: scroll to bottom')
+    messagesContent.value.scrollTop = messagesContent.value.scrollHeight
+  }
 }
 
 function sendMessage() {
@@ -263,20 +274,23 @@ function fakeMessage() {
       transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 
       &:hover {
-        background-color: rgba(var(--chat-accent-color-rgb, 86,153,233), 0.85);
+        background-color: rgba(var(--chat-accent-color-rgb, 86, 153, 233), 0.85);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         transform: translateY(-2px);
       }
+
       &:active {
-        background-color: rgba(var(--chat-accent-color-rgb, 86,153,233), 0.75);
+        background-color: rgba(var(--chat-accent-color-rgb, 86, 153, 233), 0.75);
         box-shadow: none;
         transform: translateY(0);
       }
     }
   }
 
-  &.theme-dark, &[data-theme='theme-dark'] {
+  &.theme-dark,
+  &[data-theme='theme-dark'] {
     background: rgba(20, 20, 20, 0.85) !important;
+
     .chat-title {
       background: rgba(40, 40, 40, 0.95) !important;
       color: #f0f0f0 !important;
@@ -352,6 +366,11 @@ Chat Container
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+
+  &.preview-mode {
+    height: auto !important;
+    max-height: none !important;
+  }
 }
 
 /*--------------------
@@ -411,115 +430,15 @@ Messages
   position: relative;
   width: 100%;
 
-  .messages-content {
-    padding: 0 0.5rem 0 0.5rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 101%;
-    width: 100%;
-  }
+  &.preview-mode {
+    height: auto !important;
+    overflow: visible !important;
 
-  .message {
-    clear: both;
-    float: left;
-    padding: 6px 10px 7px;
-    border-radius: 10px 10px 10px 0;
-    background: rgba(0, 0, 0, .3);
-    margin: 8px 0;
-    font-size: 11px;
-    line-height: 1.4;
-    margin-left: 35px;
-    position: relative;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
-
-    .timestamp {
-      position: absolute;
-      bottom: -15px;
-      font-size: 9px;
-      color: rgba(255, 255, 255, .3);
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      border-top: 6px solid rgba(0, 0, 0, .3);
-      left: 0;
-      border-right: 7px solid transparent;
-    }
-
-    .avatar {
-      position: absolute;
-      z-index: 1;
-      bottom: -15px;
-      left: -35px;
-      border-radius: 30px;
-      width: 30px;
-      height: 30px;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-      border: 2px solid rgba(255, 255, 255, 0.24);
-
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-
-    &.message-personal {
-      float: right;
-      color: #fff;
-      text-align: right;
-      background: linear-gradient(120deg, var(--primary-color-start, #5699e9), var(--primary-color-end, #257287));
-      border-radius: 10px 10px 0 10px;
-
-      &::before {
-        left: auto;
-        right: 0;
-        border-right: none;
-        border-left: 5px solid transparent;
-        border-top: 4px solid var(--primary-color-end, #257287);
-        bottom: -4px;
-      }
-    }
-
-    &:last-child {
-      margin-bottom: 30px;
-    }
-
-    &.new {
-      transform: scale(0);
-      transform-origin: 0 0;
-      animation: bounce 500ms linear both;
-    }
-
-    &.loading {
-      &::before {
-        @include ball;
-        border: none;
-        animation-delay: .15s;
-      }
-
-      span {
-        display: block;
-        font-size: 0;
-        width: 20px;
-        height: 10px;
-        position: relative;
-
-        &::before {
-          @include ball;
-          margin-left: -7px;
-        }
-
-        &::after {
-          @include ball;
-          margin-left: 7px;
-          animation-delay: .3s;
-        }
-      }
+    .messages-content {
+      position: static !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
     }
   }
 }
@@ -570,15 +489,20 @@ Message Input Box
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 
     &:hover {
-      background-color: rgba(var(--chat-accent-color-rgb, 86,153,233), 0.85);
+      background-color: rgba(var(--chat-accent-color-rgb, 86, 153, 233), 0.85);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       transform: translateY(-2px);
     }
+
     &:active {
-      background-color: rgba(var(--chat-accent-color-rgb, 86,153,233), 0.75);
+      background-color: rgba(var(--chat-accent-color-rgb, 86, 153, 233), 0.75);
       box-shadow: none;
       transform: translateY(0);
     }
+  }
+
+  &.preview-mode {
+    display: none !important;
   }
 }
 

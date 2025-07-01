@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts" name="Todo">
-import { ref, computed, watch, onMounted, defineProps } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useUiStore } from '@/store/modules/uiStore';
 import BackLink from '@/components/common/BackLink.vue';
@@ -121,7 +121,7 @@ function setStatus(status: 'all' | 'work' | 'done') {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .todo {
   margin: 1rem !important;

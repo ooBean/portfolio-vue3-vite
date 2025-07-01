@@ -4,10 +4,9 @@
       <Loading />
     </div>
     <div class="content-container" v-else>
-      <div class="project-preview">
+      <div class="project-preview preview-mode">
         <component
           :is="project.component"
-          class="scaled-component"
           :key="project.id"
           v-bind="{ previewMode: true, hideBackLink: true }"
         />
@@ -43,7 +42,7 @@ const emit = defineEmits(['click', 'download']);
 .project-card {
   position: relative;
   width: 320px;
-  height: 340px; /* 固定整体卡片高度，220 + 120 */
+  height: 340px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -82,7 +81,7 @@ const emit = defineEmits(['click', 'download']);
 }
 
 .project-preview {
-  height: 280px; /* 由220增加至280 */
+  height: 280px;
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -104,24 +103,23 @@ const emit = defineEmits(['click', 'download']);
   }
 
   /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
   @media (max-width: 480px) {
-    height: 220px; /* 响应式下比默认高一些 */
+    height: 220px;
   }
 }
 
-.scaled-component {
-  transform: scale(0.95); /* 由0.85提升到0.95，更大显示 */
-  transform-origin: top center; /* 调整缩放起点，减少顶部空白 */
-  width: 100%;
-  height: auto;
-  max-width: 500px;
-  pointer-events: none;
-
-  @media (max-width: 480px) {
-    transform: scale(0.85); /* 移动端稍小一些，但较之前大 */
+/* 新增仅对预览模式内部内容生效的限定样式 */
+.preview-mode {
+  .scaled-component {
+    transform: scale(0.95) !important;
+    transform-origin: top center !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 500px !important;
+    pointer-events: none !important;
   }
 }
 
