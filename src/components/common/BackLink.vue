@@ -50,27 +50,34 @@ defineProps({
   text-decoration: none;
   opacity: 0.7;
   transition: all 0.3s ease;
-  
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
   &.top-right-link {
     font-size: 0.85rem; // 略微缩小右上方位置的字体
   }
-  
+
   &:not(.light) {
     color: var(--todolist-text-color, var(--chat-text-color, $text-color));
   }
-  
+
   &.light {
     color: var(--light-text-color, #fff);
   }
-  
+
   i {
     font-size: 1.1rem;
     margin-right: 0.25rem;
   }
-  
+
   span {
     position: relative;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -79,21 +86,18 @@ defineProps({
       width: 0;
       height: 1px;
       transition: width 0.3s ease;
+      background-color: currentColor;
     }
   }
-  
+
   &:hover {
     opacity: 1;
-    
+
     span::after {
       width: 100%;
     }
   }
-  
-  &:not(.light):hover span::after {
-    background-color: var(--todolist-text-color, var(--chat-text-color, $text-color));
-  }
-  
+
   &.light:hover span::after {
     background-color: var(--light-text-color, #fff);
   }
