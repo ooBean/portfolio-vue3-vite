@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
 import Loading from '@/components/common/Loading.vue';
 
 interface Project {
