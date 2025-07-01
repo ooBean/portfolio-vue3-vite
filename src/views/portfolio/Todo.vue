@@ -286,16 +286,13 @@ function setStatus(status: 'all' | 'work' | 'done') {
       border-bottom: 1px solid var(--todolist-form-input-border);
       overflow-x: auto !important;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      /* Firefox */
-      -ms-overflow-style: none;
-      /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
       white-space: nowrap;
     }
 
     .tab::-webkit-scrollbar {
-      display: none;
-      /* Chrome, Safari, Opera */
+      display: none; /* Chrome, Safari, Opera */
       width: 0px;
       height: 0px;
     }
@@ -347,16 +344,12 @@ function setStatus(status: 'all' | 'work' | 'done') {
       margin: 0;
       max-height: 260px;
       overflow-y: auto;
-      padding-right: 8px;
-      /* Add slight padding to avoid scrollbar overlap */
-      scrollbar-width: none;
-      /* Firefox */
-      -ms-overflow-style: none;
+      padding-right: 8px; /* Add slight padding to avoid scrollbar overlap */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
 
-      /* IE and Edge */
       &::-webkit-scrollbar {
-        display: none;
-        /* Chrome, Safari, Opera */
+        display: none; /* Chrome, Safari, Opera */
         width: 0px !important;
         height: 0px !important;
       }
@@ -455,14 +448,12 @@ function setStatus(status: 'all' | 'work' | 'done') {
 }
 
 .todolist-item .checkbox span {
-  flex-grow: 1;
-  /* Make label use available space for alignment */
+  flex-grow: 1; /* Make label use available space for alignment */
 }
 
 .todolist-item .checkbox input[type="checkbox"] {
   margin: 0;
-  margin-right: 8px;
-  /* Adjust the right margin for spacing */
+  margin-right: 8px; /* Adjust the right margin for spacing */
   vertical-align: middle;
   position: relative;
   width: 20px;
