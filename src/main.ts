@@ -35,6 +35,10 @@ app.use(pinia)
 app.use(router)
 app.use(i18n)
 
+// 导入并注册自定义指令
+import focusDirective from '@/directives/focus';
+app.directive('focus', focusDirective);
+
 // 初始化store
 const uiStore = useUiStore()
 uiStore.initTheme()

@@ -6,14 +6,8 @@
         <BackLink v-if="!hideBackLink" component="todolist" class="top-right-link" />
       </div>
       <div class="form-input-group">
-        <input
-          v-focus
-          type="text"
-          id="newitem"
-          name="newitem"
-          v-model="newitem"
-          :placeholder="t('portfolio.todolist.input_placeholder')"
-        />
+        <input v-focus type="text" id="newitem" name="newitem" v-model="newitem"
+          :placeholder="t('portfolio.todolist.input_placeholder')" />
         <button type="submit">{{ t('portfolio.todolist.add_item_button') }}</button>
       </div>
     </form>
@@ -32,17 +26,12 @@
       </ul>
 
       <transition-group name="todolist" tag="ul" mode="out-in" class="todolist-items" v-if="filteredTodo.length">
-        <li
-          v-for="item in filteredTodo"
-          :key="item.id"
-          class="todolist-item"
-          @click="toggleDone(item)"
-        >
-          <div class="checkbox">
+        <li v-for="item in filteredTodo" :key="item.id" class="todolist-item">
+          <div class="checkbox" @click="toggleDone(item)" title="Toggle complete">
             <input type="checkbox" v-model="item.done" @click.stop />
             <span>{{ item.label }}</span>
           </div>
-          <a href="#" class="delete" @click.stop.prevent="removeItem(item.id)"></a>
+          <a href="#" class="delete" title="Delete task" @click.stop.prevent="removeItem(item.id)"></a>
         </li>
       </transition-group>
 
@@ -67,9 +56,16 @@ const uiStore = useUiStore();
 
 const currentTheme = computed(() => uiStore.theme);
 
+// Add explicit type for todo items
+interface TodoItem {
+  id: number;
+  label: string;
+  done: boolean;
+}
+
+const todo = ref<TodoItem[]>([]);
 const newitem = ref('');
-const todo = ref<Array<{ id: number; label: string; done: boolean }>>([]);
-const sortByStatus = ref('all');
+const sortByStatus = ref<'all' | 'work' | 'done'>('all');
 const STORAGE_KEY = 'portfolio-todo-items';
 
 onMounted(() => {
@@ -108,7 +104,7 @@ function addItem() {
   }
 }
 
-function toggleDone(item: { id: number; done: boolean }) {
+function toggleDone(item: TodoItem) {
   const index = todo.value.findIndex((t) => t.id === item.id);
   if (index !== -1) {
     todo.value[index].done = !todo.value[index].done;
@@ -119,7 +115,7 @@ function removeItem(id: number) {
   todo.value = todo.value.filter((item) => item.id !== id);
 }
 
-function setStatus(status: string) {
+function setStatus(status: 'all' | 'work' | 'done') {
   sortByStatus.value = status;
 }
 </script>
@@ -151,6 +147,7 @@ function setStatus(status: string) {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
+
       @media (min-width: 768px) {
         flex-direction: row;
         align-items: center;
@@ -234,15 +231,20 @@ function setStatus(status: string) {
       border-bottom: 1px solid var(--todolist-form-input-border);
       overflow-x: auto !important;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
       white-space: nowrap;
     }
+
     .tab::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+      display: none;
+      /* Chrome, Safari, Opera */
       width: 0px;
       height: 0px;
     }
+
     .tab li {
       padding: 0.75rem 1rem;
       cursor: pointer;
@@ -252,6 +254,7 @@ function setStatus(status: string) {
       transition: color 0.3s cubic-bezier(0.77, 0, 0.175, 1);
       text-align: center;
     }
+
     .tab li::after {
       content: '';
       position: absolute;
@@ -264,17 +267,21 @@ function setStatus(status: string) {
       transform-origin: center;
       transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     }
+
     .tab li:hover {
       color: var(--todolist-form-button-bg);
     }
+
     .tab li:hover::after {
       transform: scaleX(1);
     }
+
     .tab li.active {
       color: var(--todolist-form-button-bg);
       font-weight: 600;
       transition: none;
     }
+
     .tab li.active::after {
       transform: scaleX(1);
     }
@@ -285,11 +292,16 @@ function setStatus(status: string) {
       margin: 0;
       max-height: 260px;
       overflow-y: auto;
-      padding-right: 8px; /* Add slight padding to avoid scrollbar overlap */
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE and Edge */
+      padding-right: 8px;
+      /* Add slight padding to avoid scrollbar overlap */
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+
+      /* IE and Edge */
       &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
+        display: none;
+        /* Chrome, Safari, Opera */
         width: 0px !important;
         height: 0px !important;
       }
@@ -329,6 +341,7 @@ function setStatus(status: string) {
   transition: opacity 400ms cubic-bezier(0.77, 0, 0.175, 1), transform 400ms cubic-bezier(0.77, 0, 0.175, 1);
   opacity: 1;
 }
+
 .todolist-item[style*="display: none"] {
   opacity: 0;
   transform: translateX(20px);
@@ -344,20 +357,61 @@ function setStatus(status: string) {
 // Delete button styling and stable interaction with opacity transitions
 .todolist-item .delete {
   opacity: 0;
-  transition: opacity 300ms ease;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  position: relative;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
-  padding: 0 8px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 14px;
+    background-color: var(--todolist-delete-color, #666);
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  &:hover {
+    background-color: var(--todolist-delete-hover-bg, rgba(0, 0, 0, 0.05));
+  }
 }
+
 .todolist-item:hover .delete {
   opacity: 1;
 }
 
 // Checkbox styling refined for smooth transitions
+.todolist-item .checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.todolist-item .checkbox span {
+  flex-grow: 1;
+  /* Make label use available space for alignment */
+}
+
 .todolist-item .checkbox input[type="checkbox"] {
+  margin: 0;
+  margin-right: 8px;
+  /* Adjust the right margin for spacing */
+  vertical-align: middle;
   position: relative;
   width: 20px;
   height: 20px;
-  margin-right: 12px;
   cursor: pointer;
   appearance: none;
   border: 2px solid var(--todolist-checkbox-border, #ddd);
@@ -365,10 +419,12 @@ function setStatus(status: string) {
   transition: all 0.2s ease;
   pointer-events: auto;
 }
+
 .todolist-item .checkbox input[type="checkbox"]:checked {
   background-color: var(--primary-color, #3b82f6);
   border-color: var(--primary-color, #3b82f6);
 }
+
 .todolist-item .checkbox input[type="checkbox"]:checked::after {
   content: '';
   position: absolute;
@@ -392,6 +448,7 @@ function setStatus(status: string) {
   .todo {
     padding: 1rem;
     font-size: 0.95rem;
+
     .form-input-group {
       flex-direction: column;
 
