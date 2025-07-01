@@ -32,9 +32,9 @@ const routes: Array<RouteRecordRaw> = [
         meta: { transition: 'slide-right' }
       },
       {
-        path: 'portfolio/chatView',
-        name: 'ChatView',
-        component: () => import('@/views/portfolio/ChatView.vue'),
+        path: 'portfolio/Chat',
+        name: 'Chat',
+        component: () => import('@/views/portfolio/Chat.vue'),
         meta: { transition: 'slide-right' }
       },
       {

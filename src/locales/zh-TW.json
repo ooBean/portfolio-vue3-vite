@@ -10,6 +10,7 @@
   },
   "home": {
     "greeting": "你好，我是{name}，一名前端開發者",
+    "job":"前端開發者",
     "welcome": "歡迎來到我的作品集網站。",
     "view_projects": "查看我的作品",
     "user_name_placeholder": "王宇皎",
@@ -47,6 +48,7 @@
     "chat": {
       "title": "即時聊天",
       "subtitle": "使用WebSocket的簡易聊天應用",
+      "description": "這是一個使用假訊息模擬對話的演示聊天界面。",
       "empty": "暫無訊息，開始聊天吧！",
       "input_placeholder": "輸入訊息...",
       "send_button": "發送",

@@ -27,9 +27,9 @@
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import ChatView from '@/views/portfolio/ChatView.vue';
 import FormDemo from '@/views/portfolio/FormDemo.vue';
 import Todo from '@/views/portfolio/Todo.vue';
+import Chat from '@/views/portfolio/Chat.vue';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
 import PreviewCard from '@/components/common/PreviewCard.vue';
 import { usePortfolioStore } from '@/store/modules/portfolioStore';
@@ -99,8 +99,8 @@ const projectsList = [
     id: 'chat',
     nameKey: 'portfolio.chat.title',
     descriptionKey: 'portfolio.chat.description',
-    component: ChatView,
-    route: 'ChatView',
+    component: Chat,
+    route: 'Chat',
   },
   {
     id: 'form',

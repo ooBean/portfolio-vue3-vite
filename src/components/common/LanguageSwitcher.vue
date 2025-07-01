@@ -23,7 +23,7 @@ import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useI18nStore } from '@/store/modules/i18nStore';
 
-type Language = 'en' | 'zh' | 'zh-TW';
+import type { Language } from '@/types/unsplash';
 
 const { locale, availableLocales } = useI18n();
 const i18nStore = useI18nStore();

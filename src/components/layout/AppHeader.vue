@@ -115,8 +115,8 @@ onBeforeUnmount(() => {
       }
 
       .user-job {
-        font-size: 0.75rem;
-        color: rgba(var(--text-color-rgb), 0.7);
+        font-size: 0.55rem;
+        color: var(--text-color);
       }
     }
   }

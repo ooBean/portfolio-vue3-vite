@@ -1,24 +1,24 @@
-/* filepath: portfolio-vue3-vite/src/assets/styles/base.scss */
-/* 简单的 CSS 重置或基础样式 */
-@use './variables.scss' as *; // 使用 @use 并将所有变量导入到全局命名空间
+@use './variables.scss' as *; 
 
-/* :root CSS 变量定义 (如果希望通过 SCSS 控制它们) */
-/* 这些也可以放在 style.scss 或 variables.scss 中 */
 :root {
   --bg-color-css: #{$bg-color}; // 将 SCSS 变量暴露为 CSS 变量
   --text-color-css: #{$text-color};
   --primary-color-css: #{$primary-color};
   --secondary-color-css: #{$secondary_color};
 }
+:root[data-theme='light'] {
+  --chat-bg: linear-gradient(135deg, #e8f0ff, #cfdfff);
+}
 
-// 暗黑模式的 CSS 变量覆盖 (如果通过类名切换)
-// .dark-theme {
-//   --bg-color-css: #{$dark-theme-bg};
-//   --text-color-css: #{$dark-theme-text};
-// }
+:root[data-theme='dark'] {
+  --chat-bg: linear-gradient(135deg, #1e1e2f, #2b2b45);
+}
 
-// 如果 body 的背景和颜色直接用 SCSS 变量，并且有主题切换逻辑，
-// 确保主题切换逻辑能正确更新应用的类名或直接操作 CSS 变量。
+:root[data-theme='warm'] {
+  --chat-bg: linear-gradient(135deg, #fff1e0, #fddbb0);
+}
+
+
 body {
   background-color: var(--bg-color-css); // 使用 CSS 变量，方便 JS 切换
   color: var(--text-color-css);
@@ -201,7 +201,6 @@ body {
 body.theme-light {
   --todolist-bg: #{$todolist-theme-light-bg};
   --todolist-text-color: #{$todolist-theme-light-text-color};
-  // ... all other light theme variables for all components
   --toggle-label-color: #{$toggle-theme-light-label-color};
   // ...
 }

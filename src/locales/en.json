@@ -10,6 +10,7 @@
   },
   "home": {
     "greeting": "Hello, I'm Mrs. Bean, a Front-end Developer",
+    "job":"Front-end Developer",
     "welcome": "Welcome to my portfolio website.",
     "view_projects": "View My Projects",
     "user_name_placeholder": "Mrs. Bean",
@@ -45,8 +46,9 @@
       }
     },
     "chat": {
-      "title": "Real-time Chat",
-      "subtitle": "A simple chat application using WebSocket",
+      "title": "Chat Demo",
+      "subtitle": "A simple chat application using fake message simulation",
+      "description": "A demo chat using fake message simulation.",
       "empty": "No messages yet, start chatting!",
       "input_placeholder": "Type a message...",
       "send_button": "Send",

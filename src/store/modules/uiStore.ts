@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
+import type { Theme } from '@/types/unsplash';
 
 // 定义主题类型
-type Theme = 'theme-light' | 'theme-dark' | 'theme-warm';
 
 // 定义状态接口
 interface UiState {
