@@ -28,7 +28,7 @@
     "load_error": "Failed to load projects: {error}",
     "project_placeholder": "Project {number}",
     "todolist": {
-      "description": "This is a simple todo list application.",
+      "description": "This is a simple, intuitive todo list for daily task management.",
       "input_placeholder": "Please enter a todo item",
       "title": "Todo List",
       "subtitle": "Get things done, one item at a time.",
