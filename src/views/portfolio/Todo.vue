@@ -1,9 +1,9 @@
 <template>
-  <div class="todo">
+  <div class="todo" :preview="previewMode">
     <form class="todolist-form" @submit.prevent="addItem">
       <div class="form-header">
         <label for="newitem">{{ t('portfolio.todolist.add_item_label') }}</label>
-        <BackLink component="todolist" class="top-right-link" />
+        <BackLink v-if="!hideBackLink" component="todolist" class="top-right-link" />
       </div>
       <div class="form-input-group">
         <input
@@ -31,7 +31,7 @@
         </li>
       </ul>
 
-      <transition-group name="todolist" tag="ul" class="todolist-items" v-if="filteredTodo.length">
+      <transition-group name="todolist" tag="ul" mode="out-in" class="todolist-items" v-if="filteredTodo.length">
         <li
           v-for="item in filteredTodo"
           :key="item.id"
@@ -51,26 +51,27 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+<script setup lang="ts" name="Todo">
+import { ref, computed, watch, onMounted, defineProps } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useUiStore } from '@/store/modules/uiStore';
 import BackLink from '@/components/common/BackLink.vue';
 
-// 国际化
+const props = defineProps({
+  previewMode: { type: Boolean, default: false },
+  hideBackLink: { type: Boolean, default: false }
+});
+
 const { t } = useI18n();
+const uiStore = useUiStore();
 
-// 待办事项输入内容
+const currentTheme = computed(() => uiStore.theme);
+
 const newitem = ref('');
-
-// 待办事项列表
 const todo = ref<Array<{ id: number; label: string; done: boolean }>>([]);
-
-// 筛选状态，默认显示全部
 const sortByStatus = ref('all');
-
 const STORAGE_KEY = 'portfolio-todo-items';
 
-// 初始化时尝试从 sessionStorage 恢复保存的待办事项
 onMounted(() => {
   const sessionData = sessionStorage.getItem(STORAGE_KEY);
   if (sessionData) {
@@ -82,7 +83,6 @@ onMounted(() => {
   }
 });
 
-// 数据变化时，同步保存到 sessionStorage
 watch(
   todo,
   (newVal) => {
@@ -91,7 +91,6 @@ watch(
   { deep: true }
 );
 
-// 根据当前筛选状态筛选待办事项
 const filteredTodo = computed(() => {
   if (sortByStatus.value === 'work') {
     return todo.value.filter((item) => !item.done);
@@ -102,7 +101,6 @@ const filteredTodo = computed(() => {
   return [...todo.value].sort((a, b) => Number(a.done) - Number(b.done));
 });
 
-// 添加新待办项
 function addItem() {
   if (newitem.value.trim()) {
     todo.value.push({ id: Date.now(), label: newitem.value.trim(), done: false });
@@ -110,7 +108,6 @@ function addItem() {
   }
 }
 
-// 切换待办项完成状态
 function toggleDone(item: { id: number; done: boolean }) {
   const index = todo.value.findIndex((t) => t.id === item.id);
   if (index !== -1) {
@@ -118,28 +115,26 @@ function toggleDone(item: { id: number; done: boolean }) {
   }
 }
 
-// 删除待办项
 function removeItem(id: number) {
   todo.value = todo.value.filter((item) => item.id !== id);
 }
 
-// 设置筛选状态
 function setStatus(status: string) {
   sortByStatus.value = status;
 }
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables.scss' as *;
+@import '@/assets/styles/variables.scss';
 
 .todo {
-  margin: 2rem;
-  padding: 2rem;
-  background: var(--chat-bg, $chat-theme-light-bg);
-  color: var(--chat-text-color, $chat-theme-light-text-color);
+  margin: 1rem !important;
+  padding: 1rem !important;
+  background-color: var(--todolist-bg, $todolist-theme-light-bg);
+  color: var(--todolist-text-color, $todolist-theme-light-text-color);
   border-radius: 8px;
-  max-height: calc(100vh - 180px);
-  overflow-y: auto;
+  max-height: none !important;
+  overflow: visible !important;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -171,11 +166,15 @@ function setStatus(status: string) {
 
     .form-input-group {
       display: flex;
+      flex-wrap: nowrap;
     }
 
     input[type="text"] {
-      // More specific selector
+      min-width: 0;
       flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       border: 1px solid var(--todolist-form-input-border);
       background: var(--todolist-form-input-bg);
       color: var(--todolist-form-input-text);
@@ -188,7 +187,9 @@ function setStatus(status: string) {
     }
 
     button[type="submit"] {
-      // More specific selector
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-width: 60px;
       padding: 0 1.3rem;
       border: 1px solid var(--todolist-form-button-border);
       background: var(--todolist-form-button-bg);
@@ -208,12 +209,10 @@ function setStatus(status: string) {
   }
 
   .todolist-empty {
-    margin-top: 2.6rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: var(--todolist-empty-text-color, rgba(0, 0, 0, 0.7));
     text-align: center;
-    letter-spacing: .05em;
-    font-style: italic;
-    opacity: 0.8;
-    color: inherit;
   }
 
   .todolist-content {
@@ -222,164 +221,77 @@ function setStatus(status: string) {
     border: 1px solid var(--todolist-form-input-border);
     border-radius: 4px;
     padding: 1em;
+    max-height: 280px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
 
     .tab {
       display: flex;
-      justify-content: space-around; // 使用 space-around 使各项间距更均匀
-      list-style-type: none; // 去掉 li 的默认项目符号 (点)
-      padding: 0; // 移除 ul 的默认内边距
-      margin: 0 0 1.5rem 0; // 移除 ul 的默认外边距，并在底部添加一些间距
-      border-bottom: 1px solid var(--todolist-form-input-border); // 在整个 tab 栏下方添加一条分割线
-
-      li {
-        padding: 0.75rem 1rem; // 为 li 设置内边距，增大点击区域
-        cursor: pointer;
-        position: relative; // 为 ::after 伪元素定位
-        color: var(--todolist-tab-text-color, var(--todolist-text-color)); // 标签文字颜色
-        font-size: 0.95rem;
-        transition: color 0.2s ease-in-out;
-        text-align: center;
-
-        // 下划线伪元素
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: -1px; // 将下划线定位在 li 底部 (可调整使其紧贴边框或略微偏移)
-          left: 0;
-          width: 100%;
-          height: 2px; // 下划线厚度
-          background-color: var(--todolist-form-button-bg); // 使用您的主题主色
-          transform: scaleX(0); // 初始状态下划线宽度为0 (隐藏)
-          transform-origin: center; // 从中心扩展动画
-          transition: transform 0.25s ease-out; // 过渡动画
-        }
-
-        &:hover {
-          color: var(--todolist-form-button-bg); // 鼠标悬停时文字颜色变为主题色
-
-          &::after {
-            transform: scaleX(1); // 鼠标悬停时显示下划线
-          }
-        }
-
-        &.active {
-          color: var(--todolist-form-button-bg); // active状态的文字颜色
-          font-weight: 600; // active状态的文字加粗
-
-          &::after {
-            transform: scaleX(1); // active状态下划线保持显示
-          }
-        }
-      }
+      justify-content: flex-start;
+      list-style-type: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+      border-bottom: 1px solid var(--todolist-form-input-border);
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      white-space: nowrap;
+    }
+    .tab::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+      width: 0px;
+      height: 0px;
+    }
+    .tab li {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      position: relative;
+      color: var(--todolist-tab-text-color, var(--todolist-text-color));
+      font-size: 0.95rem;
+      transition: color 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+      text-align: center;
+    }
+    .tab li::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--todolist-form-button-bg);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    .tab li:hover {
+      color: var(--todolist-form-button-bg);
+    }
+    .tab li:hover::after {
+      transform: scaleX(1);
+    }
+    .tab li.active {
+      color: var(--todolist-form-button-bg);
+      font-weight: 600;
+      transition: none;
+    }
+    .tab li.active::after {
+      transform: scaleX(1);
     }
 
     .todolist-items {
       list-style: none;
       padding: 0;
       margin: 0;
-
-      .todolist-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.75rem 1rem;
-        margin: 0.5rem 0;
-        border-radius: 4px;
-        transition: background-color 0.2s ease, transform 0.1s ease;
-        cursor: pointer; // 添加指针样式表明可点击
-
-        &:hover {
-          background-color: var(--todolist-item-hover-bg, rgba(0, 0, 0, 0.03));
-          transform: translateX(2px);
-        }
-
-        .checkbox {
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-          flex: 1;
-          pointer-events: none; // 防止checkbox区域触发自己的点击事件
-
-          input[type="checkbox"] {
-            position: relative;
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
-            cursor: pointer;
-            appearance: none;
-            border: 2px solid var(--todolist-checkbox-border, #ddd);
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            pointer-events: auto; // 恢复checkbox本身的点击事件
-
-            &:checked {
-              background-color: $primary-color;
-              border-color: $primary-color;
-
-              &::after {
-                content: '';
-                position: absolute;
-                left: 6px;
-                top: 2px;
-                width: 4px;
-                height: 10px;
-                border: solid white;
-                border-width: 0 2px 2px 0;
-                transform: rotate(45deg);
-              }
-            }
-
-            &:hover {
-              border-color: $primary-color;
-            }
-          }
-
-          span {
-            font-size: 1rem;
-            transition: color 0.2s ease;
-          }
-        }
-
-        &:has(input:checked) span {
-          color: var(--todolist-text-color-checked, #999);
-          text-decoration: line-through;
-        }
-
-        .delete {
-          opacity: 0;
-          width: 24px;
-          height: 24px;
-          border-radius: 4px;
-          position: relative;
-          transition: opacity 0.2s ease, background-color 0.2s ease;
-
-          &::before,
-          &::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 14px;
-            background-color: var(--todolist-delete-color, #666);
-            top: 50%;
-            left: 50%;
-          }
-
-          &::before {
-            transform: translate(-50%, -50%) rotate(45deg);
-          }
-
-          &::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-          }
-
-          &:hover {
-            background-color: var(--todolist-delete-hover-bg, rgba(0, 0, 0, 0.05));
-          }
-        }
-
-        &:hover .delete {
-          opacity: 1;
-        }
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 8px; /* Add slight padding to avoid scrollbar overlap */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+        width: 0px !important;
+        height: 0px !important;
       }
     }
   }
@@ -389,18 +301,93 @@ function setStatus(status: string) {
 .todolist-move,
 .todolist-enter-active,
 .todolist-leave-active {
-  transition: all 0.5s ease;
+  transition: transform 550ms cubic-bezier(0.77, 0, 0.175, 1), opacity 550ms cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform, opacity;
 }
 
 .todolist-enter-from,
 .todolist-leave-to {
+  transform: translateX(20px);
   opacity: 0;
-  transform: translateX(-30px);
 }
 
-.todolist-leave-active {
-  position: absolute;
+.todolist-enter-to,
+.todolist-leave-from {
+  transform: translateX(0);
+  opacity: 1;
 }
+
+// 改用v-show管理任务项显隐，动画通过opacity和transform实现
+.todolist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 400ms cubic-bezier(0.77, 0, 0.175, 1), transform 400ms cubic-bezier(0.77, 0, 0.175, 1);
+  opacity: 1;
+}
+.todolist-item[style*="display: none"] {
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+}
+
+// Subtle hover effect for list items
+.todolist-item:hover {
+  background-color: var(--todolist-item-hover-bg, rgba(0, 0, 0, 0.03));
+  transform: translateX(1px);
+}
+
+// Delete button styling and stable interaction with opacity transitions
+.todolist-item .delete {
+  opacity: 0;
+  transition: opacity 300ms ease;
+  cursor: pointer;
+  padding: 0 8px;
+}
+.todolist-item:hover .delete {
+  opacity: 1;
+}
+
+// Checkbox styling refined for smooth transitions
+.todolist-item .checkbox input[type="checkbox"] {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  cursor: pointer;
+  appearance: none;
+  border: 2px solid var(--todolist-checkbox-border, #ddd);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+.todolist-item .checkbox input[type="checkbox"]:checked {
+  background-color: var(--primary-color, #3b82f6);
+  border-color: var(--primary-color, #3b82f6);
+}
+.todolist-item .checkbox input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+// 设置变量默认值
+:root {
+  --todo-item-height: auto;
+  --todo-item-padding-vertical: 0.5rem;
+  --todo-item-margin-vertical: 0.5rem;
+}
+
 @media (max-width: 768px) {
   .todo {
     padding: 1rem;

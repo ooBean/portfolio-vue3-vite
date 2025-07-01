@@ -5,7 +5,12 @@
     </div>
     <div class="content-container" v-else>
       <div class="project-preview">
-        <component :is="project.component" class="scaled-component" :key="project.id"/>
+        <component
+          :is="project.component"
+          class="scaled-component"
+          :key="project.id"
+          v-bind="{ previewMode: true, hideBackLink: true }"
+        />
       </div>
       <div class="project-info">
         <h3>{{ project.name }}</h3>
@@ -77,7 +82,7 @@ const emit = defineEmits(['click', 'download']);
 }
 
 .project-preview {
-  height: 220px;
+  height: 280px; /* 由220增加至280 */
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -103,20 +108,20 @@ const emit = defineEmits(['click', 'download']);
   scrollbar-width: none;  /* Firefox */
 
   @media (max-width: 480px) {
-    height: 180px;
+    height: 220px; /* 响应式下比默认高一些 */
   }
 }
 
 .scaled-component {
-  transform: scale(0.85);
-  transform-origin: center center;
+  transform: scale(0.95); /* 由0.85提升到0.95，更大显示 */
+  transform-origin: top center; /* 调整缩放起点，减少顶部空白 */
   width: 100%;
   height: auto;
   max-width: 500px;
   pointer-events: none;
 
   @media (max-width: 480px) {
-    transform: scale(0.7);
+    transform: scale(0.85); /* 移动端稍小一些，但较之前大 */
   }
 }
 
