@@ -4,21 +4,13 @@
 
     <div class="subtitle-container">
       <p class="view-description">{{ t('portfolio.description') }}</p>
-      <ThemeSwitcher
-        :current-theme="currentTheme"
-        @theme-change="handleThemeChange"
-      />
+      <ThemeSwitcher :current-theme="currentTheme" @theme-change="handleThemeChange" />
     </div>
 
     <div v-if="error" class="error-message">{{ t('portfolio.error_loading') }}</div>
     <div class="projects-grid">
-      <PreviewCard
-        v-for="project in projects"
-        :key="project.id"
-        :project="project"
-        :loading="portfolioStore.loading[project.id] || false"
-        @click="navigateToProject(project.route)"
-      />
+      <PreviewCard v-for="project in projects" :key="project.id" :project="project"
+        :loading="portfolioStore.loading[project.id] || false" @click="navigateToProject(project.route)" />
     </div>
   </div>
 </template>
@@ -46,7 +38,7 @@ const uiStore = useUiStore();
 // 检测当前路由是否 portfolio 或其子路由
 const isPortfolioRoute = computed(() => {
   return route.name === 'Portfolio' ||
-         (typeof route.name === 'string' && route.name.startsWith('Portfolio'));
+    (typeof route.name === 'string' && route.name.startsWith('Portfolio'));
 });
 
 function isTheme(value: any): value is Theme {
@@ -151,6 +143,7 @@ const navigateToProject = (routeName: string) => {
   border-bottom: 1px solid #e0e0e0 !important;
   box-shadow: 0 0 10px rgba(224, 224, 224, 0.6) !important;
 }
+
 // 以上仅调整最明显属性，如需更细的覆盖可再补充
 
 .view-title {
@@ -192,7 +185,8 @@ const navigateToProject = (routeName: string) => {
   }
 }
 
-.loading-indicator, .error-message {
+.loading-indicator,
+.error-message {
   text-align: center;
   font-size: 1.2rem;
   margin-top: 3rem;
@@ -213,8 +207,8 @@ const navigateToProject = (routeName: string) => {
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-              background-color 0.3s ease; // Added background transition
+    box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background-color 0.3s ease; // Added background transition
   cursor: pointer;
   position: relative;
   display: flex;
@@ -225,13 +219,14 @@ const navigateToProject = (routeName: string) => {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
   }
 
-  &::after { // Tooltip for project name
+  &::after {
+    // Tooltip for project name
     content: attr(data-tooltip);
     position: absolute;
     bottom: 105%; // Position above the card
     left: 50%;
     transform: translateX(-50%) translateY(8px); // Initial hide
-    background: var(--chat-other-message-bg, rgba(0,0,0,0.8)); // Themeable tooltip
+    background: var(--chat-other-message-bg, rgba(0, 0, 0, 0.8)); // Themeable tooltip
     color: var(--chat-text-color, white); // Themeable tooltip text
     padding: 6px 12px;
     border-radius: $border-radius-sm;
@@ -309,9 +304,9 @@ const navigateToProject = (routeName: string) => {
   transform-origin: top center;
   transform: scaleY(0.8);
   transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-              max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
-              margin-top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-              transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
+    margin-top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .project-actions button {
@@ -324,9 +319,9 @@ const navigateToProject = (routeName: string) => {
   transform: translateY(12px);
   opacity: 0;
   transition: background-color 0.25s ease,
-              transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-              opacity 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
-              color 0.3s ease;
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+    color 0.3s ease;
 }
 
 .project-actions button.btn-view {

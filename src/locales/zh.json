@@ -11,7 +11,7 @@
   "home": {
     "greeting": "你好，我是{name}，一名前端开发者",
     "welcome": "欢迎来到我的作品集网站。",
-    "job":"前端开发",
+    "job": "前端开发",
     "view_projects": "查看我的作品",
     "user_name_placeholder": "王宇皎",
     "user_location_placeholder": "中国大陆",
@@ -30,6 +30,7 @@
     "todolist": {
       "input_placeholder": "请输入待办事项",
       "title": "待办事项",
+      "description": "这是一个简单的待办事项列表应用。",
       "subtitle": "一次完成一项代办。",
       "empty_list": "你的待办列表是空的。",
       "add_item_label": "添加到待办列表",
@@ -46,37 +47,37 @@
       }
     },
     "chat": {
-    "title": "实时聊天",
-    "subtitle": "使用WebSocket的简易聊天应用",
-    "empty": "暂无消息，开始聊天吧！",
-    "description": "这是一个使用假消息模拟对话的演示聊天界面。",
-    "input_placeholder": "输入消息...",
-    "send_button": "发送",
-    "default_username": "访客",
-    "status": {
-      "connected": "已连接",
-      "connecting": "连接中...",
-      "disconnected": "已断开连接",
-      "error": "连接错误",
-      "typing": "正在输入...",
-      "waiting": "正在等待回复..."
+      "title": "实时聊天",
+      "subtitle": "使用WebSocket的简易聊天应用",
+      "empty": "暂无消息，开始聊天吧！",
+      "description": "这是一个使用假消息模拟对话的演示聊天界面。",
+      "input_placeholder": "输入消息...",
+      "send_button": "发送",
+      "default_username": "访客",
+      "status": {
+        "connected": "已连接",
+        "connecting": "连接中...",
+        "disconnected": "已断开连接",
+        "error": "连接错误",
+        "typing": "正在输入...",
+        "waiting": "正在等待回复..."
+      },
+      "demo_messages": {
+        "welcome": "欢迎来到聊天室！",
+        "greeting": "大家好！",
+        "question": "今天过得怎么样？",
+        "reply": "谢谢你的消息！这是一个演示聊天界面。"
+      }
     },
-    "demo_messages": {
-      "welcome": "欢迎来到聊天室！",
-      "greeting": "大家好！",
-      "question": "今天过得怎么样？",
-      "reply": "谢谢你的消息！这是一个演示聊天界面。"
+    "theme_switcher": {
+      "label": "选择主题",
+      "light": "浅色",
+      "dark": "深色",
+      "warm": "暖色",
+      "light_title": "切换到浅色主题",
+      "dark_title": "切换到深色主题",
+      "warm_title": "切换到暖色主题"
     }
-  },
-  "theme_switcher": {
-    "label": "选择主题",
-    "light": "浅色",
-    "dark": "深色",
-    "warm": "暖色",
-    "light_title": "切换到浅色主题",
-    "dark_title": "切换到深色主题",
-    "warm_title": "切换到暖色主题"
-  }
   },
   "about": {
     "title": "关于我",

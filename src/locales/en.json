@@ -10,7 +10,7 @@
   },
   "home": {
     "greeting": "Hello, I'm Mrs. Bean, a Front-end Developer",
-    "job":"Front-end Developer",
+    "job": "Front-end Developer",
     "welcome": "Welcome to my portfolio website.",
     "view_projects": "View My Projects",
     "user_name_placeholder": "Mrs. Bean",
@@ -28,6 +28,7 @@
     "load_error": "Failed to load projects: {error}",
     "project_placeholder": "Project {number}",
     "todolist": {
+      "description": "This is a simple todo list application.",
       "input_placeholder": "Please enter a todo item",
       "title": "Todo List",
       "subtitle": "Get things done, one item at a time.",
