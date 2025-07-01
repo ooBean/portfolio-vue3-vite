@@ -76,14 +76,19 @@ watch(() => route.name, (newName) => {
 });
 
 onMounted(() => {
-  uiStore.initTheme();
+  // Detect system color scheme preference
   const savedTheme = sessionStorage.getItem(THEME_STORAGE_KEY);
-  let themeToApply: Theme = uiStore.theme;
   if (savedTheme && isTheme(savedTheme)) {
-    themeToApply = savedTheme;
+    currentTheme.value = savedTheme;
+  } else {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const defaultTheme = prefersDark ? 'theme-dark' : 'theme-light';
+    currentTheme.value = defaultTheme;
+    uiStore.setTheme(defaultTheme);
+    sessionStorage.setItem(THEME_STORAGE_KEY, defaultTheme);
+    applyThemeToGlobalElement(defaultTheme);
   }
-  currentTheme.value = themeToApply;
-  applyThemeToGlobalElement(themeToApply);
+
   portfolioStore.initLoading();
 });
 
