@@ -5,11 +5,7 @@
     </div>
     <div class="content-container" v-else>
       <div class="project-preview preview-mode">
-        <component
-          :is="project.component"
-          :key="project.id"
-          v-bind="{ previewMode: true, hideBackLink: true }"
-        />
+        <component :is="project.component" :key="project.id" v-bind="{ previewMode: true, hideBackLink: true }" />
       </div>
       <div class="project-info">
         <h3>{{ project.name }}</h3>
@@ -45,12 +41,12 @@ const emit = defineEmits(['click', 'download']);
   height: 340px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   background-color: var(--todolist-bg, #fff);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-              background-color 0.3s ease;
+    box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background-color 0.3s ease;
   display: flex;
   flex-direction: column;
 
@@ -60,7 +56,8 @@ const emit = defineEmits(['click', 'download']);
   }
 }
 
-.loading-container, .content-container {
+.loading-container,
+.content-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -90,8 +87,8 @@ const emit = defineEmits(['click', 'download']);
   backdrop-filter: saturate(180%) blur(10px);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
   border-radius: 12px 12px 0 0;
-  box-shadow: inset 0 0 30px 10px rgba(255,255,255,0.1);
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  box-shadow: inset 0 0 30px 10px rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -163,9 +160,9 @@ const emit = defineEmits(['click', 'download']);
   transform-origin: top center;
   transform: scaleY(0.8);
   transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-              max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
-              margin-top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-              transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
+    margin-top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .project-actions button {
@@ -178,9 +175,9 @@ const emit = defineEmits(['click', 'download']);
   transform: translateY(12px);
   opacity: 0;
   transition: background-color 0.25s ease,
-              transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-              opacity 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
-              color 0.3s ease;
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+    color 0.3s ease;
 }
 
 .project-actions button.btn-view {
