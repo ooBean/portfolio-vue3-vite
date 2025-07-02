@@ -1,4 +1,5 @@
 <template>
+  <ThemeBackground />
   <div class="todo" :preview="previewMode">
     <form class="todolist-form" @submit.prevent="addItem">
       <div class="form-header">
@@ -45,6 +46,7 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useUiStore } from '@/store/modules/uiStore';
 import BackLink from '@/components/common/BackLink.vue';
+import ThemeBackground from '@/components/common/ThemeBackground.vue';
 
 const props = defineProps({
   previewMode: { type: Boolean, default: false },
@@ -56,7 +58,6 @@ const uiStore = useUiStore();
 
 const currentTheme = computed(() => uiStore.theme);
 
-// Add explicit type for todo items
 interface TodoItem {
   id: number;
   label: string;
@@ -88,31 +89,33 @@ watch(
 );
 
 const filteredTodo = computed(() => {
-  if (sortByStatus.value === 'work') {
-    return todo.value.filter((item) => !item.done);
+  switch (sortByStatus.value) {
+    case 'work':
+      return todo.value.filter(item => !item.done);
+    case 'done':
+      return todo.value.filter(item => item.done);
+    default:
+      return [...todo.value].sort((a, b) => Number(a.done) - Number(b.done));
   }
-  if (sortByStatus.value === 'done') {
-    return todo.value.filter((item) => item.done);
-  }
-  return [...todo.value].sort((a, b) => Number(a.done) - Number(b.done));
 });
 
 function addItem() {
-  if (newitem.value.trim()) {
-    todo.value.push({ id: Date.now(), label: newitem.value.trim(), done: false });
+  const trimmed = newitem.value.trim();
+  if (trimmed) {
+    todo.value.push({ id: Date.now(), label: trimmed, done: false });
     newitem.value = '';
   }
 }
 
 function toggleDone(item: TodoItem) {
-  const index = todo.value.findIndex((t) => t.id === item.id);
+  const index = todo.value.findIndex(t => t.id === item.id);
   if (index !== -1) {
     todo.value[index].done = !todo.value[index].done;
   }
 }
 
 function removeItem(id: number) {
-  todo.value = todo.value.filter((item) => item.id !== id);
+  todo.value = todo.value.filter(item => item.id !== id);
 }
 
 function setStatus(status: 'all' | 'work' | 'done') {
@@ -123,10 +126,17 @@ function setStatus(status: 'all' | 'work' | 'done') {
 <style lang="scss" scoped>
 @use '@/assets/styles/variables.scss' as *;
 
+.theme-background {
+  z-index: 0 !important;
+  /* 调整背景层级 */
+}
+
 .todo {
+  position: relative;
+  z-index: 1;
+  /* background-color: transparent !important; */
   margin: 1rem !important;
   padding: 1rem !important;
-  background-color: var(--todolist-bg, $todolist-theme-light-bg);
   color: var(--todolist-text-color, $todolist-theme-light-text-color);
   border-radius: 8px;
   max-height: none !important;
@@ -158,7 +168,8 @@ function setStatus(status: 'all' | 'work' | 'done') {
         flex-direction: row !important;
         gap: 0.3rem;
 
-        input, button {
+        input,
+        button {
           height: 2.8rem !important;
           font-size: 0.9rem !important;
           border-radius: 4px !important;
@@ -270,12 +281,15 @@ function setStatus(status: 'all' | 'work' | 'done') {
   .todolist-content {
     margin-top: 2rem;
     padding: 0 1em;
-    border: 1px solid var(--todolist-form-input-border);
-    border-radius: 4px;
     padding: 1em;
     max-height: 280px !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
+    border: 1px solid rgba(0, 0, 0, 0.2); // 加深边框颜色
+    background-color: var(--chat-bg, $light-grey);
+    color: var(--chat-text-color, $text-color); // 使用CSS变量控制背景色
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // 添加阴影
+    border-radius: 4px;
 
     .tab {
       display: flex;
@@ -286,13 +300,16 @@ function setStatus(status: 'all' | 'work' | 'done') {
       border-bottom: 1px solid var(--todolist-form-input-border);
       overflow-x: auto !important;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
       white-space: nowrap;
     }
 
     .tab::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+      display: none;
+      /* Chrome, Safari, Opera */
       width: 0px;
       height: 0px;
     }
@@ -344,18 +361,24 @@ function setStatus(status: 'all' | 'work' | 'done') {
       margin: 0;
       max-height: 260px;
       overflow-y: auto;
-      padding-right: 8px; /* Add slight padding to avoid scrollbar overlap */
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE and Edge */
+      padding-right: 8px;
+      /* Add slight padding to avoid scrollbar overlap */
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
 
       &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
+        display: none;
+        /* Chrome, Safari, Opera */
         width: 0px !important;
         height: 0px !important;
       }
     }
   }
 }
+
+// 删除空的主题样式规则，避免lint报错
 
 // 添加过渡动画
 .todolist-move,
@@ -448,12 +471,14 @@ function setStatus(status: 'all' | 'work' | 'done') {
 }
 
 .todolist-item .checkbox span {
-  flex-grow: 1; /* Make label use available space for alignment */
+  flex-grow: 1;
+  /* Make label use available space for alignment */
 }
 
 .todolist-item .checkbox input[type="checkbox"] {
   margin: 0;
-  margin-right: 8px; /* Adjust the right margin for spacing */
+  margin-right: 8px;
+  /* Adjust the right margin for spacing */
   vertical-align: middle;
   position: relative;
   width: 20px;

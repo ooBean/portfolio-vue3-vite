@@ -2,6 +2,7 @@
   <div class="back-link-wrapper" :preview="previewMode">
     <BackLink v-if="!hideBackLink" component="chat" class="top-right-link" />
   </div>
+  <ThemeBackground />
   <div class="chat" :class="{ 'preview-mode': previewMode }">
     <div class="chat-title">
       <h1>{{ t('home.user_name_placeholder') }}</h1>
@@ -21,13 +22,6 @@
       <button class="message-submit" @click="sendMessage">{{ t('portfolio.chat.send_button') }}</button>
     </div>
   </div>
-
-  <div class="bg" :style="{
-    background: `url(${getBackgroundImage(currentTheme)}) no-repeat 0 0`,
-    backgroundSize: 'cover',
-    filter: 'blur(80px)',
-    transform: 'scale(1.2)'
-  }" />
 </template>
 
 <script lang="ts" setup>
@@ -36,7 +30,7 @@ import { useUiStore } from '@/store/modules/uiStore';
 import { useI18n } from 'vue-i18n';
 import BackLink from '@/components/common/BackLink.vue';
 import MessageItem from '@/components/portfolio-chat/MessageItem.vue';
-import type { Language, Theme } from '@/types/unsplash';
+import ThemeBackground from '@/components/common/ThemeBackground.vue';
 const { locale, t } = useI18n();
 const uiStore = useUiStore();
 const messagesContent = ref<HTMLElement | null>(null)
@@ -60,6 +54,9 @@ onMounted(() => {
   // 确保初次渲染调用滚动
   updateScrollbar()
 })
+
+// 添加Language类型定义，避免类型错误
+type Language = 'zh-TW' | 'zh' | 'en';
 
 const messagesMap = {
   'zh-TW': [
@@ -120,18 +117,9 @@ const messagesMap = {
     ":)"
   ]
 }
-const themeBackgroundMap = {
-  'theme-light': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/blue.avif',
-  'theme-dark': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/dark.avif',
-  'theme-warm': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/warm.avif',
-};
-
-const getBackgroundImage = (theme: string): string => {
-  return themeBackgroundMap[theme as Theme] || themeBackgroundMap['theme-light'];
-}
 
 function getMessage() {
-  return messagesMap[locale.value as Language]
+  return messagesMap[locale.value as Language];
 }
 
 let i = 0
@@ -190,6 +178,13 @@ function fakeMessage() {
 <style lang="scss" scoped>
 @use '@/assets/styles/variables.scss' as *;
 
+@mixin center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .back-link-wrapper {
   position: absolute;
   top: 100px;
@@ -215,153 +210,15 @@ function fakeMessage() {
 }
 
 .chat {
-  background-color: var(--chat-bg);
-  color: var(--chat-text-color);
-
-  .messages {
-    background-color: var(--chat-messages-bg);
-  }
-
-  .message {
-    background-color: var(--chat-other-message-bg);
-    color: var(--chat-text-color);
-
-    &.message-personal {
-      float: right;
-      color: var(--chat-button-text-color);
-      text-align: right;
-      background: linear-gradient(120deg, var(--primary-color-start, #5699e9), var(--primary-color-end, #257287));
-      border-radius: 10px 10px 0 10px;
-
-      &::before {
-        left: auto;
-        right: 0;
-        border-right: none;
-        border-left: 5px solid transparent;
-        border-top: 4px solid var(--primary-color-end, #257287);
-        bottom: -4px;
-      }
-    }
-  }
-
-  .chat-title {
-    border-bottom: 1px solid var(--chat-title-border);
-  }
-
-  .message-box {
-    background-color: var(--chat-input-bg);
-
-    .message-input {
-      color: var(--chat-input-text);
-    }
-
-    .message-submit {
-      position: absolute;
-      z-index: 10;
-      top: 9px;
-      right: 10px;
-      color: var(--chat-button-text-color);
-      border: none;
-      background-color: var(--chat-accent-color);
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: none;
-      line-height: 1;
-      padding: 8px 14px;
-      border-radius: 16px;
-      outline: none !important;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-
-      &:hover {
-        background-color: rgba(var(--chat-accent-color-rgb, 86, 153, 233), 0.85);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-        transform: translateY(-2px);
-      }
-
-      &:active {
-        background-color: rgba(var(--chat-accent-color-rgb, 86, 153, 233), 0.75);
-        box-shadow: none;
-        transform: translateY(0);
-      }
-    }
-  }
-
-  &.theme-dark,
-  &[data-theme='theme-dark'] {
-    background: rgba(20, 20, 20, 0.85) !important;
-
-    .chat-title {
-      background: rgba(40, 40, 40, 0.95) !important;
-      color: #f0f0f0 !important;
-      border-bottom: 1px solid #555;
-    }
-  }
-}
-
-/*--------------------
-Mixins
---------------------*/
-@mixin center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-@mixin ball {
-  @include center;
-  content: '';
-  display: block;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .5);
-  z-index: 2;
-  margin-top: 4px;
-  animation: ball .45s cubic-bezier(0, 0, 0.15, 1) alternate infinite;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  background: var(--chat-bg);
-  background-size: cover;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
-  line-height: 1.3;
-  overflow: hidden;
-}
-
-.bg {
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  position: relative;
   z-index: 1;
-}
-
-/*--------------------
-Chat Container
---------------------*/
-.chat {
+  background-color: transparent !important;
   @include center;
   width: 300px;
   height: 80vh;
   max-height: 500px;
-  z-index: 2;
   overflow: hidden;
   box-shadow: 0 5px 30px rgba(0, 0, 0, .2);
-  background: rgba(0, 0, 0, .5);
   border-radius: 20px;
   display: flex;
   justify-content: space-between;
@@ -373,9 +230,6 @@ Chat Container
   }
 }
 
-/*--------------------
-Chat Title Bar
---------------------*/
 .chat-title {
   flex: 0 1 45px;
   position: relative;
@@ -420,9 +274,6 @@ Chat Title Bar
   }
 }
 
-/*--------------------
-Messages
---------------------*/
 .messages {
   flex: 1 1 auto;
   color: rgba(255, 255, 255, .5);
@@ -443,9 +294,6 @@ Messages
   }
 }
 
-/*--------------------
-Message Input Box
---------------------*/
 .message-box {
   flex: 0 1 40px;
   width: 100%;
@@ -506,9 +354,6 @@ Message Input Box
   }
 }
 
-/*--------------------
-Custom Scrollbar (mCustomScrollbar plugin style)
---------------------*/
 .mCSB_scrollTools {
   margin: 1px -3px 1px 0;
   opacity: 0;
@@ -523,9 +368,6 @@ Custom Scrollbar (mCustomScrollbar plugin style)
   background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-/*--------------------
-Animations
---------------------*/
 @keyframes bounce {
   0% {
     transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
@@ -588,5 +430,116 @@ Animations
   to {
     transform: translateY(-10px);
   }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--chat-bg);
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.3;
+  overflow: hidden;
+}
+
+.bg {
+  display: none !important;
+}
+
+.chat {
+  @include center;
+  width: 300px;
+  height: 80vh;
+  max-height: 500px;
+  z-index: 2;
+  overflow: hidden;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, .5);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  &.preview-mode {
+    height: auto !important;
+    max-height: none !important;
+  }
+}
+
+.chat-title {
+  border-bottom: 1px solid var(--chat-title-border);
+}
+
+.message-box {
+  background-color: var(--chat-input-bg);
+
+  .message-input {
+    color: var(--chat-input-text);
+  }
+
+  .message-submit {
+    position: absolute;
+    z-index: 10;
+    top: 9px;
+    right: 10px;
+    color: var(--chat-button-text-color);
+    border: none;
+    background-color: var(--chat-accent-color);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: none;
+    line-height: 1;
+    padding: 8px 14px;
+    border-radius: 16px;
+    outline: none !important;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: rgba(var(--chat-accent-color-rgb, 86, 153, 233), 0.85);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      background-color: rgba(var(--chat-accent-color-rgb, 86, 153, 233), 0.75);
+      box-shadow: none;
+      transform: translateY(0);
+    }
+  }
+}
+
+.chat.theme-dark,
+.chat[data-theme='theme-dark'] {
+  background: rgba(20, 20, 20, 0.85) !important;
+
+  .chat-title {
+    background: rgba(40, 40, 40, 0.95) !important;
+    color: #f0f0f0 !important;
+    border-bottom: 1px solid #555;
+  }
+}
+
+@mixin ball {
+  @include center;
+  content: '';
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .5);
+  z-index: 2;
+  margin-top: 4px;
+  animation: ball .45s cubic-bezier(0, 0, 0.15, 1) alternate infinite;
 }
 </style>
