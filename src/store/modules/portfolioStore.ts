@@ -12,6 +12,7 @@ export const usePortfolioStore = defineStore('portfolio', () => {
     { id: 'chat' },
     { id: 'form' },
     { id: 'gallery' },
+    { id: 'imagehovereffects' },
   ];
 
   // 初始化 loading 状态，只执行一次

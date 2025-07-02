@@ -50,6 +50,10 @@
         "learn_more": "学习其他内容"
       }
     },
+    "hover_effects": {
+      "title": "悬停效果",
+      "description": "鼠标悬停时的交互效果"
+    },
     "chat": {
       "title": "实时聊天",
       "subtitle": "使用WebSocket的简易聊天应用",

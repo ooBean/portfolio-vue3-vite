@@ -50,6 +50,12 @@ const routes: Array<RouteRecordRaw> = [
         meta: { transition: 'slide-right' }
       },
       {
+        path: 'portfolio/ImageHoverEffects',
+        name: 'ImageHoverEffects',
+        component: () => import('@/views/portfolio/ImageHoverEffects.vue'),
+        meta: { transition: 'slide-right' }
+      },
+      {
         path: 'contact',
         name: 'Contact',
         component: () => import('@/views/ContactView.vue'),

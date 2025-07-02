@@ -46,7 +46,11 @@
         "learn_more": "Learn something else"
       }
     },
-    "gallery":{
+    "hover_effects": {
+      "title": "Image Hover Effects",
+      "description": "Hover over the images to see different effects."
+    },
+    "gallery": {
       "title": "Gallery",
       "description": "A simple gallery to showcase my photos."
     },

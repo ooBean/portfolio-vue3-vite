@@ -27,6 +27,7 @@ import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
 import PreviewCard from '@/components/common/PreviewCard.vue';
 import { usePortfolioStore } from '@/store/modules/portfolioStore';
 import { useUiStore } from '@/store/modules/uiStore';
+import ImageHoverEffects from '@/views/portfolio/ImageHoverEffects.vue';
 
 type Theme = 'theme-light' | 'theme-dark' | 'theme-warm';
 
@@ -92,6 +93,13 @@ const projectsList = [
     descriptionKey: 'portfolio.todolist.description',
     component: Todo,
     route: 'Todo',
+  },
+  {
+    id: 'imagehovereffects',
+    nameKey: 'portfolio.hover_effects.title',
+    descriptionKey: 'portfolio.hover_effects.description',
+    component: ImageHoverEffects,
+    route: 'ImageHoverEffects',
   },
   {
     id: 'gallery',
