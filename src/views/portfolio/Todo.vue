@@ -286,9 +286,9 @@ function setStatus(status: 'all' | 'work' | 'done') {
     overflow-y: auto !important;
     overflow-x: hidden !important;
     border: 1px solid rgba(0, 0, 0, 0.2); // 加深边框颜色
-    background-color: var(--chat-bg, $light-grey);
+    // background-color: var(--chat-bg, $light-grey);
     color: var(--chat-text-color, $text-color); // 使用CSS变量控制背景色
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // 添加阴影
+    box-shadow: 0 2px 8px var(--chat-bg, $light-grey); // 添加阴影
     border-radius: 4px;
 
     .tab {
