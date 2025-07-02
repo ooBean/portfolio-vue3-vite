@@ -27,6 +27,10 @@
     "loading": "加载中...",
     "load_error": "加载作品失败: {error}",
     "project_placeholder": "项目 {number}",
+    "gallery": {
+      "title": "相册",
+      "description": "这是一个简单的相册，用来展示我的照片。"
+    },
     "todolist": {
       "input_placeholder": "请输入待办事项",
       "title": "待办事项",

@@ -27,6 +27,10 @@
     "loading": "載入中...",
     "load_error": "載入作品失敗: {error}",
     "project_placeholder": "專案 {number}",
+    "gallery": {
+      "title": "相冊",
+      "description": "這是一個簡單的相冊，用來展示我的照片。"
+    },
     "todolist": {
       "description": "這是一個簡單、直觀且高效的待辦事項列表應用。",
       "input_placeholder": "請輸入待辦事項",

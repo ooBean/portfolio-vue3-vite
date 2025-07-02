@@ -46,6 +46,10 @@
         "learn_more": "Learn something else"
       }
     },
+    "gallery":{
+      "title": "Gallery",
+      "description": "A simple gallery to showcase my photos."
+    },
     "chat": {
       "title": "Chat Demo",
       "subtitle": "A simple chat application using fake message simulation",

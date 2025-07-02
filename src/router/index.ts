@@ -44,6 +44,12 @@ const routes: Array<RouteRecordRaw> = [
         meta: { transition: 'slide-right' }
       },
       {
+        path: 'portfolio/Gallery',
+        name: 'Gallery',
+        component: () => import('@/views/portfolio/Gallery.vue'),
+        meta: { transition: 'slide-right' }
+      },
+      {
         path: 'contact',
         name: 'Contact',
         component: () => import('@/views/ContactView.vue'),

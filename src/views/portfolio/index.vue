@@ -22,6 +22,7 @@ import { useI18n } from 'vue-i18n';
 import FormDemo from '@/views/portfolio/FormDemo.vue';
 import Todo from '@/views/portfolio/Todo.vue';
 import Chat from '@/views/portfolio/Chat.vue';
+import Gallery from '@/views/portfolio/Gallery.vue';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
 import PreviewCard from '@/components/common/PreviewCard.vue';
 import { usePortfolioStore } from '@/store/modules/portfolioStore';
@@ -91,6 +92,13 @@ const projectsList = [
     descriptionKey: 'portfolio.todolist.description',
     component: Todo,
     route: 'Todo',
+  },
+  {
+    id: 'gallery',
+    nameKey: 'portfolio.gallery.title',
+    descriptionKey: 'portfolio.gallery.description',
+    component: Gallery,
+    route: 'Gallery',
   },
   {
     id: 'chat',
