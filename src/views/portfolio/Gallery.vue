@@ -1,18 +1,24 @@
 <template>
   <div class="gallery" :preview="previewMode" ref="galleryRef">
     <BackLink v-if="!hideBackLink" component="gallery" class="top-right-link" />
-    <div v-if="loading" class="loading-mask">
-      <Loading />
-    </div>
-    <div v-else-if="!loading && portfolioStore.galleryImages.length === 0" class="empty-message">
+
+    <!-- 空数据提示 -->
+    <div v-if="!loading && portfolioStore.galleryImages.length === 0" class="empty-message">
       No images found.
     </div>
+
+    <!-- 图片网格 -->
     <div v-else class="image-grid">
       <div v-for="(image, index) in portfolioStore.galleryImages" :key="index" class="image-item">
         <img :src="image.urls.small" :alt="image.alt_description || 'Gallery Image'" />
       </div>
+
+      <div v-if="loading" class="loading-placeholder-outer">
+        <Loading />
+      </div>
     </div>
   </div>
+
   <ThemeBackground />
 </template>
 
@@ -106,7 +112,7 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
-  position: fixed; /* 改回相对定位 */
+  position: fixed;
   top: 100px;
   right: 38px;
   z-index: 10;
@@ -139,21 +145,7 @@ onUnmounted(() => {
   scrollbar-width: none;
   -ms-overflow-style: none;
   display: block;
-  height: 100%; /* 让容器撑满父元素高度 */
-  position: relative;
-}
-
-.loading-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
 }
 
 .empty-message {
@@ -180,6 +172,16 @@ onUnmounted(() => {
   }
 }
 
+// 原 image-item 样式保持不变
+
+// 🔁 新增这个样式
+.loading-placeholder-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
 .image-item {
   break-inside: avoid;
   margin-bottom: 1rem;
@@ -193,19 +195,30 @@ onUnmounted(() => {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     z-index: 10;
   }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
 }
 
-.image-item img {
-  width: 100%;
-  height: auto;
-  display: block;
+.loading-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  /* 可改为与图片高度相符的固定值 */
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.image-item:hover img {
-  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 768px) {
