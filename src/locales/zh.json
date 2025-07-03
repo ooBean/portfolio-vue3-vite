@@ -10,16 +10,39 @@
   },
   "home": {
     "greeting": "你好，我是{name}，一名前端开发者",
+    "job": "前端开发者",
     "welcome": "欢迎来到我的作品集网站。",
-    "job": "前端开发",
-    "view_projects": "查看我的作品",
-    "user_name_placeholder": "王宇皎",
+    "view_projects": "查看我的项目",
+    "user_name_placeholder": "王宇熙",
     "user_location_placeholder": "中国大陆",
     "greeting_new_style": {
       "line1": "你好，我是",
       "line2": "{name}"
     },
-    "description_new_style": "我是一名前端开发者，现居{location}。"
+    "description_new_style": "我是一名前端开发者，现居{location}。",
+    "lines": [
+      [
+        { "text": "我", "highlight": true },
+        { "text": "是" },
+        { "text": "一名" },
+        { "text": "前端" },
+        { "text": "工程师" }
+      ],
+      [
+        { "text": "那" , "highlight": true },
+        { "text": "看起来" },
+        { "text": "很棒，" }
+      ],
+      [
+        { "text": "解决" },
+        { "text": "问题，" }
+      ],
+      [
+        { "text": "并且", "highlight": true },
+        { "text": "带来" },
+        { "text": "收入。" }
+      ]
+    ]
   },
   "portfolio": {
     "title": "我的作品集",

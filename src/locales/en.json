@@ -19,7 +19,31 @@
       "line1": "Hello I'm",
       "line2": "{name}"
     },
-    "description_new_style": "I'm a front-end development engineer from {location}."
+    "description_new_style": "I'm a front-end development engineer from {location}.",
+    "lines": [
+      [
+        { "text": "I", "highlight": true },
+        { "text": "am" },
+        { "text": "a" },
+        { "text": "Frontend" },
+        { "text": "Engineer" }
+      ],
+      [
+        { "text": "that", "highlight": true },
+        { "text": "looks" },
+        { "text": "amazing," }
+      ],
+      [
+        { "text": "solves" },
+        { "text": "problems," }
+      ],
+      [
+        { "text": "and", "highlight": true },
+        { "text": "brings" },
+        { "text": "in" },
+        { "text": "revenue." }
+      ]
+    ]
   },
   "portfolio": {
     "title": "My Portfolio",

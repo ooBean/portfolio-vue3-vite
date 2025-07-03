@@ -29,32 +29,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useI18nStore } from '@/store/modules/i18nStore';
 
-const lines = [
-  [
-    { text: 'I', highlight: true },
-    { text: 'am' },
-    { text: 'a' },
-    { text: 'Frontend' },
-    { text: 'Engineer' }
-  ],
-  [
-    { text: 'that', highlight: true },
-    { text: 'looks' },
-    { text: 'amazing,' }
-  ],
-  [
-    { text: 'solves' },
-    { text: 'problems,' }
-  ],
-  [
-    { text: 'and', highlight: true },
-    { text: 'brings' },
-    { text: 'in' },
-    { text: 'revenue.' }
-  ]
-];
+interface Home {
+  lines: Array<Array<{ text: string; highlight?: boolean }>>;
+}
+
+interface Messages {
+  home: Home;
+  [key: string]: any;
+}
+
+const i18nStore = useI18nStore();
+const { locale, getLocaleMessage } = useI18n();
+
+const lines = ref<Array<Array<{ text: string; highlight?: boolean }>>>([]);
+
+function updateLines(lang: string) {
+  const messages = getLocaleMessage(lang) as unknown as Messages;
+  const rawLines = JSON.parse(JSON.stringify(messages.home?.lines ?? []));
+  lines.value = rawLines;
+}
+
+// 初始化
+updateLines(i18nStore.currentLang);
+
+// 监听 store 中的 currentLang 变化，更新 lines
+watch(
+  () => i18nStore.currentLang,
+  (newLang) => {
+    updateLines(newLang);
+  }
+);
 
 const showMaskAnim = ref(false);
 
