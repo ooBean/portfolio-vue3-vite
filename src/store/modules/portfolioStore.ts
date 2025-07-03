@@ -15,18 +15,20 @@ export const usePortfolioStore = defineStore('portfolio', () => {
     { id: 'imagehovereffects' },
   ];
 
-  // 初始化 loading 状态，只执行一次
+  // 修改 initLoading 只处理 gallery 项目 loading 状态，且根据 galleryImages 是否存在停止 loading
   const initLoading = () => {
     projectsList.forEach(project => {
-      if (loading[project.id] === undefined) {
-        loading[project.id] = true;
-      }
-    });
-
-    projectsList.forEach((project, index) => {
-      setTimeout(() => {
+      if (project.id === 'gallery') {
+        if (loading[project.id] === undefined) {
+          loading[project.id] = true;
+        }
+        // 如果 galleryImages 已有数据，立即停止 loading
+        if (galleryImages.value.length > 0) {
+          loading[project.id] = false;
+        }
+      } else {
         loading[project.id] = false;
-      }, 1000 * (index + 1));
+      }
     });
   };
 
