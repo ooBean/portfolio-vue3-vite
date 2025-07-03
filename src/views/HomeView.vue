@@ -4,17 +4,8 @@
       <div class="hero-text">
         <div class="typewriter-mask-wrap">
           <div class="typewriter-text" :class="{ show: showMaskAnim }">
-            <div
-              v-for="(line, lineIdx) in lines"
-              :key="lineIdx"
-              class="typewriter-line"
-            >
-              <span
-                v-for="(word, i) in line"
-                :key="i"
-                :class="{ highlight: word.highlight }"
-                class="typewriter-word"
-              >
+            <div v-for="(line, lineIdx) in lines" :key="lineIdx" class="typewriter-line">
+              <span v-for="(word, i) in line" :key="i" :class="{ highlight: word.highlight }" class="typewriter-word">
                 {{ word.text }}
                 <span v-if="i !== line.length - 1">&nbsp;</span>
               </span>
@@ -114,14 +105,15 @@ onMounted(() => {
 .typewriter-text {
   display: flex;
   flex-direction: column;
-  align-items: center; /* 居中每一行 */
+  align-items: center;
+  /* 居中每一行 */
   font-family: 'Georgia', serif;
   font-size: clamp(2.2rem, 6vw, 4rem);
   color: $hero-heading-color;
   line-height: 1.1;
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 1.2s cubic-bezier(.4,0,.2,1), transform 1.2s cubic-bezier(.4,0,.2,1); // 缩短时长
+  transition: opacity 1.2s cubic-bezier(.4, 0, .2, 1), transform 1.2s cubic-bezier(.4, 0, .2, 1); // 缩短时长
   width: 100%;
 }
 
@@ -133,7 +125,8 @@ onMounted(() => {
 .typewriter-line {
   width: 100%;
   display: flex;
-  justify-content: center; /* 居中每一行的内容 */
+  justify-content: center;
+  /* 居中每一行的内容 */
   margin-bottom: 0.1em;
   flex-wrap: wrap;
 }
@@ -150,14 +143,17 @@ onMounted(() => {
 
 .typewriter-mask-wrap .mask {
   position: absolute;
-  left: 0; top: 0; bottom: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
   width: 100%;
   background: $hero-bg-color;
   z-index: 2;
-  transition: transform 1s cubic-bezier(.77,0,.175,1); // 缩短时长
+  transition: transform 1s cubic-bezier(.77, 0, .175, 1); // 缩短时长
   transform: translateX(0);
   pointer-events: none;
 }
+
 .typewriter-mask-wrap .mask.animate {
   transform: translateX(102%);
 }
