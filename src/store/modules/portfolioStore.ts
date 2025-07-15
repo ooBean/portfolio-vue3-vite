@@ -10,7 +10,6 @@ export const usePortfolioStore = defineStore('portfolio', () => {
   const projectsList = [
     { id: 'todo' },
     { id: 'chat' },
-    { id: 'form' },
     { id: 'gallery' },
     { id: 'imagehovereffects' },
   ];

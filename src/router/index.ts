@@ -38,12 +38,6 @@ const routes: Array<RouteRecordRaw> = [
         meta: { transition: 'slide-right' }
       },
       {
-        path: 'portfolio/form',
-        name: 'FormDemo',
-        component: () => import('@/views/portfolio/FormDemo.vue'),
-        meta: { transition: 'slide-right' }
-      },
-      {
         path: 'portfolio/Gallery',
         name: 'Gallery',
         component: () => import('@/views/portfolio/Gallery.vue'),

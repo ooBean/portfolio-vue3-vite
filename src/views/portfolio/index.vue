@@ -19,7 +19,6 @@
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import FormDemo from '@/views/portfolio/FormDemo.vue';
 import Todo from '@/views/portfolio/Todo.vue';
 import Chat from '@/views/portfolio/Chat.vue';
 import Gallery from '@/views/portfolio/Gallery.vue';
@@ -115,13 +114,7 @@ const projectsList = [
     component: Chat,
     route: 'Chat',
   },
-  {
-    id: 'form',
-    nameKey: 'portfolio.form.title',
-    descriptionKey: 'portfolio.form.description',
-    component: FormDemo,
-    route: 'FormDemo',
-  },
+
 ];
 
 const error = ref(false);
