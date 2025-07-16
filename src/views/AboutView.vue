@@ -105,7 +105,7 @@ const bgShapes = [
     id: 2,
     class: 'square',
     style: {
-      top: '35%',
+      top: '80%',
       left: '12%',
       width: '100px',
       height: '100px',
