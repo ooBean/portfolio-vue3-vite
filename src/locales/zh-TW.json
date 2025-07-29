@@ -22,25 +22,39 @@
     "description_new_style": "我是一名前端開發者，現居{location}。",
     "lines": [
       [
-        { "text": "我", "highlight": true },
-        { "text": "是" },
-        { "text": "一名" },
-        { "text": "前端" },
-        { "text": "工程師" }
+        {
+          "text": "我是",
+          "highlight": true
+        },
+        {
+          "text": "一名前端開發程序員"
+        },
+        {
+          "text": "，我希望獲得一份遠程的"
+        },
+        {
+          "text": "前端兼職或全職"
+        },
+        {
+          "text": "的前端開發工作，"
+        }
       ],
       [
-        { "text": "那" , "highlight": true },
-        { "text": "看起來" },
-        { "text": "很棒，" }
+        {
+          "text": "這是我覺得可以"
+        },
+        {
+          "text": "平衡生活和工作",
+          "highlight": true
+        },
+        {
+          "text": "的方式，"
+        }
       ],
       [
-        { "text": "解決" },
-        { "text": "問題，" }
-      ],
-      [
-        { "text": "並且", "highlight": true },
-        { "text": "帶來" },
-        { "text": "收入。" }
+        {
+          "text": "請選擇我"
+        }
       ]
     ]
   },

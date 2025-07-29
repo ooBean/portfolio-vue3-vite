@@ -22,26 +22,57 @@
     "description_new_style": "I'm a front-end development engineer from {location}.",
     "lines": [
       [
-        { "text": "I", "highlight": true },
-        { "text": "am" },
-        { "text": "a" },
-        { "text": "Frontend" },
-        { "text": "Engineer" }
+        {
+          "text": "I",
+          "highlight": true
+        },
+        {
+          "text": "am"
+        },
+        {
+          "text": "a"
+        },
+        {
+          "text": "front-end"
+        },
+        {
+          "text": "developer"
+        }
       ],
       [
-        { "text": "that", "highlight": true },
-        { "text": "looks" },
-        { "text": "amazing," }
+        {
+          "text": "seeking"
+        },
+        {
+          "text": "remote",
+          "highlight": true
+        },
+        {
+          "text": "part-time or full-time"
+        },
+        {
+          "text": "front-end"
+        },
+        {
+          "text": "development work,"
+        }
       ],
       [
-        { "text": "solves" },
-        { "text": "problems," }
+        {
+          "text": "which"
+        },
+        {
+          "text": "I believe",
+          "highlight": true
+        },
+        {
+          "text": "is a great way to balance life and work."
+        }
       ],
       [
-        { "text": "and", "highlight": true },
-        { "text": "brings" },
-        { "text": "in" },
-        { "text": "revenue." }
+        {
+          "text": "Please choose me."
+        }
       ]
     ]
   },

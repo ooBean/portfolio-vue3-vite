@@ -22,25 +22,39 @@
     "description_new_style": "我是一名前端开发者，现居{location}。",
     "lines": [
       [
-        { "text": "我", "highlight": true },
-        { "text": "是" },
-        { "text": "一名" },
-        { "text": "前端" },
-        { "text": "工程师" }
+        {
+          "text": "我是",
+          "highlight": true
+        },
+        {
+          "text": "一名前端开发程序员"
+        },
+        {
+          "text": "，我希望获得一份远程的"
+        },
+        {
+          "text": "前端兼职或全职"
+        },
+        {
+          "text": "的前端开发工作，"
+        }
       ],
       [
-        { "text": "那" , "highlight": true },
-        { "text": "看起来" },
-        { "text": "很棒，" }
+        {
+          "text": "这是我觉得可以"
+        },
+        {
+          "text": "平衡生活和工作",
+          "highlight": true
+        },
+        {
+          "text": "的方式，"
+        }
       ],
       [
-        { "text": "解决" },
-        { "text": "问题，" }
-      ],
-      [
-        { "text": "并且", "highlight": true },
-        { "text": "带来" },
-        { "text": "收入。" }
+        {
+          "text": "请选择我"
+        }
       ]
     ]
   },
