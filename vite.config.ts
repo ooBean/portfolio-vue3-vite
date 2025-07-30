@@ -3,9 +3,14 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
 const isGitHubPages = process.env.GITHUB_PAGES === 'true'
+const isVercel = process.env.VERCEL === '1' // Vercel 环境变量
 
 export default defineConfig({
-  base: isGitHubPages ? '/portfolio-vue3-vite/' : './',
+  base: isGitHubPages
+    ? '/portfolio-vue3-vite/'
+    : isVercel
+      ? '/'  // Vercel 部署时使用根路径
+      : './',
   plugins: [vue()],
   resolve: {
     alias: {
