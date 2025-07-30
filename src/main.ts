@@ -43,7 +43,8 @@ app.directive('focus', focusDirective);
 const uiStore = useUiStore()
 uiStore.initTheme()
 
-const i18nStore = useI18nStore()
-i18nStore.initLanguage()
+const i18nStore = useI18nStore();
+const currentLang = i18nStore.initLanguage();
+i18n.global.locale.value = currentLang;
 
 app.mount('#app')

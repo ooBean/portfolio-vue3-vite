@@ -4,8 +4,6 @@ import path from 'path'
 
 const isGitHubPages = process.env.GITHUB_PAGES === 'true'
 const isVercel = process.env.VERCEL === '1' // Vercel 环境变量
-console.log(process.env,'process.env')  
-console.log(isVercel,'isVercel')
 export default defineConfig({
   base: isGitHubPages
     ? '/portfolio-vue3-vite/'
