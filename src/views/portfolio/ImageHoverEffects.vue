@@ -17,53 +17,31 @@
 </template>
 
 <script setup lang="ts">
-import { readonly } from 'vue';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import BackLink from '@/components/common/BackLink.vue';
 import ThemeBackground from '@/components/common/ThemeBackground.vue';
+import { cardsData } from '@/store/modules/i18nStore';
+import type { Language } from '@/types/unsplash';
 
 const props = defineProps({
   previewMode: { type: Boolean, default: false },
   hideBackLink: { type: Boolean, default: false }
 });
 
-const cards = readonly([
-  {
-    effect: 'bottom_slide_in',
-    title: 'Anne of Green Gables',
-    copy: "'Anne of Green Gables' is a heartwarming tale of an imaginative, fiery orphan's adventures and growth.",
-    image: 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/anne.jfif'
-  },
-  {
-    effect: 'zoom-in',
-    title: 'The lovely bones',
-    copy: "'The Lovely Bones' is a poignant tale of a young girl watching from her personal heaven as her family and friends cope with her tragic death.",
-    image: 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/bones.jpg'
-  },
-  {
-    effect: 'hover_split',
-    title: 'A Song of Ice and Fire',
-    copy: 'Noble families vie for Iron Throne amid dragons, magic, shifting alliances, and winter’s looming darkness.',
-    image: 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/dragon.jpg'
-  },
-  {
-    effect: 'page_turning',
-    title: 'The Witcher',
-    copy: 'The Witcher follows Geralt of Rivia, a monster hunter navigating a turbulent world filled with magic and political intrigue.',
-    image: 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/the_witcher.jpg'
-  },
-  {
-    effect: 'reveal_blur',
-    title: 'The Help',
-    copy: 'In 1960s Mississippi, three women cross racial and social divides to write a secret book that challenges the status quo.',
-    image: 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/help.webp'
-  },
-  {
-    effect: 'flip_overlay_blur',
-    title: 'Heaven Official’s Blessing',
-    copy: 'An exiled prince ascends once more as a god, bound to a ghost king by fate and centuries of silent devotion.',
-    image: 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/tgcf.jpg'
+const { locale } = useI18n();
+
+const isLanguage = (lang: string): lang is Language => {
+  return ['en', 'zh', 'zh-TW'].includes(lang);
+};
+
+const cards = computed(() => {
+  const lang = locale.value;
+  if (isLanguage(lang)) {
+    return cardsData[lang];
   }
-]);
+  return cardsData.en;
+});
 </script>
 
 <style lang="scss" scoped>
