@@ -132,10 +132,8 @@ function getTimestamp(): string {
 function updateScrollbar() {
   if (!messagesContent.value) return
   if (props.previewMode) {
-    console.log('Preview mode: scrollTop forced to 0')
     messagesContent.value.scrollTop = 0
   } else {
-    console.log('Normal mode: scroll to bottom')
     messagesContent.value.scrollTop = messagesContent.value.scrollHeight
   }
 }
