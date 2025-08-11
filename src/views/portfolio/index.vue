@@ -10,8 +10,7 @@
     <div v-if="error" class="error-message">{{ t('portfolio.error_loading') }}</div>
     <div class="projects-grid">
       <PreviewCard v-for="project in projects" :key="project.id" :project="project"
-        :loading="true" @click="navigateToProject(project.route)" />
-        <!-- :loading="portfolioStore.loading[project.id] || false"  -->
+        :loading="portfolioStore.loading[project.id] || false" @click="navigateToProject(project.route)" />
     </div>
   </div>
 </template>
