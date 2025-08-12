@@ -304,7 +304,7 @@ const bgShapes = [
   --gradient-end: rgba(59, 130, 246, 0);
 
   // 自定义一个可调偏移量
-  --content-shift: 10vh;
+  --content-shift: 0; /* 从 10vh 改为 0，使其上移至垂直居中位置 */
 }
 
 /* 背景几何体容器 */
@@ -492,7 +492,7 @@ const bgShapes = [
 }
 
 .content {
-  max-width: 360px; // 增加最大宽度
+  max-width: 380px; // 增加最大宽度
   padding: 1.5rem; // 内边距
   height: 400px;
   background: rgba(255, 255, 255, 0.6);
@@ -540,7 +540,7 @@ const bgShapes = [
 // 可选：大屏再多挪一点
 @media (min-width: 992px) {
   .about-container {
-    --content-shift: 10vh;
+    --content-shift: 0; /* 同样修改，保持大屏和小屏效果一致 */
   }
 }
 
