@@ -12,7 +12,7 @@
                     <p class="author">{{ $t('portfolio.interactive_card.author_prefix') }}<strong>Mrs. Bean</strong></p>
                     <p class="related">
                         <strong>{{ $t('portfolio.interactive_card.inspiration_prefix') }}</strong>
-                        <a href="https://codepen.io/ariona/pen/gOaJdWL" target="_blank" rel="noopener noreferrer">
+                        <a href="https://codepen.io/ariona/pen/JopOOr" target="_blank" rel="noopener noreferrer">
                             {{ $t('portfolio.interactive_card.inspiration_link_text') }}
                         </a>
                     </p>
