@@ -29,7 +29,7 @@
           <router-link to="/about" class="nav-link" @click="closeMenu">{{ t('navigation.about') }}</router-link>
           <router-link to="/contact" class="nav-link" @click="closeMenu">{{ t('navigation.contact') }}</router-link>
           <div class="mobile-language-wrapper">
-            <LanguageSwitcher />
+            <LanguageSwitcher mode="dark" />
           </div>
         </nav>
       </div>
@@ -196,8 +196,16 @@ onBeforeUnmount(() => {
 
     .nav-link {
       font-size: 1.2rem;
-      color: var(--text-color);
+      color: $light-text-color; /* 修改：强制使用浅色变量以确保高对比度 */
       text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: scale(1.05);
+      }
     }
   }
 
