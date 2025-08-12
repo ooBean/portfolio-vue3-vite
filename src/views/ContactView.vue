@@ -192,6 +192,8 @@ textarea {
   border: 2px solid #5cb190;
   border-radius: 1rem;
   background: transparent;
+  box-sizing: border-box; /* 新增：确保所有表单元素宽度计算方式统一 */
+  resize: none; /* 新增：禁止用户调整文本框大小，保持布局一致 */
 }
 
 .send-button {
