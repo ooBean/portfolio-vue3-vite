@@ -50,6 +50,11 @@ const emit = defineEmits(['click', 'download']);
   display: flex;
   flex-direction: column;
 
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
+  }
+
   @media (max-width: 480px) {
     width: 100%;
     height: auto;
