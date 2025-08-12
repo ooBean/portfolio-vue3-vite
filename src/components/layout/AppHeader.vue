@@ -185,7 +185,7 @@ onBeforeUnmount(() => {
   padding-top: 5rem;
 
   .mobile-menu {
-    background: var(--background-color);
+    background: rgba(40, 40, 40, 0.95); /* 修改背景色，增加不透明度和深度 */
     padding: 2rem 1.5rem;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
