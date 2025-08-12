@@ -112,6 +112,23 @@ function smoothScrollToBottom(duration = 15000) {
   if (!el) return
   const container: HTMLElement = el
 
+  // 用于取消动画
+  let animationFrameId: number;
+
+  // 定义中断处理函数
+  const interruptHandler = () => {
+    // 取消动画帧的请求
+    cancelAnimationFrame(animationFrameId);
+    // 移除事件监听，避免内存泄漏
+    container.removeEventListener('wheel', interruptHandler);
+    container.removeEventListener('touchstart', interruptHandler);
+  };
+
+  // 添加事件监听器，当用户尝试滚动时中断动画
+  // { passive: true } 是一种优化，告诉浏览器该监听器不会调用 preventDefault()
+  container.addEventListener('wheel', interruptHandler, { passive: true });
+  container.addEventListener('touchstart', interruptHandler, { passive: true });
+
   // 强制重置到顶部
   container.scrollTop = 0
 
@@ -127,11 +144,15 @@ function smoothScrollToBottom(duration = 15000) {
 
     container.scrollTop = start + change * eased
     if (progress < 1) {
-      requestAnimationFrame(animate)
+      animationFrameId = requestAnimationFrame(animate)
+    } else {
+      // 动画自然结束后，也要移除监听器
+      container.removeEventListener('wheel', interruptHandler);
+      container.removeEventListener('touchstart', interruptHandler);
     }
   }
 
-  requestAnimationFrame(animate)
+  animationFrameId = requestAnimationFrame(animate)
 }
 
 onMounted(() => {
