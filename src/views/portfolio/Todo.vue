@@ -149,29 +149,33 @@ function setStatus(status: 'all' | 'work' | 'done') {
   }
 
   &[preview="true"] {
-    /* 限制整体最大宽度为100%，防止溢出 */
+    /* 整体容器调整 */
     max-width: 100% !important;
-    padding: 0.8rem !important;
+    padding: 0.5rem !important; /* 减小内边距 */
+    font-size: 0.8rem; /* 统一减小基础字号 */
 
     .todolist-form {
       width: 100%;
-      margin-top: 0.5rem !important;
+      margin-top: 0 !important; /* 移除顶部边距 */
       display: flex;
       flex-direction: column;
 
       .form-header {
-        flex-direction: column;
+        /* 在预览模式下，标签太占空间，直接隐藏 */
+        label {
+          display: none;
+        }
       }
 
       .form-input-group {
         display: flex !important;
-        flex-direction: row !important;
+        flex-direction: column !important; /* 修改：改为垂直堆叠以适应极窄宽度 */
         gap: 0.3rem;
 
         input,
         button {
-          height: 2.8rem !important;
-          font-size: 0.9rem !important;
+          height: 2.2rem !important; /* 减小高度 */
+          font-size: 0.8rem !important; /* 减小字号 */
           border-radius: 4px !important;
         }
 
@@ -182,24 +186,38 @@ function setStatus(status: 'all' | 'work' | 'done') {
 
         button {
           flex-shrink: 0;
-          padding: 0 1rem;
+          padding: 0 0.8rem; /* 减小内边距 */
         }
       }
     }
 
     .todolist-content {
       max-width: 100% !important;
-      overflow-x: hidden !important;
-      padding: 0.5rem 0 !important;
-      margin-top: 0.8rem !important;
+      overflow: hidden !important; /* 防止内部元素溢出 */
+      padding: 0 !important; /* 移除内边距 */
+      margin-top: 0.5rem !important; /* 减小边距 */
+      border: none; /* 移除在小卡片中不必要的边框 */
+      box-shadow: none; /* 移除阴影 */
 
       .tab {
-        margin-bottom: 1rem !important;
+        margin-bottom: 0.5rem !important; /* 减小边距 */
+        li {
+          padding: 0.4rem 0.6rem; /* 减小Tab项的内边距 */
+          font-size: 0.8rem; /* 减小字号 */
+        }
       }
 
       .todolist-items {
-        max-height: 160px !important;
-        padding-right: 6px !important;
+        max-height: 100px !important; /* 大幅减小列表最大高度 */
+        padding-right: 4px !important; /* 减小内边距 */
+      }
+
+      .todolist-item {
+        padding: 0.3rem 0.4rem; /* 减小列表项内边距 */
+        margin: 0.2rem 0;
+        span {
+          font-size: 0.85rem; /* 调整列表项文字大小 */
+        }
       }
     }
   }

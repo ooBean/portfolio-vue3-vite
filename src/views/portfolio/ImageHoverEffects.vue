@@ -104,6 +104,7 @@ $content-details-transition: all 0.5s ease;
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    justify-items: center; /* 新增：让所有网格项在其单元格内水平居中 */
   }
 
   .card {

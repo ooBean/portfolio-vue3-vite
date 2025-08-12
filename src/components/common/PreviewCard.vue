@@ -63,27 +63,24 @@ const emit = defineEmits(['click', 'download']);
 
 .loading-container,
 .content-container {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
   background: var(--todolist-bg, #fff);
 }
 
 .loading-container {
   justify-content: center;
+  align-items: center;
   background: var(--chat-messages-bg, #f8f9fa);
   border-radius: 12px;
   z-index: 10;
 }
 
 .project-preview {
-  height: 280px;
+  height: 220px; /* 从 280px 改为 220px 以防止内容溢出 */
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -109,7 +106,7 @@ const emit = defineEmits(['click', 'download']);
   scrollbar-width: none;
 
   @media (max-width: 480px) {
-    height: 220px;
+    height: 220px; /* 此处无需更改，现在与桌面端保持一致 */
   }
 }
 

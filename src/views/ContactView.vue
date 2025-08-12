@@ -365,6 +365,7 @@ hr {
 @media (max-width: 768px) {
   .contact-wrapper {
     flex-direction: column;
+    align-items: center; /* 新增：在垂直布局下，水平居中其子元素 */
     gap: 20px;
   }
 }
