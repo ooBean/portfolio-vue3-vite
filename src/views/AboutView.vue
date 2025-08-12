@@ -385,10 +385,14 @@ const bgShapes = [
 }
 
 /* 让图标和文字保持在最上层 */
-.floating-icons,
-.content {
+.floating-icons {
   position: relative;
   z-index: 10;
+}
+
+.content {
+  position: relative;
+  z-index: 11; /* 确保内容框在图标之上 */
 }
 
 .floating-icons.left,
