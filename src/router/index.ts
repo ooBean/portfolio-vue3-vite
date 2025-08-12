@@ -38,6 +38,12 @@ const routes: Array<RouteRecordRaw> = [
         meta: { transition: 'slide-right' }
       },
       {
+        path: 'portfolio/InteractiveCard',
+        name: 'InteractiveCard',
+        component: () => import('@/views/portfolio/InteractiveCard.vue'),
+        meta: { transition: 'slide-right' }
+      },
+      {
         path: 'portfolio/Gallery',
         name: 'Gallery',
         component: () => import('@/views/portfolio/Gallery.vue'),

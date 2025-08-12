@@ -122,6 +122,14 @@
       "light_title": "切換到淺色主題",
       "dark_title": "切換到深色主題",
       "warm_title": "切換到暖色主題"
+    },
+    "interactive_card": {
+      "title": "3D 互動卡片",
+      "description": "一個基於滑鼠懸停的3D傾斜卡片，展示了CSS Transform和透視效果的應用。",
+      "subtitle":"一探方圓",
+      "author_prefix": "組件作者：",
+      "inspiration_prefix": "靈感來源：",
+      "inspiration_link_text": "原作 by Ariona, Rian"
     }
   },
   "about": {

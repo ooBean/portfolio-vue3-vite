@@ -21,6 +21,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Todo from '@/views/portfolio/Todo.vue';
 import Chat from '@/views/portfolio/Chat.vue';
+import InteractiveCard from '@/views/portfolio/InteractiveCard.vue';
 import Gallery from '@/views/portfolio/Gallery.vue';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
 import PreviewCard from '@/components/common/PreviewCard.vue';
@@ -86,6 +87,13 @@ onMounted(() => {
 });
 
 const projectsList = [
+  {
+    id: 'InteractiveCard',
+    nameKey: 'portfolio.interactive_card.title',
+    descriptionKey: 'portfolio.interactive_card.description',
+    component: InteractiveCard,
+    route: 'InteractiveCard'
+  },
   {
     id: 'todo',
     nameKey: 'portfolio.todolist.title',

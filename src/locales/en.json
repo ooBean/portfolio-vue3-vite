@@ -140,6 +140,14 @@
       "light_title": "Switch to Light Theme",
       "dark_title": "Switch to Dark Theme",
       "warm_title": "Switch to Warm Theme"
+    },
+    "interactive_card": {
+      "title": "3D Interactive Card",
+      "description": "A 3D card that tilts on hover, showcasing the application of CSS Transform and perspective effects.",
+      "subtitle":"Just hover around",
+       "author_prefix": "Implemented by ",
+      "inspiration_prefix": "See also:",
+      "inspiration_link_text": "Original Pen by Ariona, Rian"
     }
   },
   "about": {
