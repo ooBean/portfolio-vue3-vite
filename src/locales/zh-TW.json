@@ -1,4 +1,6 @@
 {
+
+
   "navigation": {
     "home": "首頁",
     "portfolio": "作品集",
@@ -89,6 +91,14 @@
         "learn_vue": "學習 Vue.js",
         "code_todolist": "編寫一個待辦事項列表",
         "learn_more": "學習其他內容"
+      },
+      "tech_highlights": {
+        "title1": "響應式狀態與持久化",
+        "p1": "組件的核心數據 (<code>todo</code> 列表) 透過 Vue 3 的 <code>ref</code> 進行管理。利用 <code>watch</code> 偵聽器並設定 <code>{ deep: true }</code>，實現了對陣列內部變化的深度監聽。任何變更都會被自動序列化並同步至 <code>sessionStorage</code>，從而實現了跨頁面刷新的狀態持久化。在組件掛載時 (<code>onMounted</code>)，會優先從 <code>sessionStorage</code> 恢復數據。",
+        "title2": "聲明式的數據計算",
+        "p2": "待辦事項的篩選和排序功能是透過一個 <code>computed</code> 屬性 (<code>filteredTodo</code>) 實現的。該屬性根據當前的篩選狀態 (<code>sortByStatus</code>) 從原始的 <code>todo</code> 陣列中派生出新的視圖數據。這種聲明式的方式避免了手動操作DOM，確保了數據源的唯一性和UI的同步性，程式碼邏輯清晰且易於維護。",
+        "title3": "列表過渡與互動優化",
+        "p3": "透過整合 Vue 的內建 <code>&lt;transition-group&gt;</code> 組件，為列表項的新增、刪除和排序提供了平滑的動畫過渡效果，提升了使用者操作的視覺回饋。此外，輸入框使用了自定義指令 <code>v-focus</code>，在組件載入後自動取得焦點，優化了使用者的輸入體驗。"
       }
     },
     "chat": {
@@ -181,6 +191,10 @@
     }
   },
   "common": {
-    "back_to_portfolio": "返回作品集"
+    "back_to_portfolio": "返回作品集",
+    "tech_highlights": {
+      "trigger": "技術亮點",
+      "header": "技術實現亮點"
+    }
   }
 }

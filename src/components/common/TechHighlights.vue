@@ -2,13 +2,13 @@
   <div>
     <!-- 触发按钮 -->
     <button class="highlights-trigger" @click="togglePanel">
-      <span>技术亮点</span>
+      <span>{{ t('common.tech_highlights.trigger') }}</span>
     </button>
 
     <!-- 面板 -->
     <div class="highlights-panel" :class="{ 'is-open': isPanelOpen }">
       <div class="panel-header">
-        <h3>技术实现亮点</h3>
+        <h3>{{ t('common.tech_highlights.header') }}</h3>
         <button class="close-btn" @click="togglePanel">&times;</button>
       </div>
       <div class="panel-content">
@@ -21,6 +21,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const isPanelOpen = ref(false);
 
@@ -123,7 +126,7 @@ const togglePanel = () => {
   &::-webkit-scrollbar {
     display: none;
   }
-  
+
   :deep(h4) {
     color: $primary-color;
     margin-top: 1.5rem;

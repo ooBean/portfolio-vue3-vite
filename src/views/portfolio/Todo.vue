@@ -41,19 +41,14 @@
   </div>
 
   <TechHighlights v-if="!hideBackLink">
-    <h4>响应式状态与持久化</h4>
-    <p>组件的核心数据 (<code>todo</code> 列表) 通过 Vue 3 的 <code>ref</code> 进行管理。利用 <code>watch</code> 侦听器并设置
-      <code>{ deep: true }</code>，实现了对数组内部变化的深度监听。任何变更都会被自动序列化并同步至 <code>sessionStorage</code>，从而实现了跨页面刷新的状态持久化。在组件挂载时
-      (<code>onMounted</code>)，会优先从 <code>sessionStorage</code> 恢复数据。</p>
+    <h4>{{ t('portfolio.todolist.tech_highlights.title1') }}</h4>
+    <p v-html="t('portfolio.todolist.tech_highlights.p1')"></p>
 
-    <h4>声明式的数据计算</h4>
-    <p>待办事项的筛选和排序功能是通过一个 <code>computed</code> 属性 (<code>filteredTodo</code>) 实现的。该属性根据当前的筛选状态
-      (<code>sortByStatus</code>) 从原始的 <code>todo</code> 数组中派生出新的视图数据。这种声明式的方式避免了手动操作DOM，确保了数据源的唯一性和UI的同步性，代码逻辑清晰且易于维护。
-    </p>
+    <h4>{{ t('portfolio.todolist.tech_highlights.title2') }}</h4>
+    <p v-html="t('portfolio.todolist.tech_highlights.p2')"></p>
 
-    <h4>列表过渡与交互优化</h4>
-    <p>通过集成 Vue 的内置 <code>&lt;transition-group&gt;</code> 组件，为列表项的添加、删除和排序提供了平滑的动画过渡效果，提升了用户操作的视觉反馈。此外，输入框使用了自定义指令
-      <code>v-focus</code>，在组件加载后自动获取焦点，优化了用户的输入体验。</p>
+    <h4>{{ t('portfolio.todolist.tech_highlights.title3') }}</h4>
+    <p v-html="t('portfolio.todolist.tech_highlights.p3')"></p>
   </TechHighlights>
 </template>
 
@@ -64,8 +59,6 @@ import { useUiStore } from '@/store/modules/uiStore';
 import BackLink from '@/components/common/BackLink.vue';
 import ThemeBackground from '@/components/common/ThemeBackground.vue';
 import TechHighlights from '@/components/common/TechHighlights.vue';
-
-
 const props = defineProps({
   previewMode: { type: Boolean, default: false },
   hideBackLink: { type: Boolean, default: false }
@@ -595,3 +588,4 @@ function setStatus(status: 'all' | 'work' | 'done') {
   }
 }
 </style>
+

@@ -1,3 +1,4 @@
+
 {
   "navigation": {
     "home": "Home",
@@ -99,6 +100,14 @@
         "learn_vue": "Learn VueJs",
         "code_todolist": "Code a todo list",
         "learn_more": "Learn something else"
+      },
+      "tech_highlights": {
+        "title1": "Reactivity and Persistence",
+        "p1": "The component's core data (the <code>todo</code> list) is managed using Vue 3's <code>ref</code>. By leveraging a <code>watch</code> listener with <code>{ deep: true }</code>, it deeply monitors changes within the array. Any modification is automatically serialized and synchronized to <code>sessionStorage</code>, achieving state persistence across page reloads. On component mount (<code>onMounted</code>), data is preferentially restored from <code>sessionStorage</code>.",
+        "title2": "Declarative Data Computation",
+        "p2": "The filtering and sorting of todo items are implemented through a <code>computed</code> property (<code>filteredTodo</code>). This property derives new view data from the original <code>todo</code> array based on the current filter state (<code>sortByStatus</code>). This declarative approach avoids manual DOM manipulation, ensures a single source of truth and UI synchronization, resulting in clear and maintainable code logic.",
+        "title3": "List Transitions and Interaction Optimization",
+        "p3": "By integrating Vue's built-in <code>&lt;transition-group&gt;</code> component, smooth animations are provided for adding, removing, and sorting list items, enhancing visual feedback for user actions. Additionally, the input field uses a custom directive <code>v-focus</code> to automatically gain focus after the component loads, optimizing the user's input experience."
       }
     },
     "hover_effects": {
@@ -199,6 +208,10 @@
     }
   },
   "common": {
-    "back_to_portfolio": "Back to Portfolio"
+    "back_to_portfolio": "Back to Portfolio",
+    "tech_highlights": {
+      "trigger": "Tech Highlights",
+      "header": "Technical Implementation Highlights"
+    }
   }
 }
