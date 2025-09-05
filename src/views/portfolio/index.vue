@@ -28,6 +28,7 @@ import PreviewCard from '@/components/common/PreviewCard.vue';
 import { usePortfolioStore } from '@/store/modules/portfolioStore';
 import { useUiStore } from '@/store/modules/uiStore';
 import ImageHoverEffects from '@/views/portfolio/ImageHoverEffects.vue';
+import DesignSystem from '@/views/portfolio/DesignSystem.vue';
 
 type Theme = 'theme-light' | 'theme-dark' | 'theme-warm';
 
@@ -87,6 +88,13 @@ onMounted(() => {
 });
 
 const projectsList = [
+  {
+    id: 'DesignSystem',
+    nameKey: 'portfolio.design_system.title',
+    descriptionKey: 'portfolio.design_system.description',
+    component: DesignSystem,
+    route: 'DesignSystem'
+  },
   {
     id: 'InteractiveCard',
     nameKey: 'portfolio.interactive_card.title',

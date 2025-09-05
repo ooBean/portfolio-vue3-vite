@@ -126,10 +126,19 @@
     "interactive_card": {
       "title": "3D 互動卡片",
       "description": "一個基於滑鼠懸停的3D傾斜卡片，展示了CSS Transform和透視效果的應用。",
-      "subtitle":"一探方圓",
+      "subtitle": "一探方圓",
       "author_prefix": "組件作者：",
       "inspiration_prefix": "靈感來源：",
       "inspiration_link_text": "原作 by Ariona, Rian"
+    },
+    "design_system": {
+      "title": "設計規範",
+      "description": "本作品集的「活」設計文件，展示了顏色、字體、間距和可重用元件的統一規範。",
+      "philosophy": "以一致性、可重用性和可及性為核心原則，構建美觀且易於維護的使用者介面。",
+      "tokens_title": "設計令牌",
+      "colors_title": "色彩",
+      "typography_title": "字體",
+      "components_title": "元件展示"
     }
   },
   "about": {

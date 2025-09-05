@@ -13,6 +13,7 @@ export const usePortfolioStore = defineStore('portfolio', () => {
     { id: 'gallery' },
     { id: 'imagehovereffects' },
     { id: 'InteractiveCard' },
+    { id: 'DesignSystem' },
   ];
 
   // 修改 initLoading 只处理 gallery 项目 loading 状态，且根据 galleryImages 是否存在停止 loading

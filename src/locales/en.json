@@ -143,11 +143,20 @@
     },
     "interactive_card": {
       "title": "3D Interactive Card",
-      "description": "A 3D card that tilts on hover, showcasing the application of CSS Transform and perspective effects.",
-      "subtitle":"Just hover around",
-       "author_prefix": "Implemented by ",
+      "description": "A 3D tilt card using CSS transforms and perspective.",
+      "subtitle": "Just hover around",
+      "author_prefix": "Implemented by ",
       "inspiration_prefix": "See also:",
       "inspiration_link_text": "Original Pen by Ariona, Rian"
+    },
+    "design_system": {
+      "title": "Design System",
+      "description": "A living design document for this portfolio, showcasing consistent standards for colors, typography, spacing, and reusable components.",
+      "philosophy": "Built on the core principles of consistency, reusability, and accessibility to create beautiful and maintainable user interfaces.",
+      "tokens_title": "Design Tokens",
+      "colors_title": "Colors",
+      "typography_title": "Typography",
+      "components_title": "Components"
     }
   },
   "about": {

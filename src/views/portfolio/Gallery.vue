@@ -20,12 +20,27 @@
   </div>
 
   <ThemeBackground />
+
+  <TechHighlights v-if="!hideBackLink">
+    <h4>滚动加载与请求节流</h4>
+    <p>组件通过监听容器的滚动事件，并在滚动至距底部特定阈值时触发 <code>loadMore</code> 函数，实现了数据的“按需加载”。为了防止短时间内发起并发请求，一个 <code>loading</code>
+      状态被用作请求锁，这是一种轻量级的**请求节流 (Throttling)**机制。这种策略既保证了流畅的用户体验，也避免了不必要的API调用。</p>
+
+    <h4>混合状态管理与持久化</h4>
+    <p>该组件采用了 Pinia 与组件局部状态 (<code>ref</code>) 相结合的混合策略。Pinia Store
+      用于跨会话缓存图片数据，避免了不必要的网络请求。而像加载状态这类临时UI状态则由组件自身管理，实现了清晰的状态分层。</p>
+
+    <h4>纯CSS响应式瀑布流</h4>
+    <p>图片画廊采用纯 CSS 的 <code>column-count</code> 属性构建了一个响应式的瀑布流布局。同时，组件利用 <code>onMounted</code> 和
+      <code>onUnmounted</code> 生命周期钩子来安全地绑定和销毁滚动事件监听器，确保了组件的健壮性和无内存泄漏。</p>
+  </TechHighlights>
 </template>
 
 <script setup lang="ts">
 import { getImages } from '@/services';
 import BackLink from '@/components/common/BackLink.vue';
 import ThemeBackground from '@/components/common/ThemeBackground.vue';
+import TechHighlights from '@/components/common/TechHighlights.vue';
 import Loading from '@/components/common/Loading.vue';
 
 import { onMounted, ref, onUnmounted } from 'vue';

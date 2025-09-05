@@ -22,6 +22,15 @@
       <button class="message-submit" @click="sendMessage">{{ t('portfolio.chat.send_button') }}</button>
     </div>
   </div>
+
+  <TechHighlights v-if="!hideBackLink">
+    <h4>模拟异步交互</h4>
+    <p>为了提升用户体验的真实感，组件通过 <code>setTimeout</code> 结合随机延迟，模拟了异步消息流与“对方正在输入”的加载指示器。这种非阻塞式的交互设计，旨在还原真实聊天场景，增强用户沉浸感。</p>
+    <h4>高级状态与DOM管理</h4>
+    <p>组件采用了**混合状态管理策略**：使用 Pinia (<code>useUiStore</code>) 管理全局UI状态（如主题），同时利用 Vue 3 **组合式API** (<code>ref</code>) 管理组件内部的响应式数据。此外，通过模板引用 (Template Refs) 与 <code>onMounted</code>生命周期钩子结合，实现了对DOM的精准操作，如聊天记录自动滚动到底部和输入框自动聚焦。</p>
+    <h4>动态与多语言UI</h4>
+    <p>该聊天界面是完全**国际化 (i18n)** 的。通过集成 <code>vue-i18n</code>，并根据用户的语言环境 (<code>locale</code>) 动态从一个映射表 (<code>messagesMap</code>) 中选择对话文本，实现了内容的多语言无缝切换。UI样式也利用了CSS变量，使其能够灵活地适应不同的主题。</p>
+  </TechHighlights>
 </template>
 
 <script lang="ts" setup>
@@ -31,6 +40,9 @@ import { useI18n } from 'vue-i18n';
 import BackLink from '@/components/common/BackLink.vue';
 import MessageItem from '@/components/portfolio-chat/MessageItem.vue';
 import ThemeBackground from '@/components/common/ThemeBackground.vue';
+// 新增：引入TechHighlights组件
+import TechHighlights from '@/components/common/TechHighlights.vue';
+
 const { locale, t } = useI18n();
 const uiStore = useUiStore();
 const messagesContent = ref<HTMLElement | null>(null)

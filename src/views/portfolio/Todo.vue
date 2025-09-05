@@ -39,6 +39,22 @@
       <p v-else class="todolist-empty">{{ t('portfolio.todolist.empty_list') }}</p>
     </div>
   </div>
+
+  <TechHighlights v-if="!hideBackLink">
+    <h4>响应式状态与持久化</h4>
+    <p>组件的核心数据 (<code>todo</code> 列表) 通过 Vue 3 的 <code>ref</code> 进行管理。利用 <code>watch</code> 侦听器并设置
+      <code>{ deep: true }</code>，实现了对数组内部变化的深度监听。任何变更都会被自动序列化并同步至 <code>sessionStorage</code>，从而实现了跨页面刷新的状态持久化。在组件挂载时
+      (<code>onMounted</code>)，会优先从 <code>sessionStorage</code> 恢复数据。</p>
+
+    <h4>声明式的数据计算</h4>
+    <p>待办事项的筛选和排序功能是通过一个 <code>computed</code> 属性 (<code>filteredTodo</code>) 实现的。该属性根据当前的筛选状态
+      (<code>sortByStatus</code>) 从原始的 <code>todo</code> 数组中派生出新的视图数据。这种声明式的方式避免了手动操作DOM，确保了数据源的唯一性和UI的同步性，代码逻辑清晰且易于维护。
+    </p>
+
+    <h4>列表过渡与交互优化</h4>
+    <p>通过集成 Vue 的内置 <code>&lt;transition-group&gt;</code> 组件，为列表项的添加、删除和排序提供了平滑的动画过渡效果，提升了用户操作的视觉反馈。此外，输入框使用了自定义指令
+      <code>v-focus</code>，在组件加载后自动获取焦点，优化了用户的输入体验。</p>
+  </TechHighlights>
 </template>
 
 <script setup lang="ts" name="Todo">
@@ -47,6 +63,8 @@ import { useI18n } from 'vue-i18n';
 import { useUiStore } from '@/store/modules/uiStore';
 import BackLink from '@/components/common/BackLink.vue';
 import ThemeBackground from '@/components/common/ThemeBackground.vue';
+import TechHighlights from '@/components/common/TechHighlights.vue';
+
 
 const props = defineProps({
   previewMode: { type: Boolean, default: false },
@@ -151,16 +169,20 @@ function setStatus(status: 'all' | 'work' | 'done') {
   &[preview="true"] {
     /* 整体容器调整 */
     max-width: 100% !important;
-    padding: 0.5rem !important; /* 减小内边距 */
-    font-size: 0.8rem; /* 统一减小基础字号 */
+    padding: 0.5rem !important;
+    /* 减小内边距 */
+    font-size: 0.8rem;
+    /* 统一减小基础字号 */
 
     .todolist-form {
       width: 100%;
-      margin-top: 0 !important; /* 移除顶部边距 */
+      margin-top: 0 !important;
+      /* 移除顶部边距 */
       display: flex;
       flex-direction: column;
 
       .form-header {
+
         /* 在预览模式下，标签太占空间，直接隐藏 */
         label {
           display: none;
@@ -169,13 +191,16 @@ function setStatus(status: 'all' | 'work' | 'done') {
 
       .form-input-group {
         display: flex !important;
-        flex-direction: column !important; /* 修改：改为垂直堆叠以适应极窄宽度 */
+        flex-direction: column !important;
+        /* 修改：改为垂直堆叠以适应极窄宽度 */
         gap: 0.3rem;
 
         input,
         button {
-          height: 2.2rem !important; /* 减小高度 */
-          font-size: 0.8rem !important; /* 减小字号 */
+          height: 2.2rem !important;
+          /* 减小高度 */
+          font-size: 0.8rem !important;
+          /* 减小字号 */
           border-radius: 4px !important;
         }
 
@@ -186,37 +211,52 @@ function setStatus(status: 'all' | 'work' | 'done') {
 
         button {
           flex-shrink: 0;
-          padding: 0 0.8rem; /* 减小内边距 */
+          padding: 0 0.8rem;
+          /* 减小内边距 */
         }
       }
     }
 
     .todolist-content {
       max-width: 100% !important;
-      overflow: hidden !important; /* 防止内部元素溢出 */
-      padding: 0 !important; /* 移除内边距 */
-      margin-top: 0.5rem !important; /* 减小边距 */
-      border: none; /* 移除在小卡片中不必要的边框 */
-      box-shadow: none; /* 移除阴影 */
+      overflow: hidden !important;
+      /* 防止内部元素溢出 */
+      padding: 0 !important;
+      /* 移除内边距 */
+      margin-top: 0.5rem !important;
+      /* 减小边距 */
+      border: none;
+      /* 移除在小卡片中不必要的边框 */
+      box-shadow: none;
+      /* 移除阴影 */
 
       .tab {
-        margin-bottom: 0.5rem !important; /* 减小边距 */
+        margin-bottom: 0.5rem !important;
+
+        /* 减小边距 */
         li {
-          padding: 0.4rem 0.6rem; /* 减小Tab项的内边距 */
-          font-size: 0.8rem; /* 减小字号 */
+          padding: 0.4rem 0.6rem;
+          /* 减小Tab项的内边距 */
+          font-size: 0.8rem;
+          /* 减小字号 */
         }
       }
 
       .todolist-items {
-        max-height: 100px !important; /* 大幅减小列表最大高度 */
-        padding-right: 4px !important; /* 减小内边距 */
+        max-height: 100px !important;
+        /* 大幅减小列表最大高度 */
+        padding-right: 4px !important;
+        /* 减小内边距 */
       }
 
       .todolist-item {
-        padding: 0.3rem 0.4rem; /* 减小列表项内边距 */
+        padding: 0.3rem 0.4rem;
+        /* 减小列表项内边距 */
         margin: 0.2rem 0;
+
         span {
-          font-size: 0.85rem; /* 调整列表项文字大小 */
+          font-size: 0.85rem;
+          /* 调整列表项文字大小 */
         }
       }
     }
