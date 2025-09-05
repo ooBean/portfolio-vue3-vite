@@ -158,7 +158,7 @@ onBeforeUnmount(() => {
     border: 1px solid $border-color;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     li {
-      color: var(--text-color); /* 修改：使用 CSS 变量以适应主题 */
+      color: $text-color; /* 修改：使用 SCSS 变量以确保在任何主题下都是深色文本 */
       &:hover {
         background-color: $border-color;
       }
