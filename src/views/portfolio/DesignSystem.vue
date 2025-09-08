@@ -1,7 +1,7 @@
 <template>
-  <div class="design-system-view">
+  <div class="design-system-view" :class="{ 'in-preview': previewMode }">
     <ThemeBackground />
-    <div class="container">
+    <div class="container" :class="{ 'preview-mode-container': previewMode }">
       <!-- New wrapper for search and back button -->
       <div class="table-header-controls">
         <div class="search-wrapper">
@@ -28,7 +28,8 @@
           <tbody>
             <tr v-for="row in filteredData" :key="tableData.indexOf(row)">
               <td v-for="(cell, cellIndex) in row" :key="cellIndex">
-                <input v-if="editingRowIndex === tableData.indexOf(row)" type="text" v-model="row[cellIndex]" class="edit-input">
+                <input v-if="editingRowIndex === tableData.indexOf(row)" type="text" v-model="row[cellIndex]"
+                  class="edit-input">
                 <span v-else>{{ cell }}</span>
               </td>
               <td class="actions-cell">
@@ -48,13 +49,15 @@
       </div>
     </div>
 
-    <TechHighlights v-if="!hideBackLink">
+    <TechHighlights v-if="!hideBackLink && !previewMode">
       <h4>响应式布局</h4>
-      <p>本页面采用了 <code>position: absolute</code> 实现桌面端的垂直居中。同时，通过一系列精细调整的媒体查询来改变 <code>transform: translateY()</code> 的值，确保在不同尺寸的移动设备上，内容容器都能与顶栏保持合适的距离，避免重叠。</p>
+      <p>本页面采用了 <code>position: absolute</code> 实现桌面端的垂直居中。同时，通过一系列精细调整的媒体查询来改变 <code>transform: translateY()</code>
+        的值，确保在不同尺寸的移动设备上，内容容器都能与顶栏保持合适的距离，避免重叠。</p>
       <h4>响应式表格</h4>
       <p>为解决数据表格在小屏幕上的显示问题，表格被一个外部容器包裹，并设置了 <code>overflow-x: auto</code>。这使得表格可以在其容器内部进行水平滚动，从而保证了页面的整体布局不会被破坏。</p>
       <h4>就地编辑 (In-place Editing)</h4>
-      <p>表格的“就地编辑”功能，是通过 Vue 的条件渲染指令 (<code>v-if</code> / <code>v-else</code>) 动态切换普通文本和输入框来实现的。当前的编辑行索引由一个 ref 状态进行管理。</p>
+      <p>表格的“就地编辑”功能，是通过 Vue 的条件渲染指令 (<code>v-if</code> / <code>v-else</code>) 动态切换普通文本和输入框来实现的。当前的编辑行索引由一个 ref 状态进行管理。
+      </p>
     </TechHighlights>
   </div>
 </template>
@@ -124,8 +127,15 @@ const saveRow = () => {
 @use '@/assets/styles/base.scss' as *;
 
 .design-system-view {
-  // Add padding to the view itself to ensure content doesn't touch edges
   padding: 2rem;
+
+  &.in-preview {
+    padding: 0;
+
+    .container {
+      padding: 1rem;
+    }
+  }
 }
 
 .container {
@@ -135,6 +145,26 @@ const saveRow = () => {
   transform: translate(-50%, -50%);
   width: 90%;
   max-width: 800px;
+}
+
+.preview-mode-container {
+  position: static;
+  transform: none !important;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+// force mobile preview width to trigger smallest media queries
+.design-system-view.in-preview .preview-mode-container {
+  width: 350px !important;
+}
+
+// override container transform for preview to mimic mobile breakpoint layout
+.design-system-view.in-preview .container {
+  transform: translate(-1%, 1%) !important;
 }
 
 .table-header-controls {
@@ -255,7 +285,9 @@ tbody td:hover::before {
   box-sizing: border-box;
 }
 
-.delete-btn, .edit-btn, .save-btn {
+.delete-btn,
+.edit-btn,
+.save-btn {
   color: white;
   border: none;
   padding: 6px 12px;
@@ -266,23 +298,32 @@ tbody td:hover::before {
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
 
 .delete-btn {
   background-color: #dc3545;
-  &:hover { background-color: #c82333; }
+
+  &:hover {
+    background-color: #c82333;
+  }
 }
 
 .edit-btn {
   background-color: #6c757d;
-  &:hover { background-color: #5a6268; }
+
+  &:hover {
+    background-color: #5a6268;
+  }
 }
 
 .save-btn {
   background-color: #28a745;
-  &:hover { background-color: #218838; }
+
+  &:hover {
+    background-color: #218838;
+  }
 }
 
 .edit-input {
