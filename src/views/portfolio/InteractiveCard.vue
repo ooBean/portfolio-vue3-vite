@@ -9,7 +9,7 @@
             <div class="card-content" :style="cardStyle" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
                 <div class="inner-content">
                     <h1>{{ $t('portfolio.interactive_card.subtitle') }}</h1>
-                    <p class="author">{{ $t('portfolio.interactive_card.author_prefix') }}<strong>Mrs. Bean</strong></p>
+                    <p class="author">{{ $t('portfolio.interactive_card.author_prefix') }}<strong>Bean</strong></p>
                     <p class="related">
                         <strong>{{ $t('portfolio.interactive_card.inspiration_prefix') }}</strong>
                         <a href="https://codepen.io/ariona/pen/JopOOr" target="_blank" rel="noopener noreferrer">
@@ -22,14 +22,14 @@
     </div>
 
     <TechHighlights v-if="!hideBackLink">
-        <h4>{{ t('tech_highlights.interactivecard.title1') }}</h4>
-        <p v-html="t('tech_highlights.interactivecard.p1')"></p>
+        <h4>数据驱动的 3D 变换</h4>
+        <p>卡片的交互效果由 Vue 的<strong>组合式API</strong>驱动。通过监听 <code>@mousemove</code> 事件来实时计算鼠标相对于卡片中心的位置，并将计算出的旋转角度存储在一个 <code>reactive</code> 状态对象中。一个 <code>computed</code> 属性则负责将这些状态值声明式地转换为 CSS <code>transform</code> 字符串，实现了数据到视图的单向绑定。</p>
 
-        <h4>{{ t('tech_highlights.interactivecard.title2') }}</h4>
-        <p v-html="t('tech_highlights.interactivecard.p2')"></p>
+        <h4>CSS 3D 空间与性能优化</h4>
+        <p>视觉上的立体感是通过在父容器上应用 <code>perspective</code> 属性来创建 3D 空间实现的。卡片本身则启用了 <code>transform-style: preserve-3d</code>，并利用 <code>translateZ</code> 将内部元素在 Z 轴上进行位移，从而构建出视觉深度。同时，通过添加 <code>will-change: transform</code> 属性，向浏览器提示该元素即将发生变换，以申请潜在的渲染优化。</p>
 
-        <h4>{{ t('tech_highlights.interactivecard.title3') }}</h4>
-        <p v-html="t('tech_highlights.interactivecard.p3')"></p>
+        <h4>情境感知的组件设计</h4>
+        <p>组件设计了 <code>previewMode</code> 属性。当此属性为 <code>true</code> 时，组件会通过 CSS 的 <code>transform: scale()</code> 进行等比缩放，并禁用 <code>pointer-events</code> 来避免在预览场景下的交互冲突。这种设计展示了组件在不同使用情境下的适应性与可复用性。</p>
     </TechHighlights>
 </template>
 

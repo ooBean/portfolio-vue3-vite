@@ -6,14 +6,14 @@
     "contact": "Contact"
   },
   "footer": {
-    "copyright": "© {year} Mrs. Bean. All rights reserved."
+    "copyright": "© {year} Bean. All rights reserved."
   },
   "home": {
-    "greeting": "Hello, I'm Mrs. Bean, a Front-end Developer",
+    "greeting": "Hello, I'm Bean, a Front-end Developer",
     "job": "Front-end Developer",
     "welcome": "Welcome to my portfolio website.",
     "view_projects": "View My Projects",
-    "user_name_placeholder": "Mrs. Bean",
+    "user_name_placeholder": "Bean",
     "user_location_placeholder": "China",
     "greeting_new_style": {
       "line1": "Hello I'm",
