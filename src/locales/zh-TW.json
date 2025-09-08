@@ -1,6 +1,4 @@
 {
-
-
   "navigation": {
     "home": "首頁",
     "portfolio": "作品集",
@@ -91,14 +89,6 @@
         "learn_vue": "學習 Vue.js",
         "code_todolist": "編寫一個待辦事項列表",
         "learn_more": "學習其他內容"
-      },
-      "tech_highlights": {
-        "title1": "響應式狀態與持久化",
-        "p1": "組件的核心數據 (<code>todo</code> 列表) 透過 Vue 3 的 <code>ref</code> 進行管理。利用 <code>watch</code> 偵聽器並設定 <code>{ deep: true }</code>，實現了對陣列內部變化的深度監聽。任何變更都會被自動序列化並同步至 <code>sessionStorage</code>，從而實現了跨頁面刷新的狀態持久化。在組件掛載時 (<code>onMounted</code>)，會優先從 <code>sessionStorage</code> 恢復數據。",
-        "title2": "聲明式的數據計算",
-        "p2": "待辦事項的篩選和排序功能是透過一個 <code>computed</code> 屬性 (<code>filteredTodo</code>) 實現的。該屬性根據當前的篩選狀態 (<code>sortByStatus</code>) 從原始的 <code>todo</code> 陣列中派生出新的視圖數據。這種聲明式的方式避免了手動操作DOM，確保了數據源的唯一性和UI的同步性，程式碼邏輯清晰且易於維護。",
-        "title3": "列表過渡與互動優化",
-        "p3": "透過整合 Vue 的內建 <code>&lt;transition-group&gt;</code> 組件，為列表項的新增、刪除和排序提供了平滑的動畫過渡效果，提升了使用者操作的視覺回饋。此外，輸入框使用了自定義指令 <code>v-focus</code>，在組件載入後自動取得焦點，優化了使用者的輸入體驗。"
       }
     },
     "chat": {
@@ -195,6 +185,63 @@
     "tech_highlights": {
       "trigger": "技術亮點",
       "header": "技術實現亮點"
+    }
+  },
+  "tech_highlights": {
+    "todo": {
+      "title1": "響應式狀態與持久化",
+      "p1": "組件的核心數據 (<code>todo</code> 列表) 透過 Vue 3 的 <code>ref</code> 進行管理。利用 <code>watch</code> 偵聽器並設定 <code>{ deep: true }</code>，實現了對陣列內部變化的深度監聽。任何變更都會被自動序列化並同步至 <code>sessionStorage</code>，從而實現了跨頁面刷新的狀態持久化。在組件掛載時 (<code>onMounted</code>)，會優先從 <code>sessionStorage</code> 恢復數據。",
+      "title2": "聲明式的數據計算",
+      "p2": "待辦事項的篩選和排序功能是透過一個 <code>computed</code> 屬性 (<code>filteredTodo</code>) 實現的。該屬性根據當前的篩選狀態 (<code>sortByStatus</code>) 從原始的 <code>todo</code> 陣列中派生出新的視圖數據。這種聲明式的方式避免了手動操作DOM，確保了數據源的唯一性和UI的同步性，程式碼邏輯清晰且易於維護。",
+      "title3": "列表過渡與互動優化",
+      "p3": "透過整合 Vue 的內建 <code>&lt;transition-group&gt;</code> 組件，為列表項的新增、刪除和排序提供了平滑的動畫過渡效果，提升了使用者操作的視覺回饋。此外，輸入框使用了自定義指令 <code>v-focus</code>，在組件載入後自動取得焦點，優化了使用者的輸入體驗。"
+    },
+    "designsystem": {
+      "title1": "響應式佈局",
+      "p1": "本頁面採用 <code>position: absolute</code> 實現桌面端垂直置中。透過一系列精細的媒體查詢調整 <code>transform: translateY()</code>，確保內容容器在不同裝置尺寸下與頂欄保持適當距離，避免重疊。",
+      "title2": "響應式表格",
+      "p2": "為解決小螢幕下的顯示問題，表格外層容器設置了 <code>overflow-x: auto</code>，使表格在其內部可水平捲動，同時保持整體佈局不變。",
+      "title3": "即時編輯",
+      "p3": "表格的即時編輯功能透過 Vue 的條件渲染指令 (<code>v-if</code> / <code>v-else</code>) 在文字與輸入框間切換。當前編輯行索引由 ref 狀態管理。"
+    },
+    "gallery": {
+      "title1": "滾動加載與請求節流",
+      "p1": "組件透過監聽容器的滾動事件，並在滾動至距底部特定閾值時觸發 <code>loadMore</code> 函數，實現按需加載數據。為防止短時間內的並發請求，使用 <code>loading</code> 狀態作為請求鎖，實現輕量級請求節流。此策略可確保流暢體驗並避免不必要的 API 調用。",
+      "title2": "混合狀態管理與持久化",
+      "p2": "該組件採用 Pinia 與組件局部狀態 (<code>ref</code>) 相結合的混合策略。Pinia Store 用於跨會話緩存圖像數據，避免不必要的網絡請求；而加載狀態等臨時 UI 狀態由組件內部管理，實現清晰的狀態分層。",
+      "title3": "純 CSS 響應式瀑布流",
+      "p3": "圖片畫廊使用純 CSS 的 <code>column-count</code> 屬性構建響應式瀑布流佈局。同時，通過 <code>onMounted</code> 和 <code>onUnmounted</code> 鉤子安全綁定和解除滾動事件監聽器，確保組件健壯且無內存洩漏。"
+    },
+    "chat": {
+      "title1": "模拟异步交互",
+      "p1": "为了提升用户体验的真实感，组件通过 <code>setTimeout</code> 结合随机延迟，模拟了异步消息流与“对方正在输入”的加载指示器。这种非阻塞式的交互设计，旨在还原真实聊天场景，增强用户沉浸感。",
+      "title2": "高级状态与 DOM 管理",
+      "p2": "组件采用混合状态管理策略：使用 Pinia (<code>useUiStore</code>) 管理全局 UI 状态（如主题），同时利用 Vue 3 组合式 API (<code>ref</code>) 管理组件内部的响应式数据。结合模板引用与 <code>onMounted</code> 钩子，实现聊天记录自动滚动和输入框自动聚焦等精准 DOM 操作。",
+      "title3": "動態與多語言 UI",
+      "p3": "該聊天界面完全國際化 (i18n)。透過整合 <code>vue-i18n</code>，並根據用戶 <code>locale</code> 從映射表 (<code>messagesMap</code>) 中動態選擇對話文本，實現多語言無縫切換。CSS 變數使 UI 樣式靈活適配不同主題。"
+    },
+    "imagehovereffects": {
+      "title1": "CSS 驅動的聲明式動畫",
+      "p1": "所有懸停效果均透過純 CSS 實現，未使用任何 JavaScript。動畫大量運用 <code>transform</code> (2D/3D)、<code>transition</code>、<code>filter</code> 以及偽元素 (<code>::before</code>/<code>::after</code>)，充分利用 GPU 加速，以確保動畫流暢。這種聲明式實現方式，使代碼直觀且易於維護。",
+      "title2": "模組化與數據驅動設計",
+      "p2": "組件透過 <code>v-for</code> 指令循環渲染資料對象陣列。每種懸停效果封裝為獨立 CSS 類，並透過資料綁定 (<code>:class=\"card.effect\"</code>) 應用至卡片。此模式使效果與組件邏輯解耦，新增或修改效果僅需增刪 CSS 類和資料項，擴展性高。",
+      "title3": "現代響應式佈局與國際化",
+      "p3": "卡片畫廊採用 CSS Grid 結合 <code>auto-fit</code> 和 <code>minmax()</code> 構建響應式網格，無需額外媒體查詢。所有文字內容透過 <code>vue-i18n</code> 和 <code>computed</code> 屬性實現國際化，根據使用者語言環境動態顯示對應內容。"
+    },"interactivecard": {
+      "title1": "資料驅動的 3D 變換",
+      "p1": "卡片的互動效果由 Vue 的組合式 API 驅動。透過監聽 <code>@mousemove</code> 事件，實時計算滑鼠相對於卡片中心的位置，並將計算出的旋轉角度存儲在 <code>reactive</code> 狀態對象中。<code>computed</code> 屬性負責將這些狀態值聲明式轉換為 CSS <code>transform</code> 字符串，實現資料到視圖的單向綁定。",
+      "title2": "CSS 3D 空間與性能優化",
+      "p2": "視覺深度透過在父容器應用 <code>perspective</code> 屬性來建立。卡片啟用 <code>transform-style: preserve-3d</code>，並利用 <code>translateZ</code> 在 Z 軸上移動內部元素，構建深度。同時，添加 <code>will-change: transform</code> 提示瀏覽器潛在渲染優化。",
+      "title3": "情境感知的組件設計",
+      "p3": "組件設計了 <code>previewMode</code> 屬性，為 true 時，透過 <code>transform: scale()</code> 等比縮放並禁用 <code>pointer-events</code>，防止預覽場景下的交互衝突，展示了組件在不同使用情境下的適應性與可重用性。"
+    },
+    "index": {
+      "title1": "聲明式網格渲染",
+      "p1": "通過集中維護專案元數據（如 ID、組件、路由及翻譯鍵），結合計算屬性和 vue-i18n 動態注入國際化文本，使 PreviewCard 網格得以純聲明式渲染，免除直接操作 DOM。",
+      "title2": "按需組件加載與路由切換",
+      "p2": "專案映射將組件與路由名稱關聯，依賴 Vue Router 的 router.push 進行視圖切換，並結合動態導入實現延遲加載，保持頁面結構高內聚低耦合。",
+      "title3": "統一主題與預覽模式管理",
+      "p3": "整合 ThemeSwitcher 與 Pinia 中央管理全局主題狀態，掛載時從會話存儲或系統偏好恢復主題，並通過條件樣式實現預覽與標準視圖之間的無縫切換，確保呈現一致性。"
     }
   }
 }

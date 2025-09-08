@@ -1,4 +1,3 @@
-
 {
   "navigation": {
     "home": "Home",
@@ -100,14 +99,6 @@
         "learn_vue": "Learn VueJs",
         "code_todolist": "Code a todo list",
         "learn_more": "Learn something else"
-      },
-      "tech_highlights": {
-        "title1": "Reactivity and Persistence",
-        "p1": "The component's core data (the <code>todo</code> list) is managed using Vue 3's <code>ref</code>. By leveraging a <code>watch</code> listener with <code>{ deep: true }</code>, it deeply monitors changes within the array. Any modification is automatically serialized and synchronized to <code>sessionStorage</code>, achieving state persistence across page reloads. On component mount (<code>onMounted</code>), data is preferentially restored from <code>sessionStorage</code>.",
-        "title2": "Declarative Data Computation",
-        "p2": "The filtering and sorting of todo items are implemented through a <code>computed</code> property (<code>filteredTodo</code>). This property derives new view data from the original <code>todo</code> array based on the current filter state (<code>sortByStatus</code>). This declarative approach avoids manual DOM manipulation, ensures a single source of truth and UI synchronization, resulting in clear and maintainable code logic.",
-        "title3": "List Transitions and Interaction Optimization",
-        "p3": "By integrating Vue's built-in <code>&lt;transition-group&gt;</code> component, smooth animations are provided for adding, removing, and sorting list items, enhancing visual feedback for user actions. Additionally, the input field uses a custom directive <code>v-focus</code> to automatically gain focus after the component loads, optimizing the user's input experience."
       }
     },
     "hover_effects": {
@@ -212,6 +203,60 @@
     "tech_highlights": {
       "trigger": "Tech Highlights",
       "header": "Technical Implementation Highlights"
+    }
+  },
+  "tech_highlights": {
+    "todo": {
+      "title1": "Reactivity and Persistence",
+      "p1": "The component's core data (the <code>todo</code> list) is managed using Vue 3's <code>ref</code>. By leveraging a <code>watch</code> listener with <code>{ deep: true }</code>, it deeply monitors changes within the array. Any modification is automatically serialized and synchronized to <code>sessionStorage</code>, achieving state persistence across page reloads. On component mount (<code>onMounted</code>), data is preferentially restored from <code>sessionStorage</code>.",
+      "title2": "Declarative Data Computation",
+      "p2": "The filtering and sorting of todo items are implemented through a <code>computed</code> property (<code>filteredTodo</code>). This property derives new view data from the original <code>todo</code> array based on the current filter state (<code>sortByStatus</code>). This declarative approach avoids manual DOM manipulation, ensures a single source of truth and UI synchronization, resulting in clear and maintainable code logic.",
+      "title3": "List Transitions and Interaction Optimization",
+      "p3": "By integrating Vue's built-in <code>&lt;transition-group&gt;</code> component, smooth animations are provided for adding, removing, and sorting list items, enhancing visual feedback for user actions. Additionally, the input field uses a custom directive <code>v-focus</code> to automatically gain focus after the component loads, optimizing the user's input experience."
+    },
+    "designsystem": {
+      "title1": "Responsive Layout",
+      "p1": "This page uses <code>position: absolute</code> for vertical centering on desktop. A series of finely tuned media queries adjusts <code>transform: translateY()</code> to maintain proper spacing from the top bar across device sizes, preventing overlap.",
+      "title2": "Responsive Table",
+      "p2": "To address display issues on small screens, the table is wrapped in an outer container with <code>overflow-x: auto</code>, enabling horizontal scrolling within the table while preserving overall layout.",
+      "title3": "In-place Editing",
+      "p3": "The table’s in-place editing feature toggles between text and input fields using Vue’s conditional rendering directives (<code>v-if</code> / <code>v-else</code>). The current editing row index is managed via a ref state."
+    },
+    "chat": {
+      "title1": "Simulated Asynchronous Interaction",
+      "p1": "To enhance realism, the component uses <code>setTimeout</code> with randomized delays to simulate asynchronous message flow and 'typing' indicators. This non-blocking interaction design aims to recreate a real chat scenario and increase user immersion.",
+      "title2": "Advanced State and DOM Management",
+      "p2": "The component adopts a hybrid state management strategy: Pinia (<code>useUiStore</code>) handles global UI state (e.g., theme), while Vue 3’s Composition API (<code>ref</code>) manages internal reactive data. Template refs combined with <code>onMounted</code> hooks enable precise DOM operations, such as auto-scrolling chat logs and auto-focusing the input field.",
+      "title3": "Dynamic and Multi-language UI",
+      "p3": "This chat interface is fully internationalized (i18n). By integrating <code>vue-i18n</code> and dynamically selecting conversation text from a mapping table (<code>messagesMap</code>) based on the user’s <code>locale</code>, it achieves seamless multi-language content switching. CSS variables adapt the UI style to different themes."
+    },"gallery": {
+      "title1": "Scroll Loading and Request Throttling",
+      "p1": "The component listens to the container’s scroll event and triggers the <code>loadMore</code> function when scrolled within a specific threshold from the bottom, implementing on-demand data loading. To prevent concurrent requests in a short time, a loading state acts as a request lock, a lightweight throttling mechanism. This strategy ensures a smooth user experience and avoids unnecessary API calls.",
+      "title2": "Hybrid State Management and Persistence",
+      "p2": "This component adopts a hybrid strategy combining Pinia and local component state (<code>ref</code>). The Pinia store caches image data across sessions, preventing unnecessary network requests, while temporary UI states like loading are managed locally, achieving clear state separation.",
+      "title3": "Pure CSS Responsive Masonry Layout",
+      "p3": "The image gallery uses the pure CSS <code>column-count</code> property to build a responsive masonry layout. Additionally, the component safely binds and unbinds the scroll event listener with <code>onMounted</code> and <code>onUnmounted</code> hooks, ensuring robustness and no memory leaks."
+    },"imagehovereffects": {
+      "title1": "CSS-driven Declarative Animations",
+      "p1": "All hover effects are implemented with pure CSS and no JavaScript. Animations leverage <code>transform</code> (2D/3D), <code>transition</code>, <code>filter</code>, and pseudo-elements (<code>::before</code>/<code>::after</code>) using GPU acceleration to ensure smooth performance. This declarative approach makes the code readable and maintainable.",
+      "title2": "Modular Data-driven Design",
+      "p2": "The component renders cards by looping through an array of data objects using <code>v-for</code>. Each hover effect is encapsulated in a CSS class and applied via data binding (<code>:class=\"card.effect\"</code>). This pattern decouples effects from component logic, allowing new effects to be added by simply updating CSS classes and data entries.",
+      "title3": "Modern Responsive Layout and Internationalization",
+      "p3": "The card gallery uses CSS Grid with <code>auto-fit</code> and <code>minmax()</code> functions to create a responsive grid without extra media queries. All text content is internationalized through <code>vue-i18n</code> and <code>computed</code> properties, dynamically displaying content based on user locale."
+    },"interactivecard": {
+      "title1": "Data-driven 3D Transformations",
+      "p1": "Card interactions are driven by Vue's Composition API. By listening to the <code>@mousemove</code> event and calculating the mouse's position relative to the card center, the computed rotation angles are stored in a reactive state object. A computed property declaratively converts these state values into a CSS <code>transform</code> string, achieving one-way data flow from data to view.",
+      "title2": "CSS 3D Space and Performance Optimization",
+      "p2": "Visual depth is created by applying the <code>perspective</code> property on the parent container. The card enables <code>transform-style: preserve-3d</code> and uses <code>translateZ</code> to move inner elements along the Z-axis, building depth. The <code>will-change: transform</code> hint is added to request potential rendering optimizations.",
+      "title3": "Context-aware Component Design",
+      "p3": "The component introduces a <code>previewMode</code> prop. When true, it scales uniformly via <code>transform: scale()</code> and disables <code>pointer-events</code> to prevent interaction conflicts in preview scenarios. This design demonstrates adaptability and reusability across different contexts."
+    },"index": {
+      "title1": "Declarative Grid Rendering",
+      "p1": "By centralizing project metadata (IDs, components, routes, translation keys) and leveraging computed properties with vue-i18n for localized text injection, the PreviewCard grid renders purely declaratively without direct DOM manipulation.",
+      "title2": "On-demand Component Loading and Routing",
+      "p2": "Project mappings tie components to route names, relying on Vue Router’s router.push for view transitions and dynamic imports for lazy loading, ensuring a highly cohesive, low-coupled page architecture.",
+      "title3": "Unified Theme and Preview Mode Management",
+      "p3": "ThemeSwitcher integrated with Pinia centralizes global theme state. On mount, themes are restored from sessionStorage or system preferences, with conditional styling enabling seamless toggling between preview and standard views for consistent presentation."
     }
   }
 }
