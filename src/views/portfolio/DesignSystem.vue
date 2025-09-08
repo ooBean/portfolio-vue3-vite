@@ -50,14 +50,12 @@
     </div>
 
     <TechHighlights v-if="!hideBackLink && !previewMode">
-      <h4>响应式布局</h4>
-      <p>本页面采用了 <code>position: absolute</code> 实现桌面端的垂直居中。同时，通过一系列精细调整的媒体查询来改变 <code>transform: translateY()</code>
-        的值，确保在不同尺寸的移动设备上，内容容器都能与顶栏保持合适的距离，避免重叠。</p>
-      <h4>响应式表格</h4>
-      <p>为解决数据表格在小屏幕上的显示问题，表格被一个外部容器包裹，并设置了 <code>overflow-x: auto</code>。这使得表格可以在其容器内部进行水平滚动，从而保证了页面的整体布局不会被破坏。</p>
-      <h4>就地编辑 (In-place Editing)</h4>
-      <p>表格的“就地编辑”功能，是通过 Vue 的条件渲染指令 (<code>v-if</code> / <code>v-else</code>) 动态切换普通文本和输入框来实现的。当前的编辑行索引由一个 ref 状态进行管理。
-      </p>
+      <h4>{{ t('tech_highlights.designsystem.title1') }}</h4>
+      <p v-html="t('tech_highlights.designsystem.p1')"></p>
+      <h4>{{ t('tech_highlights.designsystem.title2') }}</h4>
+      <p v-html="t('tech_highlights.designsystem.p2')"></p>
+      <h4>{{ t('tech_highlights.designsystem.title3') }}</h4>
+      <p v-html="t('tech_highlights.designsystem.p3')"></p>
     </TechHighlights>
   </div>
 </template>

@@ -12,6 +12,17 @@
       <PreviewCard v-for="project in projects" :key="project.id" :project="project"
         :loading="portfolioStore.loading[project.id] || false" @click="navigateToProject(project.route)" />
     </div>
+
+    <TechHighlights>
+      <h4>{{ t('tech_highlights.index.title1') }}</h4>
+      <p v-html="t('tech_highlights.index.p1')"></p>
+
+      <h4>{{ t('tech_highlights.index.title2') }}</h4>
+      <p v-html="t('tech_highlights.index.p2')"></p>
+
+      <h4>{{ t('tech_highlights.index.title3') }}</h4>
+      <p v-html="t('tech_highlights.index.p3')"></p>
+    </TechHighlights>
   </div>
 </template>
 
@@ -22,6 +33,7 @@ import { useI18n } from 'vue-i18n';
 import Todo from '@/views/portfolio/Todo.vue';
 import Chat from '@/views/portfolio/Chat.vue';
 import InteractiveCard from '@/views/portfolio/InteractiveCard.vue';
+import TechHighlights from '@/components/common/TechHighlights.vue';
 import Gallery from '@/views/portfolio/Gallery.vue';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher.vue';
 import PreviewCard from '@/components/common/PreviewCard.vue';

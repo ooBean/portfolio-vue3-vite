@@ -16,18 +16,14 @@
   </div>
 
   <TechHighlights v-if="!hideBackLink">
-    <h4>CSS驱动的声明式动画</h4>
-    <p>所有悬停效果均通过纯CSS实现，未使用任何JavaScript。动画大量运用了 <code>transform</code>
-      (2D/3D)、<code>transition</code>、<code>filter</code> 以及伪元素
-      (<code>::before</code>/<code>::after</code>)，充分利用GPU加速，以确保动画的流畅性。这种声明式的实现方式，使得代码直观且易于维护。</p>
+    <h4>{{ t('tech_highlights.imagehovereffects.title1') }}</h4>
+    <p v-html="t('tech_highlights.imagehovereffects.p1')"></p>
 
-    <h4>模块化与数据驱动设计</h4>
-    <p>组件通过 <code>v-for</code> 指令循环渲染一个数据对象数组。每种悬停效果被封装为一个独立的CSS类，并通过数据绑定 (<code>:class="card.effect"</code>)
-      应用到卡片上。这种设计模式使得效果本身与组件逻辑解耦，添加或修改一种新的悬停效果，仅需增删CSS类和数据条目，扩展性强。</p>
+    <h4>{{ t('tech_highlights.imagehovereffects.title2') }}</h4>
+    <p v-html="t('tech_highlights.imagehovereffects.p2')"></p>
 
-    <h4>现代响应式布局与国际化</h4>
-    <p>卡片画廊采用 CSS Grid 布局，并结合 <code>auto-fit</code> 和 <code>minmax()</code> 函数，构建了一个无需额外媒体查询的、自适应的响应式网格。同时，卡片内的所有文本内容均通过
-      <code>vue-i18n</code> 和 <code>computed</code> 属性实现国际化，可根据用户语言环境动态展示相应内容</p>
+    <h4>{{ t('tech_highlights.imagehovereffects.title3') }}</h4>
+    <p v-html="t('tech_highlights.imagehovereffects.p3')"></p>
   </TechHighlights>
 </template>
 
@@ -45,7 +41,7 @@ const props = defineProps({
   hideBackLink: { type: Boolean, default: false }
 });
 
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 
 const isLanguage = (lang: string): lang is Language => {
   return ['en', 'zh', 'zh-TW'].includes(lang);
@@ -175,6 +171,14 @@ $content-details-transition: all 0.5s ease;
       .copy {
         opacity: 1;
         transform: translateY(0);
+      }
+
+      .title {
+        transition-delay: 0.1s;
+      }
+
+      .copy {
+        transition-delay: 0.2s;
       }
 
       .title {
