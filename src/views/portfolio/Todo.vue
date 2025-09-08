@@ -41,14 +41,14 @@
   </div>
 
   <TechHighlights v-if="!hideBackLink">
-    <h4>{{ t('portfolio.todolist.tech_highlights.title1') }}</h4>
-    <p v-html="t('portfolio.todolist.tech_highlights.p1')"></p>
+    <h4>{{ t('tech_highlights.todo.title1') }}</h4>
+    <p v-html="t('tech_highlights.todo.p1')"></p>
 
-    <h4>{{ t('portfolio.todolist.tech_highlights.title2') }}</h4>
-    <p v-html="t('portfolio.todolist.tech_highlights.p2')"></p>
+    <h4>{{ t('tech_highlights.todo.title2') }}</h4>
+    <p v-html="t('tech_highlights.todo.p2')"></p>
 
-    <h4>{{ t('portfolio.todolist.tech_highlights.title3') }}</h4>
-    <p v-html="t('portfolio.todolist.tech_highlights.p3')"></p>
+    <h4>{{ t('tech_highlights.todo.title3') }}</h4>
+    <p v-html="t('tech_highlights.todo.p3')"></p>
   </TechHighlights>
 </template>
 
