@@ -10,9 +10,9 @@ import type { Theme } from '@/types/unsplash';
 const uiStore = useUiStore();
 
 const themeBackgroundMap: Record<Theme, string> = {
-  'theme-light': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/blue.avif',
-  'theme-dark': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/dark.avif',
-  'theme-warm': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/warm.avif',
+  'theme-light': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/portfolio/blue.avif',
+  'theme-dark': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/portfolio/dark.avif',
+  'theme-warm': 'https://raw.githubusercontent.com/ooPeachBoy/ImageStore/main/portfolio/warm.avif',
 };
 
 const currentTheme = computed(() => uiStore.theme);
