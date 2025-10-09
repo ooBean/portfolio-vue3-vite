@@ -44,7 +44,7 @@
 
         <ul class="social-media-list">
           <li>
-            <a href="https://github.com/ooPeachBoy" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/ooBean" target="_blank" rel="noopener noreferrer">
               <img :src="githubIcon" alt="GitHub" class="contact-icon" />
             </a>
           </li>
@@ -192,8 +192,10 @@ textarea {
   border: 2px solid #5cb190;
   border-radius: 1rem;
   background: transparent;
-  box-sizing: border-box; /* 新增：确保所有表单元素宽度计算方式统一 */
-  resize: none; /* 新增：禁止用户调整文本框大小，保持布局一致 */
+  box-sizing: border-box;
+  /* 新增：确保所有表单元素宽度计算方式统一 */
+  resize: none;
+  /* 新增：禁止用户调整文本框大小，保持布局一致 */
 }
 
 .send-button {
@@ -365,8 +367,8 @@ hr {
 @media (max-width: 768px) {
   .contact-wrapper {
     flex-direction: column;
-    align-items: center; /* 新增：在垂直布局下，水平居中其子元素 */
-    gap: 20px;
+    align-items: center;
+    /* 新增：在垂直布局下，水平居中其子元素 */gap: 20px;
   }
 }
 </style>
