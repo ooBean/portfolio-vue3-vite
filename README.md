@@ -60,4 +60,4 @@ yarn build       # or npm run build
 I’m available for remote front-end opportunities. Feel free to connect:
 - GitHub: [ooPeachBoy](https://github.com/ooPeachBoy)
 - Email: littlebeancat@outlook.com
- - Live Demo: https://portfolio-vue3-vite-414l1xcnz-oopeachboys-projects.vercel.app
+ - Live Demo: https://portfolio-vue3-vite-p72hu0apm-oopeachboys-projects.vercel.app

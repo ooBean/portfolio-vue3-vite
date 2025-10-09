@@ -58,4 +58,4 @@ yarn build       # 或 npm run build
 我可接受远程前端机会，欢迎随时联系：
 - GitHub：[ooPeachBoy](https://github.com/ooPeachBoy)
 - 邮箱：littlebeancat@outlook.com
- - 在线演示：https://portfolio-vue3-vite-414l1xcnz-oopeachboys-projects.vercel.app
+ - 在线演示：https://portfolio-vue3-vite-p72hu0apm-oopeachboys-projects.vercel.app
