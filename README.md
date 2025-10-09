@@ -24,7 +24,7 @@
 ## Installation
 ```bash
 # clone the repo
-git clone https://github.com/ooPeachBoy/portfolio-vue3-vite.git
+git clone https://github.com/ooBean/portfolio-vue3-vite.git
 cd portfolio-vue3-vite
 # install dependencies
 yarn install    # or npm install
@@ -58,6 +58,6 @@ yarn build       # or npm run build
 
 ## Contact & Hire Me
 I’m available for remote front-end opportunities. Feel free to connect:
-- GitHub: [ooPeachBoy](https://github.com/ooPeachBoy)
+- GitHub: [ooBean](https://github.com/ooBean)
 - Email: littlebeancat@outlook.com
  - Live Demo: http://bean.binballs.top/

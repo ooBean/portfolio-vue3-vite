@@ -22,7 +22,7 @@
 ## 安裝
 ```bash
 # 克隆倉庫
-git clone https://github.com/ooPeachBoy/portfolio-vue3-vite.git
+git clone https://github.com/ooBean/portfolio-vue3-vite.git
 cd portfolio-vue3-vite
 # 安裝依賴
 yarn install    # 或 npm install
@@ -56,6 +56,6 @@ yarn build       # 或 npm run build
 
 ## 聯繫與招聘
 我可接受遠程前端機會，歡迎隨時聯繫：
-- GitHub：[ooPeachBoy](https://github.com/ooPeachBoy)
+- GitHub：[ooBean](https://github.com/ooBean)
 - 郵箱：littlebeancat@outlook.com
  - 線上演示：http://bean.binballs.top/
