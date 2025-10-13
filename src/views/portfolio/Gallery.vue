@@ -77,9 +77,12 @@ const loadMore = async () => {
   }
 };
 
-const onScroll = () => {
+const handleScroll = () => {
   if (!galleryRef.value) return;
-  const { scrollTop, clientHeight, scrollHeight } = galleryRef.value;
+
+  const { scrollTop, scrollHeight, clientHeight } = galleryRef.value;
+
+  // 当滚动到底部附近时加载更多
   if (scrollTop + clientHeight >= scrollHeight - 100) {
     loadMore();
   }
@@ -97,8 +100,10 @@ onMounted(async () => {
         portfolioStore.updateGalleryImages([]);
       }
     }
+
+    // 添加滚动监听
     if (galleryRef.value) {
-      galleryRef.value.addEventListener('scroll', onScroll);
+      galleryRef.value.addEventListener('scroll', handleScroll);
     }
   } finally {
     loading.value = false;
@@ -106,8 +111,9 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
+  // 清理滚动监听
   if (galleryRef.value) {
-    galleryRef.value.removeEventListener('scroll', onScroll);
+    galleryRef.value.removeEventListener('scroll', handleScroll);
   }
 });
 </script>

@@ -83,6 +83,22 @@ watch(() => route.name, (newName) => {
 });
 
 onMounted(() => {
+  // 确保进入portfolio页面时滚动到顶部 - 使用setTimeout确保DOM完全渲染
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+      mainContent.scrollTop = 0;
+    }
+    // 再次尝试确保滚动生效
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (mainContent) {
+        mainContent.scrollTop = 0;
+      }
+    }, 100);
+  }, 50);
+
   // Detect system color scheme preference
   const savedTheme = sessionStorage.getItem(THEME_STORAGE_KEY);
   if (savedTheme && isTheme(savedTheme)) {
