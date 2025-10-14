@@ -151,7 +151,7 @@
     },
     "design_system": {
       "title": "Design System",
-      "description": "A living design document for this portfolio, showcasing consistent standards for colors, typography, spacing, and reusable components.",
+      "description": "Living design doc: consistent standards for colors, typography, spacing, and components.",
       "philosophy": "Built on the core principles of consistency, reusability, and accessibility to create beautiful and maintainable user interfaces.",
       "tokens_title": "Design Tokens",
       "colors_title": "Colors",
