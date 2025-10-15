@@ -49,12 +49,27 @@ yarn build       # or npm run build
 - `Gallery.vue` & `ImageHoverEffects.vue`: Responsive gallery with pure CSS effects
 - `Chat.vue`: Simulated chat with typing indicator and i18n support
 
-## Technical Highlights
-1. **Declarative Grid Rendering**: Centralized metadata and computed properties drive the project grid without manual DOM manipulations.
-2. **Pure CSS Animations**: 2D/3D transforms, transitions, and pseudo-elements leverage GPU acceleration for smooth effects.
-3. **Internationalization**: Dynamic text injection via vue-i18n enables seamless language switching.
-4. **Hybrid State Management**: Combining Pinia for global UI state and local refs for component data ensures clear state boundaries.
-5. **Performance & Accessibility**: Lazy-loading, scroll throttling, and responsive layouts optimize UX across devices.
+## 🚀 Core Technical Highlights
+
+### Architecture Design
+- **Modern Frontend Stack**: Vue 3 + TypeScript + Vite with Composition API and `<script setup>` syntax
+- **Hybrid State Management**: Pinia for global state, local refs for component state, sessionStorage for persistence
+- **Declarative Component Architecture**: Configuration-driven component rendering with on-demand loading and dynamic routing
+
+### Performance Optimization
+- **GPU Accelerated Animations**: Pure CSS 2D/3D transforms leveraging `will-change` for optimal rendering performance
+- **Smart Loading Strategies**: Scroll throttling, lazy loading, and request debouncing for enhanced user experience
+- **Responsive Design**: CSS Grid + Flexbox elastic layouts with mobile-first media queries
+
+### Interactive Innovations
+- **3D Interactive Cards**: Real-time mouse position tracking, CSS perspective space, preview mode adaptation
+- **Smart Chat Interface**: Async message simulation, typing indicators, auto-scroll optimization
+- **Advanced Image Gallery**: Pure CSS masonry layout, hover effects, hybrid state management
+
+### Engineering Practices
+- **Complete Internationalization**: Multi-language support (en/zh), dynamic text injection, multilingual technical docs
+- **Developer Experience**: TypeScript strict mode, custom directives, modular SCSS architecture
+- **Cross-Platform Deployment**: Multi-environment configs (GitHub Pages, Vercel), modern browser compatibility
 
 ## Contact & Hire Me
 I’m available for remote front-end opportunities. Feel free to connect:
