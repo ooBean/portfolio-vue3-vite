@@ -1,6 +1,10 @@
 # Bean's Front-end Portfolio
 
- [English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md)
+<p align="center">
+  <a href="./README.md">🇬🇧 English</a> |
+  <a href="./README.zh-CN.md">🇨🇳 简体中文</a> |
+  <a href="./README.zh-TW.md">🇹🇼 繁體中文</a>
+</p>
 
  Welcome to my personal portfolio, showcasing a collection of interactive web components and demos built with Vue 3, TypeScript, and Vite.
 
