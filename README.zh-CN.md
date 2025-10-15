@@ -1,5 +1,11 @@
 # Bean 的前端作品集
 
+<p align="center">
+  <a href="./README.md">🇬🇧 English</a> |
+  <a href="./README.zh-CN.md">🇨🇳 简体中文</a> |
+  <a href="./README.zh-TW.md">🇹🇼 繁體中文</a>
+</p>
+
 欢迎来到我的个人作品集，展示使用 Vue 3、TypeScript 和 Vite 构建的一系列交互式网页组件和演示。
 
 ## 功能
