@@ -6,6 +6,10 @@
   <a href="./README.zh-TW.md">🇹🇼 繁體中文</a>
 </p>
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ooBean/AssetHub/main/gifs/portfolio-vue3-vite/portfolio.gif" alt="Portfolio Vue3-Vite Demo" width="800"/>
+</p>
+
 欢迎来到我的个人作品集，展示使用 Vue 3、TypeScript 和 Vite 构建的一系列交互式网页组件和演示。
 
 ## 功能
