@@ -1,9 +1,8 @@
-// filepath: portfolio-vue3-vite/src/components/layout/MainLayout.vue
 <template>
   <div class="layout-container">
     <div class="top-visual-bar"></div>
     <AppHeader class="fixed-header" />
-    <main class="main-content">
+    <main class="main-content" :class="{ 'is-home': isHomePage }">
       <router-view />
     </main>
     <AppFooter class="fixed-footer" />
@@ -13,6 +12,11 @@
 <script setup>
 import AppHeader from './AppHeader.vue';
 import AppFooter from './AppFooter.vue';
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+
+const route = useRoute();
+const isHomePage = computed(() => route.name === 'Home');
 </script>
 
 <style scoped lang="scss">
@@ -21,8 +25,7 @@ import AppFooter from './AppFooter.vue';
 .layout-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh; // Use min-height to be more flexible
 }
 
 .top-visual-bar {
@@ -37,7 +40,7 @@ import AppFooter from './AppFooter.vue';
 
 .fixed-header {
   position: fixed;
-  top: 5px; /* 顶部视觉条的高度 */
+  top: 5px;
   left: 0;
   width: 100%;
   z-index: 1000;
@@ -45,16 +48,17 @@ import AppFooter from './AppFooter.vue';
 }
 
 .main-content {
-  margin-top: calc(5px + 60px); /* 顶部栏 + 头部高度，根据实际调整 */
-  margin-bottom: 60px; /* 底部高度，根据实际调整 */
+  padding-top: calc(5px + 60px); // Use padding instead of margin
+  padding-bottom: 60px;
   flex: 1;
-  overflow-y: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  display: flex; // Ensure it's a flex container
+  flex-direction: column; // Stack children vertically
+}
 
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
+// We only apply overflow to non-home pages to allow scrolling
+.main-content:not(.is-home) {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .fixed-footer {

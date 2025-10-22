@@ -32,6 +32,7 @@
 }
 
 html {
+  overflow: hidden;
   font-size: $font-size-base;
   line-height: $line-height-base;
   font-family: $font-family-sans-serif;
@@ -39,6 +40,7 @@ html {
 }
 
 body {
+  overflow: hidden;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -59,7 +61,6 @@ body {
   --bg-color: #{$dark-theme-bg}; // 更新 CSS 变量
   --text-color: #{$dark-theme-text};
 }
-
 
 #app {
   // max-width: 1280px; // 根据新设计调整或移除
