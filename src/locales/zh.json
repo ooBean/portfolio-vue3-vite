@@ -20,43 +20,30 @@
       "line2": "{name}"
     },
     "description_new_style": "我是一名前端开发者，现居{location}。",
-    "lines": [
-      [
-        {
-          "text": "我是",
-          "highlight": true
-        },
-        {
-          "text": "一名前端开发程序员"
-        },
-        {
-          "text": "，我希望获得一份远程的"
-        },
-        {
-          "text": "前端兼职或全职"
-        },
-        {
-          "text": "的前端开发工作，"
-        }
+    "lines": {
+      "default": [
+        [
+          { "text": "你好，我是一名前端开发者。" }
+        ],
+        [
+          { "text": "热衷于创造卓越的 Web 体验。" }
+        ],
+        [
+          { "text": "悬停发现更多", "isHint": true }
+        ]
       ],
-      [
-        {
-          "text": "这是我觉得可以"
-        },
-        {
-          "text": "平衡生活和工作",
-          "highlight": true
-        },
-        {
-          "text": "的方式，"
-        }
-      ],
-      [
-        {
-          "text": "请选择我"
-        }
+      "hover": [
+        [
+          { "text": "5年经验 | Vue全家桶 | TypeScript" }
+        ],
+        [
+          { "text": "组件化 | 工程化 | 性能优化" }
+        ],
+        [
+          { "text": "熟悉跨端开发与组件开发" }
+        ]
       ]
-    ]
+    }
   },
   "portfolio": {
     "title": "我的作品集",

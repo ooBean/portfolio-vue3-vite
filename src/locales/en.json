@@ -20,61 +20,30 @@
       "line2": "{name}"
     },
     "description_new_style": "I'm a front-end development engineer from {location}.",
-    "lines": [
-      [
-        {
-          "text": "I",
-          "highlight": true
-        },
-        {
-          "text": "am"
-        },
-        {
-          "text": "a"
-        },
-        {
-          "text": "front-end"
-        },
-        {
-          "text": "developer"
-        }
+    "lines": {
+      "default": [
+        [
+          { "text": "Hello, I'm a Front-end Developer." }
+        ],
+        [
+          { "text": "Passionate about creating remarkable Web experiences." }
+        ],
+        [
+          { "text": "Hover to discover more.", "isHint": true }
+        ]
       ],
-      [
-        {
-          "text": "seeking"
-        },
-        {
-          "text": "remote",
-          "highlight": true
-        },
-        {
-          "text": "part-time or full-time"
-        },
-        {
-          "text": "front-end"
-        },
-        {
-          "text": "development work,"
-        }
-      ],
-      [
-        {
-          "text": "which"
-        },
-        {
-          "text": "I believe",
-          "highlight": true
-        },
-        {
-          "text": "is a great way to balance life and work."
-        }
-      ],
-      [
-        {
-          "text": "Please choose me."
-        }
+      "hover": [
+        [
+          { "text": "5 YOE | Vue Ecosystem | TypeScript" }
+        ],
+        [
+          { "text": "Component Development | Engineering | Performance Tuning" }
+        ],
+        [
+          { "text": "Skilled in Cross-Platform Dev & Component Development" }
+        ]
       ]
-    ]
+    }
   },
   "portfolio": {
     "title": "My Portfolio",
