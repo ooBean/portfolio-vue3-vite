@@ -147,7 +147,7 @@ onUnmounted(() => {
 
 .top-layer {
   z-index: 1; // Bottom text layer
-  color: #FFDAB9;
+  color: $hero-text-color; // Use the high-contrast variable
   pointer-events: auto; // This layer should be interactive
 }
 
