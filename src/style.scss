@@ -31,16 +31,33 @@
   padding: 0;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%; // 确保宽度一致
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
 html {
-  overflow: hidden;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
   font-size: $font-size-base;
   line-height: $line-height-base;
   font-family: $font-family-sans-serif;
   // border-top: 5px solid $site-top-border-color; // <--- 移除或注释掉这一行
 }
 
-body {
+.no-scroll {
   overflow: hidden;
+}
+
+body {
   margin: 0;
   display: flex;
   flex-direction: column;
