@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-container">
+  <div class="layout-container" :class="{ 'no-scroll': isHomePage }">
     <div class="top-visual-bar"></div>
     <AppHeader class="fixed-header" />
     <main class="main-content" :class="{ 'is-home': isHomePage }">
