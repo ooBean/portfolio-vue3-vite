@@ -83,4 +83,4 @@ yarn build       # or npm run build
 I’m available for remote front-end opportunities. Feel free to connect:
 - GitHub: [ooBean](https://github.com/ooBean)
 - Email: littlebeancat@outlook.com
- - Live Demo: http://bean.binballs.top/
+ - Live Demo: https://portfolio-vue3-vite-git-master-oopeachboys-projects.vercel.app
