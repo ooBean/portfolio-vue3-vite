@@ -83,4 +83,4 @@ yarn build       # 或 npm run build
 我可接受遠程前端機會，歡迎隨時聯繫：
 - GitHub：[ooBean](https://github.com/ooBean)
 - 郵箱：littlebeancat@outlook.com
- - 線上演示：http://bean.binballs.top/
+ - 線上演示：https://portfolio-vue3-vite-git-master-oopeachboys-projects.vercel.app
